@@ -4,18 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>essays | Shengzhi Wang</title>
+  <title>Html 5 新特性之本地存储 | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="靡不有初,鲜克有终">
-<meta property="og:type" content="website">
-<meta property="og:title" content="essays">
-<meta property="og:url" content="http://yoursite.com/essays/index.html">
+  <meta name="description" content="在HTML5中对本地离线存储有了更好的支持,它提供了两种在客户端存储数据的新方法,即localStorage和sessionStorage
+localStoragelocalStorage是没有时间限制的数据存储
+使用方式:12345678&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;    if (localStorage.pagecount) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Html 5 新特性之本地存储">
+<meta property="og:url" content="http://yoursite.com/2016/09/30/Html-5-storage/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="靡不有初,鲜克有终">
-<meta property="og:updated_time" content="2016-09-30T03:55:58.000Z">
+<meta property="og:description" content="在HTML5中对本地离线存储有了更好的支持,它提供了两种在客户端存储数据的新方法,即localStorage和sessionStorage
+localStoragelocalStorage是没有时间限制的数据存储
+使用方式:12345678&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;    if (localStorage.pagecount) &amp;#123;">
+<meta property="og:updated_time" content="2016-09-30T07:49:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="essays">
-<meta name="twitter:description" content="靡不有初,鲜克有终">
+<meta name="twitter:title" content="Html 5 新特性之本地存储">
+<meta name="twitter:description" content="在HTML5中对本地离线存储有了更好的支持,它提供了两种在客户端存储数据的新方法,即localStorage和sessionStorage
+localStoragelocalStorage是没有时间限制的数据存储
+使用方式:12345678&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;    if (localStorage.pagecount) &amp;#123;">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -139,7 +145,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-Html-5-storage" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -149,7 +155,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      essays
+      Html 5 新特性之本地存储
     </h1>
   
 
@@ -157,15 +163,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>在HTML5中对本地离线存储有了更好的支持,它提供了两种在客户端存储数据的新方法,即localStorage和sessionStorage</p>
+<h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>localStorage是没有时间限制的数据存储</p>
+<p>使用方式:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">local</span>Storage.pagecount) &#123;</div><div class="line">        <span class="built_in">local</span>Storage.pagecount = Number(<span class="built_in">local</span>Storage.pagecount) + 1;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">local</span>Storage.pagecount = 1;</div><div class="line">    &#125;</div><div class="line">    document.write(<span class="string">"Visits: "</span> + <span class="built_in">local</span>Storage.pagecount + <span class="string">" time(s)."</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>刷新页面,数字增长。就算关闭浏览器窗口,再打开,数字还是在继续增长,而没有回到1。</p>
+<p>删除存储的数据代码:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">local</span>Storage.removeItem(<span class="string">"pagecount"</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage是针对一个 session 的数据存储</p>
+<p>使用方式:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="keyword">if</span> (sessionStorage.pagecount) &#123;</div><div class="line">        sessionStorage.pagecount = Number(sessionStorage.pagecount) + 1;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        sessionStorage.pagecount = 1;</div><div class="line">    &#125;</div><div class="line">    document.write(<span class="string">"Visits "</span> + sessionStorage.pagecount + <span class="string">" time(s) this session."</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>刷新页面,数字增长。当关闭浏览器窗口,再打开,数字回到初始值1。</p>
+<p><a href="https://github.com/wszhi/font_end/tree/master/src/com/html5/example" target="_blank" rel="external">Github参考代码</a><br>W3C school的<a href="http://www.w3c-schools.com/html/default.asp.htm" target="_blank" rel="external">HTML5教程</a></p>
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/essays/index.html" class="archive-article-date">
-  	<time datetime="2016-09-30T03:55:58.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
+      <a href="/2016/09/30/Html-5-storage/" class="archive-article-date">
+  	<time datetime="2016-09-30T07:31:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
 </a>
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
       
 
       <div class="clearfix"></div>
@@ -174,6 +194,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2016/09/30/Html-5-Media/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Html 5 新标签之Media</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -223,7 +253,7 @@
 		mathjax: false,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
