@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Angular Form Input Type | Shengzhi Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Form 表单中有很多元素,最普遍的Input,CheckBox,Radio,Select等等。Angular的Form有什么特殊之处呢?
+InputInput的属性有:    name 名字    type 类型(HTML5里有的类型: number,url,email)    ng-model 绑定的数据    required/ng-required 是否必填    ng-minlength">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular Form Input Type">
+<meta property="og:url" content="http://yoursite.com/2016/10/08/Angular-Form-Input-Type/index.html">
+<meta property="og:site_name" content="Shengzhi Wang">
+<meta property="og:description" content="Form 表单中有很多元素,最普遍的Input,CheckBox,Radio,Select等等。Angular的Form有什么特殊之处呢?
+InputInput的属性有:    name 名字    type 类型(HTML5里有的类型: number,url,email)    ng-model 绑定的数据    required/ng-required 是否必填    ng-minlength">
+<meta property="og:updated_time" content="2016-10-08T08:00:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular Form Input Type">
+<meta name="twitter:description" content="Form 表单中有很多元素,最普遍的Input,CheckBox,Radio,Select等等。Angular的Form有什么特殊之处呢?
+InputInput的属性有:    name 名字    type 类型(HTML5里有的类型: number,url,email)    ng-model 绑定的数据    required/ng-required 是否必填    ng-minlength">
+  
+    <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Shengzhi Wang</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/technical/">技术</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Shengzhi Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Shengzhi Wang</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/technical/">技术</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Angular-Form-Input-Type" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Angular Form Input Type
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Form 表单中有很多元素,最普遍的Input,CheckBox,Radio,Select等等。Angular的Form有什么特殊之处呢?</p>
+<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>Input的属性有:<br>    name 名字<br>    type 类型(HTML5里有的类型: number,url,email)<br>    ng-model 绑定的数据<br>    required/ng-required 是否必填<br>    ng-minlength 最小长度<br>    ng-maxlength 最大长度<br>    ng-pattern 匹配模式<br>    ng-change 值变化时的回调</p>
+<p>例子(输入长度5-15的起始为abc的内容):<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"a"</span> required ng-model=<span class="string">"a"</span> required ng-minlength=5 ng-maxlength=15 ng-pattern=<span class="string">"/abc/"</span>/&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="Checkbox"><a href="#Checkbox" class="headerlink" title="Checkbox"></a>Checkbox</h3><p>Checkbox只有两种值,选中和不选中。</p>
+<p>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># HTML5:</span></div><div class="line"></div><div class="line"> &lt;input <span class="built_in">type</span>=<span class="string">"checkbox"</span> name=<span class="string">"checkbox"</span> ng-model=<span class="string">"checkbox_value"</span> ng-true-value=<span class="string">"AA"</span> ng-false-value=<span class="string">"BB"</span>/&gt;</div><div class="line"> &lt;span&gt;&#123;&#123; checkbox_value &#125;&#125;&lt;/span&gt;</div><div class="line"></div><div class="line"><span class="comment"># JS:</span></div><div class="line"> <span class="variable">$scope</span>.checkbox_value = <span class="string">'AA'</span>; <span class="comment">#controller中的初始化值会关系到控件状态（双向绑定）</span></div></pre></td></tr></table></figure></p>
+<h3 id="Radio"><a href="#Radio" class="headerlink" title="Radio"></a>Radio</h3><p>与checkbox的区别,一个radio只有一个值</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"radio"</span> name=<span class="string">"radio_test"</span> ng-model=<span class="string">"radio_test"</span> value=<span class="string">"AA"</span>/&gt;AA</div><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"radio"</span> name=<span class="string">"radio_test"</span> ng-model=<span class="string">"radio_test"</span> value=<span class="string">"BB"</span>/&gt;BB&lt;br&gt;</div><div class="line">radio选中的值为:&lt;span&gt;&#123;&#123; radio_test &#125;&#125;&lt;/span&gt;</div></pre></td></tr></table></figure>
+<h3 id="Textarea"><a href="#Textarea" class="headerlink" title="Textarea"></a>Textarea</h3><p>与Input类似,但是可以拉伸</p>
+<h3 id="Select"><a href="#Select" class="headerlink" title="Select"></a>Select</h3><p>使用ng-options遍历数组</p>
+<p>x for x in 数组名(普通数组)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o=[0,1,2,3]; a=o[1];"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test"</span> ng-options=<span class="string">"x for x in o"</span> ng-change=<span class="string">"show()"</span>&gt;</div><div class="line">        &lt;option value=<span class="string">""</span>&gt;可以加这个空值&lt;/option&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.name for x in 数组名(对象数组,有key,value)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o2=[&#123;name: 'AA'&#125;, &#123;name: 'BB'&#125;]; a=o2[1];"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test2"</span> ng-options=<span class="string">"x.name for x in o2"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test2 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.v as x.name for x in 数组名(选择框显示的是name的值,但选中的value值是v的值)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o3=[&#123;name: 'AA', v: '00'&#125;, &#123;name: 'BB', v: '11'&#125;]; a=o3[1].v;"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test3"</span> ng-options=<span class="string">"x.v as x.name for x in o3"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test3 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.name group by x.g for x in 数组名(根据g的值来分组)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o4=[&#123;name: 'AA', g: '00'&#125;,&#123;name: 'BB', g: '11'&#125;,&#123;name: 'CC', g: '00'&#125;]; select_test4=o4[1];"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test4"</span> ng-options=<span class="string">"x.name group by x.g for x in o4"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: name值是&#123;&#123; select_test4.name &#125;&#125;;value是&#123;&#123; select_test4.g &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.v as x.name group by x.g for x in 数组名(分组了还分别指定显示与值的,根据g分组,v的值是value值,name值是显示的内容)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o5=[&#123;name: 'AA', g: '00', v: '='&#125;, &#123;name: 'BB', g: '11', v: '+'&#125;,&#123;name: 'CC', g: '00', v: '!'&#125;]; select_test5=o5[1].v;"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test5"</span> ng-options=<span class="string">"x.v as x.name group by x.g for x in o5"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test5 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>v.v as v.name group by v.g for (k, v) in 对象名(o6是一个对象,对象中有两个(key:value)对,可以取对象的值来遍历)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o6=&#123;a: &#123;name: 'AA', v: '00', g: '=='&#125;,b: &#123;name: 'BB', v: '11', g: '=='&#125;&#125;; select_test6=o6.a.v;"</span>&gt;</div><div class="line">        参数是对象&lt;br&gt;</div><div class="line">        显示对象的值里的v的值&lt;br&gt;</div><div class="line">        &lt;select ng-model=<span class="string">"select_test6"</span> ng-options=<span class="string">"v.v as v.name group by v.g for (k, v) in o6"</span>&gt;</div><div class="line">        &lt;/select&gt;select选中的值为: &#123;&#123; select_test6 &#125;&#125;、</div><div class="line">        显示对象的名字&lt;br&gt;</div><div class="line">        &lt;select ng-model=<span class="string">"select_test7"</span> ng-options=<span class="string">"k for (k, v) in o6"</span>&gt;</div><div class="line">        &lt;/select&gt;select选中的值为: &#123;&#123; select_test7 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>Github<a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/7.6_form_input_checkbox_ect.html" target="_blank" rel="external">参考代码</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/08/Angular-Form-Input-Type/" class="archive-article-date">
+  	<time datetime="2016-10-08T03:21:33.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-08</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/08/Angular-Form/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Angular Form Property And Class</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Shengzhi Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次, 本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 10px;">essays</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/wszhi">我的Github</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u012138931">我的CSDN</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">靡不有初，&lt;br&gt;&lt;br&gt;鲜克有终。&lt;br&gt;&lt;br&gt;不断努力,一步一步往前走,做最好的自己</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

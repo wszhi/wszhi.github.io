@@ -140,6 +140,72 @@
       <div class="body-wrap">
         
   
+    <article id="post-Angular-Form-Input-Type" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/08/Angular-Form-Input-Type/">Angular Form Input Type</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Form 表单中有很多元素,最普遍的Input,CheckBox,Radio,Select等等。Angular的Form有什么特殊之处呢?</p>
+<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>Input的属性有:<br>    name 名字<br>    type 类型(HTML5里有的类型: number,url,email)<br>    ng-model 绑定的数据<br>    required/ng-required 是否必填<br>    ng-minlength 最小长度<br>    ng-maxlength 最大长度<br>    ng-pattern 匹配模式<br>    ng-change 值变化时的回调</p>
+<p>例子(输入长度5-15的起始为abc的内容):<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"a"</span> required ng-model=<span class="string">"a"</span> required ng-minlength=5 ng-maxlength=15 ng-pattern=<span class="string">"/abc/"</span>/&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="Checkbox"><a href="#Checkbox" class="headerlink" title="Checkbox"></a>Checkbox</h3><p>Checkbox只有两种值,选中和不选中。</p>
+<p>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># HTML5:</span></div><div class="line"></div><div class="line"> &lt;input <span class="built_in">type</span>=<span class="string">"checkbox"</span> name=<span class="string">"checkbox"</span> ng-model=<span class="string">"checkbox_value"</span> ng-true-value=<span class="string">"AA"</span> ng-false-value=<span class="string">"BB"</span>/&gt;</div><div class="line"> &lt;span&gt;&#123;&#123; checkbox_value &#125;&#125;&lt;/span&gt;</div><div class="line"></div><div class="line"><span class="comment"># JS:</span></div><div class="line"> <span class="variable">$scope</span>.checkbox_value = <span class="string">'AA'</span>; <span class="comment">#controller中的初始化值会关系到控件状态（双向绑定）</span></div></pre></td></tr></table></figure></p>
+<h3 id="Radio"><a href="#Radio" class="headerlink" title="Radio"></a>Radio</h3><p>与checkbox的区别,一个radio只有一个值</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"radio"</span> name=<span class="string">"radio_test"</span> ng-model=<span class="string">"radio_test"</span> value=<span class="string">"AA"</span>/&gt;AA</div><div class="line">&lt;input <span class="built_in">type</span>=<span class="string">"radio"</span> name=<span class="string">"radio_test"</span> ng-model=<span class="string">"radio_test"</span> value=<span class="string">"BB"</span>/&gt;BB&lt;br&gt;</div><div class="line">radio选中的值为:&lt;span&gt;&#123;&#123; radio_test &#125;&#125;&lt;/span&gt;</div></pre></td></tr></table></figure>
+<h3 id="Textarea"><a href="#Textarea" class="headerlink" title="Textarea"></a>Textarea</h3><p>与Input类似,但是可以拉伸</p>
+<h3 id="Select"><a href="#Select" class="headerlink" title="Select"></a>Select</h3><p>使用ng-options遍历数组</p>
+<p>x for x in 数组名(普通数组)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o=[0,1,2,3]; a=o[1];"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test"</span> ng-options=<span class="string">"x for x in o"</span> ng-change=<span class="string">"show()"</span>&gt;</div><div class="line">        &lt;option value=<span class="string">""</span>&gt;可以加这个空值&lt;/option&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.name for x in 数组名(对象数组,有key,value)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o2=[&#123;name: 'AA'&#125;, &#123;name: 'BB'&#125;]; a=o2[1];"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test2"</span> ng-options=<span class="string">"x.name for x in o2"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test2 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.v as x.name for x in 数组名(选择框显示的是name的值,但选中的value值是v的值)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o3=[&#123;name: 'AA', v: '00'&#125;, &#123;name: 'BB', v: '11'&#125;]; a=o3[1].v;"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test3"</span> ng-options=<span class="string">"x.v as x.name for x in o3"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test3 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.name group by x.g for x in 数组名(根据g的值来分组)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o4=[&#123;name: 'AA', g: '00'&#125;,&#123;name: 'BB', g: '11'&#125;,&#123;name: 'CC', g: '00'&#125;]; select_test4=o4[1];"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test4"</span> ng-options=<span class="string">"x.name group by x.g for x in o4"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: name值是&#123;&#123; select_test4.name &#125;&#125;;value是&#123;&#123; select_test4.g &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>x.v as x.name group by x.g for x in 数组名(分组了还分别指定显示与值的,根据g分组,v的值是value值,name值是显示的内容)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o5=[&#123;name: 'AA', g: '00', v: '='&#125;, &#123;name: 'BB', g: '11', v: '+'&#125;,&#123;name: 'CC', g: '00', v: '!'&#125;]; select_test5=o5[1].v;"</span>&gt;</div><div class="line">    &lt;select ng-model=<span class="string">"select_test5"</span> ng-options=<span class="string">"x.v as x.name group by x.g for x in o5"</span>&gt;</div><div class="line">    &lt;/select&gt;select选中的值为: &#123;&#123; select_test5 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>v.v as v.name group by v.g for (k, v) in 对象名(o6是一个对象,对象中有两个(key:value)对,可以取对象的值来遍历)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-init=<span class="string">"o6=&#123;a: &#123;name: 'AA', v: '00', g: '=='&#125;,b: &#123;name: 'BB', v: '11', g: '=='&#125;&#125;; select_test6=o6.a.v;"</span>&gt;</div><div class="line">        参数是对象&lt;br&gt;</div><div class="line">        显示对象的值里的v的值&lt;br&gt;</div><div class="line">        &lt;select ng-model=<span class="string">"select_test6"</span> ng-options=<span class="string">"v.v as v.name group by v.g for (k, v) in o6"</span>&gt;</div><div class="line">        &lt;/select&gt;select选中的值为: &#123;&#123; select_test6 &#125;&#125;、</div><div class="line">        显示对象的名字&lt;br&gt;</div><div class="line">        &lt;select ng-model=<span class="string">"select_test7"</span> ng-options=<span class="string">"k for (k, v) in o6"</span>&gt;</div><div class="line">        &lt;/select&gt;select选中的值为: &#123;&#123; select_test7 &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>Github<a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/7.6_form_input_checkbox_ect.html" target="_blank" rel="external">参考代码</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/08/Angular-Form-Input-Type/" class="archive-article-date">
+  	<time datetime="2016-10-08T03:21:33.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-08</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Angular-Form" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -575,7 +641,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 10px;">essays</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 10px;">essays</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     
