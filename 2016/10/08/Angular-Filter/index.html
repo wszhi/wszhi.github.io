@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Angular Order And Filter | Shengzhi Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="排序angular 排序可以使用orderBy标签,它支持一个排序函数或简单地指定一个属性名进行排序
+1234567891011121314# HTML5&amp;lt;div ng-controller=&quot;TestCtrl&quot;&amp;gt;    根据age正排序    &amp;#123;&amp;#123; data | orderBy: &apos;age&apos; &amp;#125;&amp;#125; &amp;lt;br/&amp;gt;    根据age倒排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular Order And Filter">
+<meta property="og:url" content="http://yoursite.com/2016/10/08/Angular-Filter/index.html">
+<meta property="og:site_name" content="Shengzhi Wang">
+<meta property="og:description" content="排序angular 排序可以使用orderBy标签,它支持一个排序函数或简单地指定一个属性名进行排序
+1234567891011121314# HTML5&amp;lt;div ng-controller=&quot;TestCtrl&quot;&amp;gt;    根据age正排序    &amp;#123;&amp;#123; data | orderBy: &apos;age&apos; &amp;#125;&amp;#125; &amp;lt;br/&amp;gt;    根据age倒排序">
+<meta property="og:updated_time" content="2016-10-09T03:05:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular Order And Filter">
+<meta name="twitter:description" content="排序angular 排序可以使用orderBy标签,它支持一个排序函数或简单地指定一个属性名进行排序
+1234567891011121314# HTML5&amp;lt;div ng-controller=&quot;TestCtrl&quot;&amp;gt;    根据age正排序    &amp;#123;&amp;#123; data | orderBy: &apos;age&apos; &amp;#125;&amp;#125; &amp;lt;br/&amp;gt;    根据age倒排序">
+  
+    <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Shengzhi Wang</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/technical/">技术</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Shengzhi Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Shengzhi Wang</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/technical/">技术</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Angular-Filter" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Angular Order And Filter
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>angular 排序可以使用orderBy标签,它支持一个排序函数或简单地指定一个属性名进行排序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># HTML5</span></div><div class="line">&lt;div ng-controller=<span class="string">"TestCtrl"</span>&gt;</div><div class="line">    根据age正排序</div><div class="line">    &#123;&#123; data | orderBy: <span class="string">'age'</span> &#125;&#125; &lt;br/&gt;</div><div class="line">    根据age倒排序</div><div class="line">    &#123;&#123; data | orderBy: <span class="string">'-age'</span> &#125;&#125; &lt;br/&gt;</div><div class="line">    根据age正排序,取前2个</div><div class="line">    &#123;&#123; data | orderBy: <span class="string">'-age'</span> | <span class="built_in">limit</span>To: 2 &#125;&#125; &lt;br/&gt;</div><div class="line">    根据age倒排序,name正排序</div><div class="line">    &#123;&#123; data | orderBy: [<span class="string">'-age'</span>, <span class="string">'name'</span>] &#125;&#125; &lt;br/&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line"><span class="comment"># JS 给data的值</span></div><div class="line"><span class="variable">$scope</span>.data = [&#123;name: <span class="string">'B'</span>, age: 4&#125;,&#123;name: <span class="string">'A'</span>, age: 1&#125;,&#123;name: <span class="string">'D'</span>, age: 3&#125;,&#123;name: <span class="string">'C'</span>, age: 3&#125;];</div></pre></td></tr></table></figure>
+<p>{ {orderBy_expression | orderBy : expression : reverse : comparator} }<br>orderBy_expression:数组<br>expression:一个String或者是一个function,用来比较的基准<br>reverse:反转<br>comparator:比较器</p>
+<p>可以使用ng-repeat遍历,以表格形式显示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;tr ng-repeat=<span class="string">"friend in friends | orderBy:['-age', 'name']"</span>&gt;</div><div class="line">    &lt;td&gt;&#123;&#123;friend.name&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&#123;&#123;friend.phone&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&#123;&#123;friend.age&#125;&#125;&lt;/td&gt;</div><div class="line">&lt;/tr&gt;</div></pre></td></tr></table></figure></p>
+<p>JS里用order<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># JS</span></div><div class="line">angular.module(<span class="string">'orderByExample'</span>, [])</div><div class="line">            .controller(<span class="string">'ExampleController'</span>, [<span class="string">'$scope'</span>,<span class="string">'orderByFilter'</span>, <span class="keyword">function</span>(<span class="variable">$scope</span>, orderBy)  &#123;</div><div class="line">            var friends = [</div><div class="line">                                &#123;name: <span class="string">'John'</span>,   phone: <span class="string">'555-1212'</span>,  age: 10&#125;,</div><div class="line">                                &#123;name: <span class="string">'Mary'</span>,   phone: <span class="string">'555-9876'</span>,  age: 19&#125;,</div><div class="line">                                &#123;name: <span class="string">'Mike'</span>,   phone: <span class="string">'555-4321'</span>,  age: 21&#125;,</div><div class="line">                                &#123;name: <span class="string">'Adam'</span>,   phone: <span class="string">'555-5678'</span>,  age: 35&#125;,</div><div class="line">                                &#123;name: <span class="string">'Julie'</span>,  phone: <span class="string">'555-8765'</span>,  age: 29&#125;</div><div class="line">                            ];</div><div class="line">            <span class="variable">$scope</span>.friends = orderBy(friends, <span class="string">'age'</span>, <span class="variable">$scope</span>.reverse);</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line"><span class="comment"># HTML5</span></div><div class="line">&lt;tr ng-repeat=<span class="string">"friend in friends"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>类似自定义的比较function即comparator等<br>更多内容见<a href="https://docs.angularjs.org/api/ng/filter/orderBy" target="_blank" rel="external">Angular官方文档</a></p>
+<h2 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h2><p>可以非常方便的对表格进行过滤<br>格式如下:<br>{ { filter_expression | filter : expression : comparator : anyPropertyKey} }<br>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; friends | filter: <span class="string">'J'</span> &#125;&#125;</div></pre></td></tr></table></figure></p>
+<p>即对friends数组进行过滤,找到里面包含J字样的所有值。</p>
+<p>使用表格:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;label&gt;Search: &lt;input ng-model=<span class="string">"searchText"</span>&gt;&lt;/label&gt;</div><div class="line">&lt;table id=<span class="string">"searchTextResults"</span>&gt;</div><div class="line">  &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Phone&lt;/th&gt;&lt;/tr&gt;</div><div class="line">  &lt;tr ng-repeat=<span class="string">"friend in friends | filter:searchText"</span>&gt;</div><div class="line">    &lt;td&gt;&#123;&#123;friend.name&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&#123;&#123;friend.phone&#125;&#125;&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure></p>
+<p>即根据输入框的值searchText过滤friends数组的内容,并且以表格的形式显示。</p>
+<p>更多过滤条件:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;label&gt;Any: &lt;input ng-model=<span class="string">"search.$"</span>&gt;&lt;/label&gt; &lt;br&gt;</div><div class="line">&lt;label&gt;Name only &lt;input ng-model=<span class="string">"search.name"</span>&gt;&lt;/label&gt;&lt;br&gt;</div><div class="line">&lt;label&gt;Phone only &lt;input ng-model=<span class="string">"search.phone"</span>&gt;&lt;/label&gt;&lt;br&gt;</div><div class="line">&lt;label&gt;Equality &lt;input <span class="built_in">type</span>=<span class="string">"checkbox"</span> ng-model=<span class="string">"strict"</span>&gt;&lt;/label&gt;&lt;br&gt;</div><div class="line">&lt;table id=<span class="string">"searchObjResults"</span>&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">        &lt;th&gt;Name&lt;/th&gt;</div><div class="line">        &lt;th&gt;Phone&lt;/th&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    &lt;tr ng-repeat=<span class="string">"friendObj in friends | filter:search:strict"</span>&gt;</div><div class="line">        &lt;td&gt;&#123;&#123;friendObj.name&#125;&#125;&lt;/td&gt;</div><div class="line">        &lt;td&gt;&#123;&#123;friendObj.phone&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure></p>
+<p>strict表示严格删选,只有字段与搜索内容完全一致才显示。<br>search是删选条件,这里可以全部一起删选,或者只根据姓名或者电话进行删选。</p>
+<p>更多filter内容见<a href="https://docs.angularjs.org/api/ng/filter" target="_blank" rel="external">angular官方文档</a></p>
+<p>例子代码:<br><a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/8_filter.html" target="_blank" rel="external">Github简单例子</a><br><a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/8.1_big_example_for_order_by_column.html" target="_blank" rel="external">Github OrderBy例子</a><br><a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/8.2_big_example_for_filter.html" target="_blank" rel="external">Github filter例子</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/08/Angular-Filter/" class="archive-article-date">
+  	<time datetime="2016-10-08T08:15:32.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-08</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/10/09/markdown/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          使用Markdown编辑器写博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/08/Angular-Form-Input-Type/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Angular Form Input Type</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Shengzhi Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次, 本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 10px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/wszhi">我的Github</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u012138931">我的CSDN</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">靡不有初，&lt;br&gt;&lt;br&gt;鲜克有终。&lt;br&gt;&lt;br&gt;不断努力,一步一步往前走,做最好的自己</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
