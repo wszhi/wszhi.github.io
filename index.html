@@ -140,6 +140,166 @@
       <div class="body-wrap">
         
   
+    <article id="post-Docker-Learn2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/13/Docker-Learn2/">Docker Learn2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自学笔记(二)<br>待更新……</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/13/Docker-Learn2/" class="archive-article-date">
+  	<time datetime="2016-10-13T06:53:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Docker-Learn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/11/Docker-Learn/">Docker 学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自学笔记(一)<br>因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。<br>因为之前没有怎么接触过,所以是从零开始。</p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Mac 安装地址</a><br>关于在Ubuntu、CentOS和Debian系统安装Docker,<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>书里有安装教程<br>其他系统安装Docker,参考<a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">官网</a></p>
+<h1 id="Docker-三大组件"><a href="#Docker-三大组件" class="headerlink" title="Docker 三大组件"></a>Docker 三大组件</h1><p>仓库<br>镜像<br>容器</p>
+<h1 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h1><p>Docker 官方维护了一个公共仓库<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a></p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>本地命令:docker login<br>会有提示输入用户名和密码,一次登录后,会记住登录信息。本地用户目录的 .dockercfg 中将保存用户的认证信息。</p>
+<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>命令为docker search 命令来查找官方仓库中的镜像，并利用docker pull 命令来将它下载到本地。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker search centos -s 3</div></pre></td></tr></table></figure></p>
+<p>-s N(仅显示评价为 N 星以上的镜像)<br>下载命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull centos</div></pre></td></tr></table></figure></p>
+<h2 id="私有仓库配置"><a href="#私有仓库配置" class="headerlink" title="私有仓库配置"></a>私有仓库配置</h2><p>参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
+<h1 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h1><h2 id="Docker-镜像分层"><a href="#Docker-镜像分层" class="headerlink" title="Docker 镜像分层"></a>Docker 镜像分层</h2><p>有3层,分别为:<br>  基础镜像<br>  中间件镜像<br>  应用镜像</p>
+<h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull 镜像版本</div></pre></td></tr></table></figure>
+<p>将从 Docker Hub 仓库下载一个符合要求的镜像<br>完整的命令为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull registry.hub.docker.com/ubuntu:12.04</div></pre></td></tr></table></figure></p>
+<p>即从注册服务器registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 12.04 的镜像。</p>
+<h2 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h2><p>下载镜像完成后，可以使用该镜像了，摘自书中的例子:创建一个容器，让其中运行 bash 应用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<h4 id="显示本地已有的镜像"><a href="#显示本地已有的镜像" class="headerlink" title="显示本地已有的镜像"></a>显示本地已有的镜像</h4><p>命令:docker images </p>
+<h4 id="修改镜像"><a href="#修改镜像" class="headerlink" title="修改镜像:"></a>修改镜像:</h4><p><strong>1.docker commit 来扩展一个镜像</strong><br>镜像启动容器:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p> -t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， -i 则让容器的标准输入保持打开</p>
+<p>在容器中添加json package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root@0b2616b0e5a8:/# gem install json</div></pre></td></tr></table></figure></p>
+<p>退出: exit<br>提交更新后的副本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -m &quot;Added json gem&quot; -a &quot;Docker Newbee&quot; 0b2616b0e5a8 ouruser/sinatra:v2</div></pre></td></tr></table></figure></p>
+<p>ouruser/sinatra:v2为目标镜像的仓库名和 tag 信息,如v2<br></p>
+<p><strong>2.docker build 来创建一个新的镜像</strong><br>新建一个文件Dockerfile,里面的每一条指令都创建镜像的一层。<br></p>
+<p>Dockerfile 基本的语法是:<br>    使用 # 来注释<br>    FROM 指令告诉 Docker 使用哪个镜像作为基础<br>    接着是维护者的信息<br>    RUN 开头的指令会在创建中运行，比如安装一个软件包，在这里使用 apt-get来安装了一些软件<br></p>
+<p>编写完成 Dockerfile 后可以使用 docker build 来生成镜像。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t=&quot;ouruser/sinatra:v2&quot; .</div></pre></td></tr></table></figure></p>
+<p>其中 -t 标记来添加 tag，指定新的镜像的用户信息。 “.” 是 Dockerfile 所在的路径（当前目录），也可以替换为一个具体的 Dockerfile 的路径。</p>
+<p>改变镜像标签内容:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker tag 5db5f8471261 ouruser/sinatra:devel #5db...是镜像ID  后面的是修改后的标签</div></pre></td></tr></table></figure></p>
+<h4 id="本地导入镜像"><a href="#本地导入镜像" class="headerlink" title="本地导入镜像:"></a>本地导入镜像:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cat ubuntu-14.04-x86_64-minimal.tar.gz |docker import - ubuntu:14.04</div></pre></td></tr></table></figure>
+<h4 id="镜像上传到远程仓库"><a href="#镜像上传到远程仓库" class="headerlink" title="镜像上传到远程仓库:"></a>镜像上传到远程仓库:</h4><p>Docker Hub 上完成注册后，可以推送自己的镜像到仓库中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker push ouruser/sinatra</div></pre></td></tr></table></figure></p>
+<h4 id="保存镜像到本地文件"><a href="#保存镜像到本地文件" class="headerlink" title="保存镜像到本地文件:"></a>保存镜像到本地文件:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker save -o ubuntu_14.04.tar ubuntu:14.04</div></pre></td></tr></table></figure>
+<h4 id="从导出的本地文件中再加载到本地镜像库"><a href="#从导出的本地文件中再加载到本地镜像库" class="headerlink" title="从导出的本地文件中再加载到本地镜像库:"></a>从导出的本地文件中再加载到本地镜像库:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo docker load --input ubuntu_14.04.tar</div><div class="line">或</div><div class="line">$ sudo docker load &lt; ubuntu_14.04.tar</div></pre></td></tr></table></figure>
+<h4 id="移除镜像"><a href="#移除镜像" class="headerlink" title="移除镜像"></a>移除镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rmi training/sinatra</div></pre></td></tr></table></figure>
+<p>在删除镜像之前要先用 docker rm 删掉依赖于这个镜像的所有容器。</p>
+<p>清理所有未打过标签的本地镜像<br>$ sudo docker rmi $(docker images -q -f “dangling=true”)<br>sudo docker rmi $(docker images –quiet –filter “dangling=true”)</p>
+<h1 id="Docker-容器"><a href="#Docker-容器" class="headerlink" title="Docker 容器"></a>Docker 容器</h1><p>容器是独立运行的一个或一组应用，以及它们的运行态环境。</p>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><p>有两种方式:<br>1.基于镜像新建一个容器并启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p>使用docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+<p>2.将在终止状态（stopped）的容器重新启动<br>docker start命令，直接将一个已经终止的容器启动运行。可以利用 ps 或 top 来查看当前的进程信息。</p>
+<h2 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h2><p>命令:docker ps<br>可以查看所有的容器及进程</p>
+<h2 id="容器在后台运行"><a href="#容器在后台运行" class="headerlink" title="容器在后台运行"></a>容器在后台运行</h2><p>普通的docker run命令会在当前宿主机输出结果。<br>加上-d,此时容器会在后台运行并不会把输出的结果打印到宿主机上面,而是返回一个ID。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run -d ubuntu:14.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</div></pre></td></tr></table></figure>
+<p>查看输出结果可以用docker logs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker logs [container ID or NAMES]</div></pre></td></tr></table></figure></p>
+<p>里面可以是刚刚返回的ID也可以是NAME</p>
+<h2 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h2><p>使用命令docker stop ID来终止</p>
+<p>当Docker容器中指定的应用终结时，容器也自动终止。所以之前通过 exit 命令或 Ctrl+d 来退出终端时，所创建的容器立刻终止。<br>查看终止状态的容器可以用 docker ps -a命令。</p>
+<h4 id="重启已经终止的容器"><a href="#重启已经终止的容器" class="headerlink" title="重启已经终止的容器"></a>重启已经终止的容器</h4><p>处于终止状态的容器，可以通过 docker start 命令来重新启动。<br>docker restart 命令会将一个运行态的容器终止，然后再重新启动它。</p>
+<h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><p>当容器进入后台时,需要进入容器的操作<br>使用Attach命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker run -idt ubuntu <span class="comment">#后台运行</span></div><div class="line">docker ps <span class="comment">#查看进程</span></div><div class="line">docker attach 容器名或者ID</div></pre></td></tr></table></figure></p>
+<p>使用nsenter 命令<br>nsenter工具在 util-linux 包2.23版本后包含,设备上没有的,需要手动安装。<br>详细步骤参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
+<h2 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h2><p>导出本地某个容器，使用 docker export 命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker export 容器ID &gt; ubuntu.tar(文件名)</div></pre></td></tr></table></figure></p>
+<h2 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h2><p>使用docker import从容器快照文件中再导入为镜像:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cat ubuntu.tar | docker import - <span class="built_in">test</span>/ubuntu:v1.0(镜像名和标签)</div><div class="line">$ docker images <span class="comment">#查看结果</span></div></pre></td></tr></table></figure></p>
+<p>或者通过指定 URL 或者某个目录来导入，例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker import http://example.com/exampleimage.tgz example/imagerepo</div></pre></td></tr></table></figure></p>
+<p><strong>用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，<br>也可以使用 docker import 来导入一个容器快照到本地镜像库。<br>这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。<br>此外，从容器快照文件导入时可以重新指定标签等元数据信息。</strong></p>
+<h2 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h2><p>使用 docker rm 来删除一个处于终止状态的容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker rm trusting_newton</div></pre></td></tr></table></figure></p>
+<p>如果要删除一个运行中的容器，可以添加 -f 参数。<br>清理所有处于终止状态的容器,使用以下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm $(docker ps -a -q)</div></pre></td></tr></table></figure></p>
+<p>书籍:<br><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>此处有电子书的下载途径</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/11/Docker-Learn/" class="archive-article-date">
+  	<time datetime="2016-10-11T08:25:20.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-11</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-markdown" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -342,8 +502,8 @@
 <p>使用表格:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;label&gt;Search: &lt;input ng-model=<span class="string">"searchText"</span>&gt;&lt;/label&gt;</div><div class="line">&lt;table id=<span class="string">"searchTextResults"</span>&gt;</div><div class="line">  &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Phone&lt;/th&gt;&lt;/tr&gt;</div><div class="line">  &lt;tr ng-repeat=<span class="string">"friend in friends | filter:searchText"</span>&gt;</div><div class="line">    &lt;td&gt;&#123;&#123;friend.name&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;td&gt;&#123;&#123;friend.phone&#125;&#125;&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure></p>
 <p>即根据输入框的值searchText过滤friends数组的内容,并且以表格的形式显示。</p>
 <p>更多过滤条件:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;label&gt;Any: &lt;input ng-model=<span class="string">"search.$"</span>&gt;&lt;/label&gt; &lt;br&gt;</div><div class="line">&lt;label&gt;Name only &lt;input ng-model=<span class="string">"search.name"</span>&gt;&lt;/label&gt;&lt;br&gt;</div><div class="line">&lt;label&gt;Phone only &lt;input ng-model=<span class="string">"search.phone"</span>&gt;&lt;/label&gt;&lt;br&gt;</div><div class="line">&lt;label&gt;Equality &lt;input <span class="built_in">type</span>=<span class="string">"checkbox"</span> ng-model=<span class="string">"strict"</span>&gt;&lt;/label&gt;&lt;br&gt;</div><div class="line">&lt;table id=<span class="string">"searchObjResults"</span>&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">        &lt;th&gt;Name&lt;/th&gt;</div><div class="line">        &lt;th&gt;Phone&lt;/th&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    &lt;tr ng-repeat=<span class="string">"friendObj in friends | filter:search:strict"</span>&gt;</div><div class="line">        &lt;td&gt;&#123;&#123;friendObj.name&#125;&#125;&lt;/td&gt;</div><div class="line">        &lt;td&gt;&#123;&#123;friendObj.phone&#125;&#125;&lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure></p>
-<p>strict表示严格删选,只有字段与搜索内容完全一致才显示。<br>search是删选条件,这里可以全部一起删选,或者只根据姓名或者电话进行删选。</p>
-<p>删选条件不仅可以是字段名,还可以是自定义的函数<br>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># HTML5</span></div><div class="line">使用函数过滤,年龄大与19的:&#123;&#123; friends | filter: f &#125;&#125; &lt;br /&gt;</div><div class="line"><span class="comment"># JS</span></div><div class="line"><span class="variable">$scope</span>.f = <span class="keyword">function</span>(e)&#123;</div><div class="line">    <span class="built_in">return</span> e.age &gt; 19;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>strict表示严格筛选,只有字段与搜索内容完全一致才显示。<br>search是筛选条件,这里可以全部一起筛选,或者只根据姓名或者电话进行筛选。</p>
+<p>筛选条件不仅可以是字段名,还可以是自定义的函数<br>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># HTML5</span></div><div class="line">使用函数过滤,年龄大与19的:&#123;&#123; friends | filter: f &#125;&#125; &lt;br /&gt;</div><div class="line"><span class="comment"># JS</span></div><div class="line"><span class="variable">$scope</span>.f = <span class="keyword">function</span>(e)&#123;</div><div class="line">    <span class="built_in">return</span> e.age &gt; 19;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>更多filter内容见<a href="https://docs.angularjs.org/api/ng/filter" target="_blank" rel="external">angular官方文档</a></p>
 <p>例子代码:<br><a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/8_filter.html" target="_blank" rel="external">Github简单例子</a><br><a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/8.1_big_example_for_order_by_column.html" target="_blank" rel="external">Github OrderBy例子</a><br><a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/8.2_big_example_for_filter.html" target="_blank" rel="external">Github filter例子</a></p>
 
@@ -482,6 +642,61 @@
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TWU-travel2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/03/TWU-travel2/">印度之旅(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>来到一个国家,不去体验当地的风土人情,就感觉就缺了点什么。所以在印度为数不多的空闲时间里,还是和小伙伴们组队去了一些地方。</p>
+<h3 id="孟买的trip"><a href="#孟买的trip" class="headerlink" title="孟买的trip"></a>孟买的trip</h3><p>在我们的计划中,只有第一个周的周末是free time,所以我们就想蹭着这个机会去印度的孟买玩一圈。<br>提前两三天的时候,在和美国同事聊天时发现她们也有意愿去孟买,所以立马表明了我们的心意。理所当然的,本来由中国人组成的团队扩张到了全球化的团队。</p>
+<p>说起来,在这个过程中确实体现了美国同事的快速行动力,他们联系好了车(公司的班车),也提前预约了酒店,所以对他们来说就显得比较的享受。而我们确实因为某些原因使得我们没有那么高效。<br>例如,我们并不知道国外的酒店是必须网上预约后才能Check in的,因为中国的酒店你去了有房间就可以入住;在很早的时候,我们也无法确认最后晚上入住的人员;还有天气的原因的等等。</p>
+<p>但是不论我们耽搁了多久,我们还是自己解决了住宿和吃饭的问题。</p>
+<p>在孟买,人人都说这是印度的旅游大城市,它靠近海边(虽然海是灰色的),也有很多小摊售卖印度特色的东西,还有遗留的英式建筑。</p>
+<p>印度人好像很喜欢装饰品,路边有超级多的卖金闪闪的项链、耳环、手链、脚链……</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/03/TWU-travel2/" class="archive-article-date">
+  	<time datetime="2016-10-03T06:33:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/essays/">essays</a></li></ul>
 	</div>
 
       
@@ -680,139 +895,10 @@
 
 
   
-    <article id="post-Create-my-Github-Page" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/30/Create-my-Github-Page/">Github Page - 搭建自己的个人页面</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一次自己尝试去建立Github的个人页面,以下是自己一步一步摸索出来的。</p>
-<h2 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h2><p>Git<br>Github<br>Hexo</p>
-<h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><p>在Github上建立一个新的Repository,名字是特定的:[你的Github账号名].github.io</p>
-<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><h4 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h4><p>在命令行中执行以下命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo</div></pre></td></tr></table></figure>
-<h4 id="新建Hexo"><a href="#新建Hexo" class="headerlink" title="新建Hexo"></a>新建Hexo</h4><p>在自己的电脑中新建文件夹,名字为Hexo,然后在命令行中执行以下命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init</div></pre></td></tr></table></figure>
-<p>Hexo会自动在目标文件夹建立网站所需要的所有文件。</p>
-<h4 id="运行Hexo"><a href="#运行Hexo" class="headerlink" title="运行Hexo"></a>运行Hexo</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo g <span class="comment"># 或者hexo generate</span></div><div class="line">$ hexo s <span class="comment"># 或者hexo server</span></div></pre></td></tr></table></figure>
-<p>可以在<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> 查看</p>
-<p>hexo基本命令:<br>hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹<br>hexo server (hexo s) 启动本地web服务，用于博客的预览<br>hexo deploy (hexo d) 部署播客到远端（比如github, heroku等平台）</p>
-<h4 id="部署Hexo-与Github关联"><a href="#部署Hexo-与Github关联" class="headerlink" title="部署Hexo,与Github关联"></a>部署Hexo,与Github关联</h4><p>先修改Hexo文件夹中的_config.yml文件<br>修改deploy的内容如下:</p>
-<p>deploy:<br>  type: git<br>  repo: git@github.com:[你的Github账号名]/[你的Github账号名].github.io.git<br>  branch: master</p>
-<p>在我们正式部署之前先安装一个扩展:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
-<p>然后执行以下命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo d <span class="comment"># 或者hexo deploy</span></div></pre></td></tr></table></figure></p>
-<p>当你出现Permission denied (publickey)的错误时,记得设置Github的public key</p>
-<p>在本机生成public key:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"[你的邮箱]"</span></div></pre></td></tr></table></figure></p>
-<p>执行玩后,在~/.ssh目录下会生成两个文件，id_rsa.pub和id_rsa.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pbcopy &lt; ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
-<p>拷贝ssh key的内容,登陆Github网站，在<a href="https://github.com/settings/ssh" target="_blank" rel="external">SSH设置页面</a>添加上刚才的public key文件也就是我们已经拷贝的id_rsa.pub的内容,只要粘贴就可以了。</p>
-<p>使用以下命令查看ssh key设置是否成功:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure></p>
-<p>PS:如果你有多个ssh key要设置,参考<a href="http://www.jianshu.com/p/f7f4142a1556" target="_blank" rel="external">管理git生成的多个ssh key</a></p>
-<p>成功以后,再次执行以下命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo d <span class="comment"># 或者hexo deploy</span></div></pre></td></tr></table></figure></p>
-<p>最后的最后,打开网址<a href="https://[你的Github账号名].github.io/,这就是你的个人页面啦~" target="_blank" rel="external">https://[你的Github账号名].github.io/,这就是你的个人页面啦~</a></p>
-<p>更多内容参考<a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">https://hexo.io/docs/deployment.html</a></p>
-<p>其他参考博客<br><a href="http://jiji262.github.io/2016/04/15/2016-04-15-hexo-github-pages-blog/" target="_blank" rel="external">手把手教你搭博客</a><br><a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/09/30/Create-my-Github-Page/" class="archive-article-date">
-  	<time datetime="2016-09-30T01:57:44.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github/">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/29/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>身为一个程序媛, 好好学习,天天向上<br>不删的Hexo默认页,纪念一下我的开始</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/09/29/hello-world/" class="archive-article-date">
-  	<time datetime="2016-09-29T01:57:44.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-29</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -878,7 +964,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 10px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     

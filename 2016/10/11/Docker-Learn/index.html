@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Docker 学习笔记 | Shengzhi Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="自学笔记(一)因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。因为之前没有怎么接触过,所以是从零开始。
+安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
+Docker 三大组件仓库镜像容器
+仓库Docker 官方维护了一个公共仓库Docker Hub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 学习笔记">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/Docker-Learn/index.html">
+<meta property="og:site_name" content="Shengzhi Wang">
+<meta property="og:description" content="自学笔记(一)因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。因为之前没有怎么接触过,所以是从零开始。
+安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
+Docker 三大组件仓库镜像容器
+仓库Docker 官方维护了一个公共仓库Docker Hub">
+<meta property="og:updated_time" content="2016-10-13T07:58:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker 学习笔记">
+<meta name="twitter:description" content="自学笔记(一)因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。因为之前没有怎么接触过,所以是从零开始。
+安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
+Docker 三大组件仓库镜像容器
+仓库Docker 官方维护了一个公共仓库Docker Hub">
+  
+    <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Shengzhi Wang</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/technical/">技术</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Shengzhi Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Shengzhi Wang</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/technical/">技术</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Docker-Learn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker 学习笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自学笔记(一)<br>因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。<br>因为之前没有怎么接触过,所以是从零开始。</p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Mac 安装地址</a><br>关于在Ubuntu、CentOS和Debian系统安装Docker,<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>书里有安装教程<br>其他系统安装Docker,参考<a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">官网</a></p>
+<h1 id="Docker-三大组件"><a href="#Docker-三大组件" class="headerlink" title="Docker 三大组件"></a>Docker 三大组件</h1><p>仓库<br>镜像<br>容器</p>
+<h1 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h1><p>Docker 官方维护了一个公共仓库<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a></p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>本地命令:docker login<br>会有提示输入用户名和密码,一次登录后,会记住登录信息。本地用户目录的 .dockercfg 中将保存用户的认证信息。</p>
+<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>命令为docker search 命令来查找官方仓库中的镜像，并利用docker pull 命令来将它下载到本地。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker search centos -s 3</div></pre></td></tr></table></figure></p>
+<p>-s N(仅显示评价为 N 星以上的镜像)<br>下载命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull centos</div></pre></td></tr></table></figure></p>
+<h2 id="私有仓库配置"><a href="#私有仓库配置" class="headerlink" title="私有仓库配置"></a>私有仓库配置</h2><p>参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
+<h1 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h1><h2 id="Docker-镜像分层"><a href="#Docker-镜像分层" class="headerlink" title="Docker 镜像分层"></a>Docker 镜像分层</h2><p>有3层,分别为:<br>  基础镜像<br>  中间件镜像<br>  应用镜像</p>
+<h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull 镜像版本</div></pre></td></tr></table></figure>
+<p>将从 Docker Hub 仓库下载一个符合要求的镜像<br>完整的命令为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull registry.hub.docker.com/ubuntu:12.04</div></pre></td></tr></table></figure></p>
+<p>即从注册服务器registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 12.04 的镜像。</p>
+<h2 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h2><p>下载镜像完成后，可以使用该镜像了，摘自书中的例子:创建一个容器，让其中运行 bash 应用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<h4 id="显示本地已有的镜像"><a href="#显示本地已有的镜像" class="headerlink" title="显示本地已有的镜像"></a>显示本地已有的镜像</h4><p>命令:docker images </p>
+<h4 id="修改镜像"><a href="#修改镜像" class="headerlink" title="修改镜像:"></a>修改镜像:</h4><p><strong>1.docker commit 来扩展一个镜像</strong><br>镜像启动容器:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p> -t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， -i 则让容器的标准输入保持打开</p>
+<p>在容器中添加json package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root@0b2616b0e5a8:/# gem install json</div></pre></td></tr></table></figure></p>
+<p>退出: exit<br>提交更新后的副本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -m &quot;Added json gem&quot; -a &quot;Docker Newbee&quot; 0b2616b0e5a8 ouruser/sinatra:v2</div></pre></td></tr></table></figure></p>
+<p>ouruser/sinatra:v2为目标镜像的仓库名和 tag 信息,如v2<br></p>
+<p><strong>2.docker build 来创建一个新的镜像</strong><br>新建一个文件Dockerfile,里面的每一条指令都创建镜像的一层。<br></p>
+<p>Dockerfile 基本的语法是:<br>    使用 # 来注释<br>    FROM 指令告诉 Docker 使用哪个镜像作为基础<br>    接着是维护者的信息<br>    RUN 开头的指令会在创建中运行，比如安装一个软件包，在这里使用 apt-get来安装了一些软件<br></p>
+<p>编写完成 Dockerfile 后可以使用 docker build 来生成镜像。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t=&quot;ouruser/sinatra:v2&quot; .</div></pre></td></tr></table></figure></p>
+<p>其中 -t 标记来添加 tag，指定新的镜像的用户信息。 “.” 是 Dockerfile 所在的路径（当前目录），也可以替换为一个具体的 Dockerfile 的路径。</p>
+<p>改变镜像标签内容:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker tag 5db5f8471261 ouruser/sinatra:devel #5db...是镜像ID  后面的是修改后的标签</div></pre></td></tr></table></figure></p>
+<h4 id="本地导入镜像"><a href="#本地导入镜像" class="headerlink" title="本地导入镜像:"></a>本地导入镜像:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cat ubuntu-14.04-x86_64-minimal.tar.gz |docker import - ubuntu:14.04</div></pre></td></tr></table></figure>
+<h4 id="镜像上传到远程仓库"><a href="#镜像上传到远程仓库" class="headerlink" title="镜像上传到远程仓库:"></a>镜像上传到远程仓库:</h4><p>Docker Hub 上完成注册后，可以推送自己的镜像到仓库中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker push ouruser/sinatra</div></pre></td></tr></table></figure></p>
+<h4 id="保存镜像到本地文件"><a href="#保存镜像到本地文件" class="headerlink" title="保存镜像到本地文件:"></a>保存镜像到本地文件:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker save -o ubuntu_14.04.tar ubuntu:14.04</div></pre></td></tr></table></figure>
+<h4 id="从导出的本地文件中再加载到本地镜像库"><a href="#从导出的本地文件中再加载到本地镜像库" class="headerlink" title="从导出的本地文件中再加载到本地镜像库:"></a>从导出的本地文件中再加载到本地镜像库:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo docker load --input ubuntu_14.04.tar</div><div class="line">或</div><div class="line">$ sudo docker load &lt; ubuntu_14.04.tar</div></pre></td></tr></table></figure>
+<h4 id="移除镜像"><a href="#移除镜像" class="headerlink" title="移除镜像"></a>移除镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rmi training/sinatra</div></pre></td></tr></table></figure>
+<p>在删除镜像之前要先用 docker rm 删掉依赖于这个镜像的所有容器。</p>
+<p>清理所有未打过标签的本地镜像<br>$ sudo docker rmi $(docker images -q -f “dangling=true”)<br>sudo docker rmi $(docker images –quiet –filter “dangling=true”)</p>
+<h1 id="Docker-容器"><a href="#Docker-容器" class="headerlink" title="Docker 容器"></a>Docker 容器</h1><p>容器是独立运行的一个或一组应用，以及它们的运行态环境。</p>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><p>有两种方式:<br>1.基于镜像新建一个容器并启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p>使用docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+<p>2.将在终止状态（stopped）的容器重新启动<br>docker start命令，直接将一个已经终止的容器启动运行。可以利用 ps 或 top 来查看当前的进程信息。</p>
+<h2 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h2><p>命令:docker ps<br>可以查看所有的容器及进程</p>
+<h2 id="容器在后台运行"><a href="#容器在后台运行" class="headerlink" title="容器在后台运行"></a>容器在后台运行</h2><p>普通的docker run命令会在当前宿主机输出结果。<br>加上-d,此时容器会在后台运行并不会把输出的结果打印到宿主机上面,而是返回一个ID。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run -d ubuntu:14.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</div></pre></td></tr></table></figure>
+<p>查看输出结果可以用docker logs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker logs [container ID or NAMES]</div></pre></td></tr></table></figure></p>
+<p>里面可以是刚刚返回的ID也可以是NAME</p>
+<h2 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h2><p>使用命令docker stop ID来终止</p>
+<p>当Docker容器中指定的应用终结时，容器也自动终止。所以之前通过 exit 命令或 Ctrl+d 来退出终端时，所创建的容器立刻终止。<br>查看终止状态的容器可以用 docker ps -a命令。</p>
+<h4 id="重启已经终止的容器"><a href="#重启已经终止的容器" class="headerlink" title="重启已经终止的容器"></a>重启已经终止的容器</h4><p>处于终止状态的容器，可以通过 docker start 命令来重新启动。<br>docker restart 命令会将一个运行态的容器终止，然后再重新启动它。</p>
+<h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><p>当容器进入后台时,需要进入容器的操作<br>使用Attach命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker run -idt ubuntu <span class="comment">#后台运行</span></div><div class="line">docker ps <span class="comment">#查看进程</span></div><div class="line">docker attach 容器名或者ID</div></pre></td></tr></table></figure></p>
+<p>使用nsenter 命令<br>nsenter工具在 util-linux 包2.23版本后包含,设备上没有的,需要手动安装。<br>详细步骤参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
+<h2 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h2><p>导出本地某个容器，使用 docker export 命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker export 容器ID &gt; ubuntu.tar(文件名)</div></pre></td></tr></table></figure></p>
+<h2 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h2><p>使用docker import从容器快照文件中再导入为镜像:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cat ubuntu.tar | docker import - <span class="built_in">test</span>/ubuntu:v1.0(镜像名和标签)</div><div class="line">$ docker images <span class="comment">#查看结果</span></div></pre></td></tr></table></figure></p>
+<p>或者通过指定 URL 或者某个目录来导入，例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker import http://example.com/exampleimage.tgz example/imagerepo</div></pre></td></tr></table></figure></p>
+<p><strong>用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，<br>也可以使用 docker import 来导入一个容器快照到本地镜像库。<br>这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。<br>此外，从容器快照文件导入时可以重新指定标签等元数据信息。</strong></p>
+<h2 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h2><p>使用 docker rm 来删除一个处于终止状态的容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker rm trusting_newton</div></pre></td></tr></table></figure></p>
+<p>如果要删除一个运行中的容器，可以添加 -f 参数。<br>清理所有处于终止状态的容器,使用以下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm $(docker ps -a -q)</div></pre></td></tr></table></figure></p>
+<p>书籍:<br><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>此处有电子书的下载途径</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/11/Docker-Learn/" class="archive-article-date">
+  	<time datetime="2016-10-11T08:25:20.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-11</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/10/13/Docker-Learn2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Docker Learn2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/09/markdown/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用Markdown编辑器写博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Shengzhi Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次, 本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/wszhi">我的Github</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u012138931">我的CSDN</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">靡不有初，&lt;br&gt;&lt;br&gt;鲜克有终。&lt;br&gt;&lt;br&gt;不断努力,一步一步往前走,做最好的自己</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
