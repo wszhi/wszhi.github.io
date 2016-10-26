@@ -4,24 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Angular Form Property And Class | Shengzhi Wang</title>
+  <title>持续集成(Continuous Integration) | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="好好学习,天天向上!
-form 的相关方法要生效，必须为 form 标签指定 name 和 ng-controller,并且每个控件都要绑定一个变量。form 和控件的名字，即是 $scope 中的相关实例的引用变量名。
-Form对象属性$pristine 表单是否未被动过$dirty 表单是否被动过$valid 表单是否验证通过$invalid 表单是否验证失败$error 表单的验证错误( k">
+  <meta name="description" content="在工作之前,曾经遇到过这么一个问题,和多个小伙伴一起开发,一个人负责了一大块的功能,最后在每个人完成各自的开发工作以后,集成成一个系统。这真的是很痛苦的一件事情,没有任何的铺垫,一堆冲突,集成后也不知道系统是不是存在bug。然而在真正工作以后,才发现了这些问题的正确打开方式。
+持续集成是什么Martin Fowler对持续集成(Continuous Integration)的定义:
+
+Contin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Angular Form Property And Class">
-<meta property="og:url" content="http://yoursite.com/2016/10/08/Angular-Form/index.html">
+<meta property="og:title" content="持续集成(Continuous Integration)">
+<meta property="og:url" content="http://yoursite.com/2016/10/25/Continuous-Integration/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="好好学习,天天向上!
-form 的相关方法要生效，必须为 form 标签指定 name 和 ng-controller,并且每个控件都要绑定一个变量。form 和控件的名字，即是 $scope 中的相关实例的引用变量名。
-Form对象属性$pristine 表单是否未被动过$dirty 表单是否被动过$valid 表单是否验证通过$invalid 表单是否验证失败$error 表单的验证错误( k">
-<meta property="og:updated_time" content="2016-10-08T03:13:19.000Z">
+<meta property="og:description" content="在工作之前,曾经遇到过这么一个问题,和多个小伙伴一起开发,一个人负责了一大块的功能,最后在每个人完成各自的开发工作以后,集成成一个系统。这真的是很痛苦的一件事情,没有任何的铺垫,一堆冲突,集成后也不知道系统是不是存在bug。然而在真正工作以后,才发现了这些问题的正确打开方式。
+持续集成是什么Martin Fowler对持续集成(Continuous Integration)的定义:
+
+Contin">
+<meta property="og:updated_time" content="2016-10-26T01:36:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Angular Form Property And Class">
-<meta name="twitter:description" content="好好学习,天天向上!
-form 的相关方法要生效，必须为 form 标签指定 name 和 ng-controller,并且每个控件都要绑定一个变量。form 和控件的名字，即是 $scope 中的相关实例的引用变量名。
-Form对象属性$pristine 表单是否未被动过$dirty 表单是否被动过$valid 表单是否验证通过$invalid 表单是否验证失败$error 表单的验证错误( k">
+<meta name="twitter:title" content="持续集成(Continuous Integration)">
+<meta name="twitter:description" content="在工作之前,曾经遇到过这么一个问题,和多个小伙伴一起开发,一个人负责了一大块的功能,最后在每个人完成各自的开发工作以后,集成成一个系统。这真的是很痛苦的一件事情,没有任何的铺垫,一堆冲突,集成后也不知道系统是不是存在bug。然而在真正工作以后,才发现了这些问题的正确打开方式。
+持续集成是什么Martin Fowler对持续集成(Continuous Integration)的定义:
+
+Contin">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -145,7 +148,7 @@ Form对象属性$pristine 表单是否未被动过$dirty 表单是否被动过$v
 </nav>
 
       <div class="body-wrap">
-        <article id="post-Angular-Form" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Continuous-Integration" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -155,7 +158,7 @@ Form对象属性$pristine 表单是否未被动过$dirty 表单是否被动过$v
         
   
     <h1 class="article-title" itemprop="name">
-      Angular Form Property And Class
+      持续集成(Continuous Integration)
     </h1>
   
 
@@ -163,27 +166,35 @@ Form对象属性$pristine 表单是否未被动过$dirty 表单是否被动过$v
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>好好学习,天天向上!</p>
-<p>form 的相关方法要生效，必须为 form 标签指定 name 和 ng-controller,并且每个控件都要绑定一个变量。<br>form 和控件的名字，即是 $scope 中的相关实例的引用变量名。</p>
-<h2 id="Form对象属性"><a href="#Form对象属性" class="headerlink" title="Form对象属性"></a>Form对象属性</h2><p>$pristine 表单是否未被动过<br>$dirty 表单是否被动过<br>$valid 表单是否验证通过<br>$invalid 表单是否验证失败<br>$error 表单的验证错误( key是失败信息,像required,minlength…… value是对应的字段实例列表。这里的失败信息是按序列取的一个)</p>
-<p>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;form name=<span class="string">"test_form"</span> ng-controller=<span class="string">"TestCtrl"</span>&gt;</div><div class="line">    &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"a"</span> required ng-model=<span class="string">"a"</span>  /&gt;</div><div class="line">    &lt;span&gt;&#123;&#123; test_form.<span class="variable">$valid</span> &#125;&#125;&lt;/span&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="Form标签特定的class属性"><a href="#Form标签特定的class属性" class="headerlink" title="Form标签特定的class属性"></a>Form标签特定的class属性</h2><p>除去对象的方法与属性， form 这个标签本身有一些class可以使用：<br>ng-valid 当表单验证通过时的设置<br>ng-invalid 当表单验证失败时的设置<br>ng-pristine 表单的未被动之前拥有<br>ng-dirty 表单被动过之后拥有</p>
-<p>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">input.ng-invalid &#123;</div><div class="line">    border: 1px solid red;</div><div class="line">&#125;</div><div class="line">input.ng-valid &#123;</div><div class="line">    border: 1px solid green;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>加上两种class的css,input边框在验证通过的时候是绿色,不通过则是红色。</p>
-<p>Github<a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/7.5_form_property_and_class.html" target="_blank" rel="external">参考代码</a></p>
-<p><a href="https://docs.angularjs.org/api/ng/directive/form" target="_blank" rel="external">angular官方文档</a></p>
+        <p>在工作之前,曾经遇到过这么一个问题,和多个小伙伴一起开发,一个人负责了一大块的功能,最后在每个人完成各自的开发工作以后,集成成一个系统。<br>这真的是很痛苦的一件事情,没有任何的铺垫,一堆冲突,集成后也不知道系统是不是存在bug。<br>然而在真正工作以后,才发现了这些问题的正确打开方式。</p>
+<h2 id="持续集成是什么"><a href="#持续集成是什么" class="headerlink" title="持续集成是什么"></a>持续集成是什么</h2><p>Martin Fowler对持续集成(Continuous Integration)的定义:</p>
+<blockquote>
+<p>Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible.Many teams find that this approach leads to significantly reduced integration problems and allows a team to develop cohesive software more rapidly.  </p>
+</blockquote>
+<p>持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试)来验证，从而尽快地发现集成错误。许多团队发现这个过程可以大大减少集成的问题，让团队能够更快的开发内聚的软件。</p>
+<p>Martin Fowler对持续集成的内容概述:</p>
+<blockquote>
+<p>Maintain a Single Source Repository.<br>  Automate the Build<br>  Make Your Build Self-Testing<br>  Everyone Commits To the Mainline Every Day<br>  Every Commit Should Build the Mainline on an Integration Machine<br>  Fix Broken Builds Immediately<br>  Keep the Build Fast<br>  Test in a Clone of the Production Environment<br>  Make it Easy for Anyone to Get the Latest Executable<br>  Everyone can see what’s happening<br>  Automate Deployment</p>
+</blockquote>
+<p>  1.统一的代码库。一个团队在开发过程中都需要一个代码库,每个人写的代码都更新到同一个代码库上。例如Github,Gitlab等,如此一来就需要版本管理工具例如git,svn等等。<br>  2.自动构建。手动构建的代价太大,使用工具来自动构建。<br>  3.自动测试。<br>  4.每个人每天都要向代码库主干提交代码。<br>  5.每次代码递交后都会在持续集成服务器上触发一次构建。<br>  6.保证快速构建。<br>  7.模拟生产环境的自动测试。<br>  8.每个人都可以很容易的获取最新可执行的应用程序。<br>  9.每个人都清楚正在发生的状况。<br>  10.自动化的部署。</p>
+<h2 id="持续集成的好处"><a href="#持续集成的好处" class="headerlink" title="持续集成的好处"></a>持续集成的好处</h2><p>由上可知,持续集成的好处在于:<br>    (1)快速发现错误。每个coder完成了一小段代码就更新集成到主干,如此一来可以快速的发现错误,并且定位错误,改正错误。<br>    (2)使得代码不会大幅度的偏离主干。如果不经常集成代码,更新不快,最后集成的难度非常大。<br>    (3)在任何时间、任何地点生成可部署的软件。对于客户来说,这便于持续交付。<br>    (4)改善对进度的控制。每天都在集成，就可以看到当前各个功能的进度。<br>    (5)更加充分地测试系统中的各个单元。<br>    (6)与其它工具结合的持续代码质量改进。如使用CheckStyle, PMD, FindBugs, Fxcop等。<br>    (7)便于Code Review。在每个build里，我们都可以知道与前一个build之间有什么改动，然后针对这些改动，我们就可以实施Code Review了。<br>    (8)便于开发流程的管理。比如说，要把一个开发的build提交给测试组作测试，测完满意了，再提交到发布组去发布。</p>
+<p> 持续集成的目的，就是让产品可以保持高质量的快速迭代。</p>
+<h2 id="持续集成的工具"><a href="#持续集成的工具" class="headerlink" title="持续集成的工具"></a>持续集成的工具</h2><p>CI工具实现了每个开发人员提交代码的时候自动进行构建，包括代码审查、编译、测试、打包等操作。如此可以保证每次提交都是安全的。<br>CI工具还可以提供事件通知,生成报告等。例如当某一步构建失败了发送通知给指定的email、通过特定的设置发出声音等。<br>常见的工具有:<br><a href="https://jenkins.io/index.html" target="_blank" rel="external">Jenkins</a><br><a href="https://www.go.cd/" target="_blank" rel="external">Go</a><br><a href="http://buildbot.net/" target="_blank" rel="external">Buildbot</a></p>
+<h2 id="持续集成的规则："><a href="#持续集成的规则：" class="headerlink" title="持续集成的规则："></a>持续集成的规则：</h2><p>  总结规则如下:<br>1）经常提交代码<br>2）不要提交无法构建的代码<br>3）构建失败时，立即修复<br>4）写自动化测试<br>5）必须通过所有测试和代码审查<br>6）执行私有构建<br>7）避免迁出无法构建的代码</p>
+<p>遵循以上规则是为了提高CI持续集成成功率，及时修复build</p>
+<p>参考文献:<br><a href="http://martinfowler.com/articles/continuousIntegration.html" target="_blank" rel="external">Martin Fowler的Continuous Integration</a><br><a href="http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html" target="_blank" rel="external">持续集成是什么？</a></p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/10/08/Angular-Form/" class="archive-article-date">
-  	<time datetime="2016-10-08T02:09:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-08</time>
+      <a href="/2016/10/25/Continuous-Integration/" class="archive-article-date">
+  	<time datetime="2016-10-25T03:33:21.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-25</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/">CI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
 	</div>
 
       
@@ -196,18 +207,9 @@ Form对象属性$pristine 表单是否未被动过$dirty 表单是否被动过$v
   
 <nav id="article-nav">
   
-    <a href="/2016/10/08/Angular-Form-Input-Type/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Angular Form Input Type
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/10/03/TWU-travel2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">印度之旅(二)</div>
+    <a href="/2016/10/13/Docker-Learn2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker Learn2</div>
       <i class="icon-circle-right"></i>
     </a>
   
