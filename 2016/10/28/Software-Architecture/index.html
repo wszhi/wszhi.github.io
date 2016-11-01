@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>架构设计 | Shengzhi Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在接受一个培训,第一次接触了架构设计的知识,有些名词晦涩难懂,导致在这一块的学习还是有所欠缺。尽管如此,在培训中和培训后的努力学习后,做了点整理,理解的可能有所偏差,欢迎拍砖。
+架构设计对于一个项目来说十分重要。
+一份完整的架构设计应该包括哪些内容1）建模，提炼资源2）系统结构（BFF，业务流程）3）开发团队结构4）可用性与性能架构5）安全性架构6）质量架构7）部署架构8）运维架构9）技术选型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构设计">
+<meta property="og:url" content="http://yoursite.com/2016/10/28/Software-Architecture/index.html">
+<meta property="og:site_name" content="Shengzhi Wang">
+<meta property="og:description" content="最近在接受一个培训,第一次接触了架构设计的知识,有些名词晦涩难懂,导致在这一块的学习还是有所欠缺。尽管如此,在培训中和培训后的努力学习后,做了点整理,理解的可能有所偏差,欢迎拍砖。
+架构设计对于一个项目来说十分重要。
+一份完整的架构设计应该包括哪些内容1）建模，提炼资源2）系统结构（BFF，业务流程）3）开发团队结构4）可用性与性能架构5）安全性架构6）质量架构7）部署架构8）运维架构9）技术选型">
+<meta property="og:updated_time" content="2016-11-01T09:44:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构设计">
+<meta name="twitter:description" content="最近在接受一个培训,第一次接触了架构设计的知识,有些名词晦涩难懂,导致在这一块的学习还是有所欠缺。尽管如此,在培训中和培训后的努力学习后,做了点整理,理解的可能有所偏差,欢迎拍砖。
+架构设计对于一个项目来说十分重要。
+一份完整的架构设计应该包括哪些内容1）建模，提炼资源2）系统结构（BFF，业务流程）3）开发团队结构4）可用性与性能架构5）安全性架构6）质量架构7）部署架构8）运维架构9）技术选型">
+  
+    <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Shengzhi Wang</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/technical/">技术</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Shengzhi Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Shengzhi Wang</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/technical/">技术</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Software-Architecture" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      架构设计
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在接受一个培训,第一次接触了架构设计的知识,有些名词晦涩难懂,导致在这一块的学习还是有所欠缺。<br>尽管如此,在培训中和培训后的努力学习后,做了点整理,理解的可能有所偏差,欢迎拍砖。</p>
+<p>架构设计对于一个项目来说十分重要。</p>
+<h2 id="一份完整的架构设计应该包括哪些内容"><a href="#一份完整的架构设计应该包括哪些内容" class="headerlink" title="一份完整的架构设计应该包括哪些内容"></a>一份完整的架构设计应该包括哪些内容</h2><p>1）建模，提炼资源<br>2）系统结构（BFF，业务流程）<br>3）开发团队结构<br>4）可用性与性能架构<br>5）安全性架构<br>6）质量架构<br>7）部署架构<br>8）运维架构<br>9）技术选型</p>
+<h2 id="面向行为的接口设计与面向资源的接口设计-ROA"><a href="#面向行为的接口设计与面向资源的接口设计-ROA" class="headerlink" title="面向行为的接口设计与面向资源的接口设计(ROA)"></a>面向行为的接口设计与面向资源的接口设计(ROA)</h2><p>面向行为的接口设计是建立在动词（行为）的基础之上的，系统要枚举所有的业务行为，如果行为发生改变，接口也随之改变。<br>面向资源的接口设计便于实施、设计灵活、是轻量级的对象访问方式。<br>面向资源的接口设计关注的是名词（资源），解决了在业务需求发生变化时要对代码做很大的改变的问题。</p>
+<h2 id="SOA-面向服务的架构设计"><a href="#SOA-面向服务的架构设计" class="headerlink" title="SOA 面向服务的架构设计"></a>SOA 面向服务的架构设计</h2><p>将紧耦合的系统,划分为面向业务的,粗粒度,松耦合,无状态的服务。<br>目的是提高软件的重用性，减少开发和维护的成本，最终增加敏捷度。</p>
+<h2 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h2><p>微服务架构其中的一个重点是业务系统需要彻底的组件化和服务化,原来的业务可以拆分成独立的系统应用进行开发,这些相互独立的系统应用通过服务完成交互和集成。<br>它的目的是有效的拆分应用,实现敏捷开发和部署,为构建应用提供更轻量级、更高效的开发。</p>
+<p>微服务不再强调传统SOA架构里面比较重的<strong>ESB</strong>企业服务总线，同时SOA的思想进入到单个业务系统内部实现真正的组件化。</p>
+<h4 id="微服务足够构成一个独立的小应用-从DB到UI"><a href="#微服务足够构成一个独立的小应用-从DB到UI" class="headerlink" title="微服务足够构成一个独立的小应用(从DB到UI)"></a>微服务足够构成一个独立的小应用(从DB到UI)</h4><p>微服务的基本思想在于考虑围绕着业务领域组件来创建应用,这些应用可以独立的进行开发管理和加速。在分散的组件中使用微服务云架构和平台使部署管理和服务功能交付变得更加简单。</p>
+<p>(<strong>Devops</strong>:开发测试和部署运维一体化。)</p>
+<p>把单体应用拆分成多个小应用后,整体架构可以松耦合和可扩展,但是当拆分的组件越多,这些组件之间本省的集成和部署运维就越复杂。<br>任何一个组件,当依赖的外部应用组件越多的时候,整个集成,部署和连调测试的过程就越复杂,所以自动化这个过程可以减少工作量和出错概率。</p>
+<p>微服务架构首先要做好单个组件本身的持续集成,其次在这个基础上增加了多个组件的打包部署和组件间的集成。包括环境变量的配置,自动打包部署,自动化的测试等。</p>
+<p>不像传统多个服务共享一个数据库,微服务架构每个服务都有自己的数据库。</p>
+<h4 id="一般运行在云虚拟机或者更轻的Docker上"><a href="#一般运行在云虚拟机或者更轻的Docker上" class="headerlink" title="一般运行在云虚拟机或者更轻的Docker上"></a>一般运行在云虚拟机或者更轻的Docker上</h4><p>微服务架构强调了单个组件本身可以在独立的进程里面运行,各个组件之间在部署的时候就能够做到进程级别的隔离性。<br>为了保持进程的隔离性,使用虚拟机,但是几十个进程都完全用独立的虚拟机就不现实,解决方案为利用Docker容器,每个Docker是独立的容器,完全做到了进程季节的隔离,资源占用率最小,满足了微服务架构的开发测试和自动化部署。</p>
+<h4 id="微服务应用之间只能通过Service-API进行交互"><a href="#微服务应用之间只能通过Service-API进行交互" class="headerlink" title="微服务应用之间只能通过Service API进行交互"></a>微服务应用之间只能通过Service API进行交互</h4><p>单个服务的实现和发布仍然在组件内部完成,但是需要一个统一的SOA服务管理平台来显示服务本身的调用情况,服务本身的安全,日志和流量控制。<br>微服务强调采用HTTP Rest API的方式。<br>即微服务尽量通过HTTP API的方式暴露出去,因此这种服务管理平台需要基本的服务注册,服务代理,服务发布,服务简单的路由,安全访问和授权,服务调用消息和日志记录功能。</p>
+<h3 id="微服务架构的优势"><a href="#微服务架构的优势" class="headerlink" title="微服务架构的优势"></a>微服务架构的优势</h3><p>1.通过分解巨大单体式应用为多个服务方法解决了复杂性问题。在功能不变的情况下,应用被分解为多个可管理的分支或服务。单个服务很容易开发、理解和维护。<br>2.每个服务都可以有专门的开发团队并行开发。<br>3.每个服务独立部署,不需要协调其他服务部署对本服务的影响,加快了部署速度,使得持续化部署成为可能。<br>4.每个服务可独立扩展。<br>5.每个服务足够内聚，足够小，代码容易理解、开发效率提高。<br>7.提高容错性，一个服务的内存泄露并不会让整个系统瘫痪。<br>8.可以使用多个技术栈,系统不会被技术栈长期限制。</p>
+<h3 id="微服务架构的不足"><a href="#微服务架构的不足" class="headerlink" title="微服务架构的不足"></a>微服务架构的不足</h3><p>1.一个应用系统里面的模块没有办法做到彻底解耦,无法实现组件单独部署,相互之间有大量内部不可见依赖而导致了模块间的无法拆分。<br>2.微服务应用式分布式系统,会带来固有的复杂性。<br>3.分区的数据库架构带来的挑战,因为需要更新不同服务所使用的不同的数据库。<br>4.测试一个基于微服务架构的应用很复杂。<br>5.微服务架构模式应用的改变将会波及多个服务。<br>6.部署一个微服务应用也很复杂，一个分布式应用只需要简单在复杂均衡器后面部署各自的服务器就好了。每个应用实例是需要配置诸如数据库和消息中间件等基础服务。</p>
+<h3 id="微服务的特征"><a href="#微服务的特征" class="headerlink" title="微服务的特征:"></a>微服务的特征:</h3><p>通过服务实现组件化<br>按业务能力来划分服务于组织团队<br>服务即产品<br>智能终端与哑管道<br>去中心统一化<br>基础设施自动化<br>Design for failure<br>进化设计</p>
+<h3 id="微服务总结"><a href="#微服务总结" class="headerlink" title="微服务总结"></a>微服务总结</h3><p>一个微服务一般完成某个特定的功能,每个微服务都是一个微型应用,有着自己的六边形架构,包括商业逻辑和各种接口。<br>有的微服务通过暴露API被别的微服务或者应用客户端所用;有的微服务则通过UI实现。在运行时,每个实力通常时一个云虚拟机或者Docker容器。</p>
+<h2 id="SOA、微服务、服务化这几个概念的差别和关系"><a href="#SOA、微服务、服务化这几个概念的差别和关系" class="headerlink" title="SOA、微服务、服务化这几个概念的差别和关系"></a>SOA、微服务、服务化这几个概念的差别和关系</h2><p>SOA服务导向架构，将应用程序功能作为服务发送给最终用户或者其他服务，是整合各种业务的应用程序。<br>微服务是一种以业务功能为主的服务设计，通过将功能分散到各个离散的服务中以实现对解决方案的解耦，所以每一个服务都具有自主运行的业务功能。微服务只属于一个应用程序，它要求业务系统彻底的组件化和服务化。<br>服务化是一种粗粒度、松耦合的以服务为中心的架构，服务之间通过定义明确的协议和接口进行通信。</p>
+<h2 id="好的架构应该具备的特征"><a href="#好的架构应该具备的特征" class="headerlink" title="好的架构应该具备的特征"></a>好的架构应该具备的特征</h2><p>基于资源的接口设计<br>开发团队结构要正确映射系统架构<br>要考虑业务架构和组织架构</p>
+<p>参考文章:<br><a href="http://colobu.com/2015/04/08/software-architecture-patterns/" target="_blank" rel="external">软件架构模式</a><br><a href="https://www.zhihu.com/question/37808426" target="_blank" rel="external">SOA和微服务的区别</a><br><a href="http://dockone.io/article/394" target="_blank" rel="external">微服务架构的优势与不足</a><br><a href="https://www.ibm.com/developerworks/community/blogs/3302cc3b-074e-44da-90b1-5055f1dc0d9c/entry/%E8%A7%A3%E6%9E%90%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84_%E4%B8%80_%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1?lang=en" target="_blank" rel="external">解析微服务架构(一)</a><br><a href="http://www.jianshu.com/p/546ef242b6a3" target="_blank" rel="external">基于微服务的软件架构模式</a><br><a href="http://www.hollischuang.com/archives/1628" target="_blank" rel="external">组件化、模块化、集中式、分布式、服务化、面向服务的架构、微服务架构</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/28/Software-Architecture/" class="archive-article-date">
+  	<time datetime="2016-10-28T06:46:47.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-28</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/10/31/ansible/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ansible
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/25/Continuous-Integration/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">持续集成(Continuous Integration)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Shengzhi Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次, 本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/wszhi">我的Github</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u012138931">我的CSDN</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">靡不有初，&lt;br&gt;&lt;br&gt;鲜克有终。&lt;br&gt;&lt;br&gt;不断努力,一步一步往前走,做最好的自己</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

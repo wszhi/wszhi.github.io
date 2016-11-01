@@ -140,6 +140,134 @@
       <div class="body-wrap">
         
   
+    <article id="post-ansible" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/31/ansible/">ansible</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>因为项目需要,所以提前学习了一下ansible,ansible是一个配置管理工具。</p>
+<p>##ansible 安装<br>Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install ansible</div></pre></td></tr></table></figure></p>
+<p>Python包管理工具pip安装,root 安装方式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install ansible</div></pre></td></tr></table></figure></p>
+<p>非root安装方式,可以安装到一个Python virtualenv中,或者使用pipsi工具,自动安装到Python virtualenv中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py</div><div class="line">python get-pipsi.py</div><div class="line">pipsi install ansible</div></pre></td></tr></table></figure></p>
+<p>再将~/.local/bin添加到Path环境变量中。</p>
+<p>使用pip安装docker-py和boto<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.local/venvs/ansible</div><div class="line">source bin/actiivate</div><div class="line">pip install docker-py boto</div></pre></td></tr></table></figure></p>
+<p>ps: 安装wget<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd Downloads</div><div class="line">curl -O http://ftp.gnu.org/gnu/wget/wget-1.14.tar.gz</div><div class="line">tar xvzf wget-1.14.tar.gz</div><div class="line">cd wget-1.14</div><div class="line">./configure --with-ssl=openssl</div><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure></p>
+<p><a href="https://coolestguidesontheplanet.com/install-and-configure-wget-on-os-x/" target="_blank" rel="external">install wget in Mac OS X</a></p>
+<p>参考<a href="https://valdhaus.co/writings/ansible-mac-osx/" target="_blank" rel="external">install ansible on Mac</a><br><a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank" rel="external">ansible官方安装文档</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/31/ansible/" class="archive-article-date">
+  	<time datetime="2016-10-31T06:43:38.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-31</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Software-Architecture" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/28/Software-Architecture/">架构设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在接受一个培训,第一次接触了架构设计的知识,有些名词晦涩难懂,导致在这一块的学习还是有所欠缺。<br>尽管如此,在培训中和培训后的努力学习后,做了点整理,理解的可能有所偏差,欢迎拍砖。</p>
+<p>架构设计对于一个项目来说十分重要。</p>
+<h2 id="一份完整的架构设计应该包括哪些内容"><a href="#一份完整的架构设计应该包括哪些内容" class="headerlink" title="一份完整的架构设计应该包括哪些内容"></a>一份完整的架构设计应该包括哪些内容</h2><p>1）建模，提炼资源<br>2）系统结构（BFF，业务流程）<br>3）开发团队结构<br>4）可用性与性能架构<br>5）安全性架构<br>6）质量架构<br>7）部署架构<br>8）运维架构<br>9）技术选型</p>
+<h2 id="面向行为的接口设计与面向资源的接口设计-ROA"><a href="#面向行为的接口设计与面向资源的接口设计-ROA" class="headerlink" title="面向行为的接口设计与面向资源的接口设计(ROA)"></a>面向行为的接口设计与面向资源的接口设计(ROA)</h2><p>面向行为的接口设计是建立在动词（行为）的基础之上的，系统要枚举所有的业务行为，如果行为发生改变，接口也随之改变。<br>面向资源的接口设计便于实施、设计灵活、是轻量级的对象访问方式。<br>面向资源的接口设计关注的是名词（资源），解决了在业务需求发生变化时要对代码做很大的改变的问题。</p>
+<h2 id="SOA-面向服务的架构设计"><a href="#SOA-面向服务的架构设计" class="headerlink" title="SOA 面向服务的架构设计"></a>SOA 面向服务的架构设计</h2><p>将紧耦合的系统,划分为面向业务的,粗粒度,松耦合,无状态的服务。<br>目的是提高软件的重用性，减少开发和维护的成本，最终增加敏捷度。</p>
+<h2 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h2><p>微服务架构其中的一个重点是业务系统需要彻底的组件化和服务化,原来的业务可以拆分成独立的系统应用进行开发,这些相互独立的系统应用通过服务完成交互和集成。<br>它的目的是有效的拆分应用,实现敏捷开发和部署,为构建应用提供更轻量级、更高效的开发。</p>
+<p>微服务不再强调传统SOA架构里面比较重的<strong>ESB</strong>企业服务总线，同时SOA的思想进入到单个业务系统内部实现真正的组件化。</p>
+<h4 id="微服务足够构成一个独立的小应用-从DB到UI"><a href="#微服务足够构成一个独立的小应用-从DB到UI" class="headerlink" title="微服务足够构成一个独立的小应用(从DB到UI)"></a>微服务足够构成一个独立的小应用(从DB到UI)</h4><p>微服务的基本思想在于考虑围绕着业务领域组件来创建应用,这些应用可以独立的进行开发管理和加速。在分散的组件中使用微服务云架构和平台使部署管理和服务功能交付变得更加简单。</p>
+<p>(<strong>Devops</strong>:开发测试和部署运维一体化。)</p>
+<p>把单体应用拆分成多个小应用后,整体架构可以松耦合和可扩展,但是当拆分的组件越多,这些组件之间本省的集成和部署运维就越复杂。<br>任何一个组件,当依赖的外部应用组件越多的时候,整个集成,部署和连调测试的过程就越复杂,所以自动化这个过程可以减少工作量和出错概率。</p>
+<p>微服务架构首先要做好单个组件本身的持续集成,其次在这个基础上增加了多个组件的打包部署和组件间的集成。包括环境变量的配置,自动打包部署,自动化的测试等。</p>
+<p>不像传统多个服务共享一个数据库,微服务架构每个服务都有自己的数据库。</p>
+<h4 id="一般运行在云虚拟机或者更轻的Docker上"><a href="#一般运行在云虚拟机或者更轻的Docker上" class="headerlink" title="一般运行在云虚拟机或者更轻的Docker上"></a>一般运行在云虚拟机或者更轻的Docker上</h4><p>微服务架构强调了单个组件本身可以在独立的进程里面运行,各个组件之间在部署的时候就能够做到进程级别的隔离性。<br>为了保持进程的隔离性,使用虚拟机,但是几十个进程都完全用独立的虚拟机就不现实,解决方案为利用Docker容器,每个Docker是独立的容器,完全做到了进程季节的隔离,资源占用率最小,满足了微服务架构的开发测试和自动化部署。</p>
+<h4 id="微服务应用之间只能通过Service-API进行交互"><a href="#微服务应用之间只能通过Service-API进行交互" class="headerlink" title="微服务应用之间只能通过Service API进行交互"></a>微服务应用之间只能通过Service API进行交互</h4><p>单个服务的实现和发布仍然在组件内部完成,但是需要一个统一的SOA服务管理平台来显示服务本身的调用情况,服务本身的安全,日志和流量控制。<br>微服务强调采用HTTP Rest API的方式。<br>即微服务尽量通过HTTP API的方式暴露出去,因此这种服务管理平台需要基本的服务注册,服务代理,服务发布,服务简单的路由,安全访问和授权,服务调用消息和日志记录功能。</p>
+<h3 id="微服务架构的优势"><a href="#微服务架构的优势" class="headerlink" title="微服务架构的优势"></a>微服务架构的优势</h3><p>1.通过分解巨大单体式应用为多个服务方法解决了复杂性问题。在功能不变的情况下,应用被分解为多个可管理的分支或服务。单个服务很容易开发、理解和维护。<br>2.每个服务都可以有专门的开发团队并行开发。<br>3.每个服务独立部署,不需要协调其他服务部署对本服务的影响,加快了部署速度,使得持续化部署成为可能。<br>4.每个服务可独立扩展。<br>5.每个服务足够内聚，足够小，代码容易理解、开发效率提高。<br>7.提高容错性，一个服务的内存泄露并不会让整个系统瘫痪。<br>8.可以使用多个技术栈,系统不会被技术栈长期限制。</p>
+<h3 id="微服务架构的不足"><a href="#微服务架构的不足" class="headerlink" title="微服务架构的不足"></a>微服务架构的不足</h3><p>1.一个应用系统里面的模块没有办法做到彻底解耦,无法实现组件单独部署,相互之间有大量内部不可见依赖而导致了模块间的无法拆分。<br>2.微服务应用式分布式系统,会带来固有的复杂性。<br>3.分区的数据库架构带来的挑战,因为需要更新不同服务所使用的不同的数据库。<br>4.测试一个基于微服务架构的应用很复杂。<br>5.微服务架构模式应用的改变将会波及多个服务。<br>6.部署一个微服务应用也很复杂，一个分布式应用只需要简单在复杂均衡器后面部署各自的服务器就好了。每个应用实例是需要配置诸如数据库和消息中间件等基础服务。</p>
+<h3 id="微服务的特征"><a href="#微服务的特征" class="headerlink" title="微服务的特征:"></a>微服务的特征:</h3><p>通过服务实现组件化<br>按业务能力来划分服务于组织团队<br>服务即产品<br>智能终端与哑管道<br>去中心统一化<br>基础设施自动化<br>Design for failure<br>进化设计</p>
+<h3 id="微服务总结"><a href="#微服务总结" class="headerlink" title="微服务总结"></a>微服务总结</h3><p>一个微服务一般完成某个特定的功能,每个微服务都是一个微型应用,有着自己的六边形架构,包括商业逻辑和各种接口。<br>有的微服务通过暴露API被别的微服务或者应用客户端所用;有的微服务则通过UI实现。在运行时,每个实力通常时一个云虚拟机或者Docker容器。</p>
+<h2 id="SOA、微服务、服务化这几个概念的差别和关系"><a href="#SOA、微服务、服务化这几个概念的差别和关系" class="headerlink" title="SOA、微服务、服务化这几个概念的差别和关系"></a>SOA、微服务、服务化这几个概念的差别和关系</h2><p>SOA服务导向架构，将应用程序功能作为服务发送给最终用户或者其他服务，是整合各种业务的应用程序。<br>微服务是一种以业务功能为主的服务设计，通过将功能分散到各个离散的服务中以实现对解决方案的解耦，所以每一个服务都具有自主运行的业务功能。微服务只属于一个应用程序，它要求业务系统彻底的组件化和服务化。<br>服务化是一种粗粒度、松耦合的以服务为中心的架构，服务之间通过定义明确的协议和接口进行通信。</p>
+<h2 id="好的架构应该具备的特征"><a href="#好的架构应该具备的特征" class="headerlink" title="好的架构应该具备的特征"></a>好的架构应该具备的特征</h2><p>基于资源的接口设计<br>开发团队结构要正确映射系统架构<br>要考虑业务架构和组织架构</p>
+<p>参考文章:<br><a href="http://colobu.com/2015/04/08/software-architecture-patterns/" target="_blank" rel="external">软件架构模式</a><br><a href="https://www.zhihu.com/question/37808426" target="_blank" rel="external">SOA和微服务的区别</a><br><a href="http://dockone.io/article/394" target="_blank" rel="external">微服务架构的优势与不足</a><br><a href="https://www.ibm.com/developerworks/community/blogs/3302cc3b-074e-44da-90b1-5055f1dc0d9c/entry/%E8%A7%A3%E6%9E%90%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84_%E4%B8%80_%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1?lang=en" target="_blank" rel="external">解析微服务架构(一)</a><br><a href="http://www.jianshu.com/p/546ef242b6a3" target="_blank" rel="external">基于微服务的软件架构模式</a><br><a href="http://www.hollischuang.com/archives/1628" target="_blank" rel="external">组件化、模块化、集中式、分布式、服务化、面向服务的架构、微服务架构</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/28/Software-Architecture/" class="archive-article-date">
+  	<time datetime="2016-10-28T06:46:47.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-28</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Continuous-Integration" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -782,123 +910,6 @@
 
 
   
-    <article id="post-TWU-travel" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/30/TWU-travel/">印度之旅(一)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>难得的一个机会,让我来到了印度这个国度,在这里发生了许许多多的事,我觉得这会是一个毕生难忘的经历。</p>
-<h3 id="印度的幻想"><a href="#印度的幻想" class="headerlink" title="印度的幻想"></a>印度的幻想</h3><p>关于印度,真的是不同人有不同的concern。<br>有人说:印度啊……好热的,上次新闻不是还说上50多度了吗,你去一定晒成黑炭<br>我:我读书少,你别骗我(°__°)<br>有人说:印度啊……好乱的,你还是别出门了<br>我:不出门,我去印度当宅女吗<br>有人说:印度啊……妹子很漂亮,身材棒的不要不要的<br>我:真的么(☆__☆)</p>
-<p>结果,真正的印度,也只有去了,才知道真相是什么。</p>
-<p>作为一个小白,再经历千辛万苦顺利上飞机,北京顺利会师,紧跟部队不放松后,终于平平安安的到达了印度。</p>
-<p>一出机场,就觉得你TM的逗我呢!<br>这么凉爽的天气,说好的50多度高温呢!带了一堆夏天的”薄”衣服,要不是还有件外套,天天冻的起鸡皮<br>还有哪个跟我说遍地漂亮妹子的,还有一个一个包的如此严实,您老咋看出的身材</p>
-<p>所以,到达之前,一定不要脑补太多</p>
-<h3 id="印度的语言"><a href="#印度的语言" class="headerlink" title="印度的语言"></a>印度的语言</h3><p>在印度,有很多很多语言,而不是我想的英语和单一的印度语。<br>在印度,小孩子是从小学英语的,他们还有很多电视也是英文的,路边的牌子上也有英文,所以我觉得英语应该是他们的第二语言。就像中国的,每个人都会讲自己的方言和普通话一样。<br>在中国,不同地方的人的普通话都有不一样的口音在。所以,你懂的,在印度,他们的英语也带有他们独特的口音,这对我来说简直就是一个灾难,英语都还有点吃力,更不用说带着口音的英语。</p>
-<p>基本上,在印度小伙伴说话的时候,我都是一脸蒙逼。<br>记得很多公司的小伙伴告诉我,要做一个诚实的孩子。To be honest……<br>是的,要诚实,懂就是懂,不懂就是不懂,所以快看一看我这个very confuse的脸(・ω・)ノ</p>
-<p>感觉在印度,最有用的就是肢体语言了,表情和动作,可以提供很多信息,所以当我们对着一个印度人点菜的时候……<br>印度人:????//????(他们说的话)<br>我:Em……(说的是啥,看动作好像是欢迎,算了,还是不说话,没听懂,坐下)<br>印度人很自觉的上了菜单。<br>我:Em……(全英文菜单,宝宝看不懂,拜拜……哎!等等,咱有图,嗯~这个不错)<br>我:This(手点),One</p>
-<p>最后,终于吃到饭了,至于味道如何,看运气了……</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/09/30/TWU-travel/" class="archive-article-date">
-  	<time datetime="2016-09-30T08:17:35.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/essays/">essays</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Html-5-storage" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/30/Html-5-storage/">Html 5 新特性之本地存储</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在HTML5中对本地离线存储有了更好的支持,它提供了两种在客户端存储数据的新方法,即localStorage和sessionStorage</p>
-<h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>localStorage是没有时间限制的数据存储</p>
-<p>使用方式:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">local</span>Storage.pagecount) &#123;</div><div class="line">        <span class="built_in">local</span>Storage.pagecount = Number(<span class="built_in">local</span>Storage.pagecount) + 1;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">local</span>Storage.pagecount = 1;</div><div class="line">    &#125;</div><div class="line">    document.write(<span class="string">"Visits: "</span> + <span class="built_in">local</span>Storage.pagecount + <span class="string">" time(s)."</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>刷新页面,数字增长。就算关闭浏览器窗口,再打开,数字还是在继续增长,而没有回到1。</p>
-<p>删除存储的数据代码:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">local</span>Storage.removeItem(<span class="string">"pagecount"</span>);</div></pre></td></tr></table></figure></p>
-<h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage是针对一个 session 的数据存储</p>
-<p>使用方式:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="keyword">if</span> (sessionStorage.pagecount) &#123;</div><div class="line">        sessionStorage.pagecount = Number(sessionStorage.pagecount) + 1;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        sessionStorage.pagecount = 1;</div><div class="line">    &#125;</div><div class="line">    document.write(<span class="string">"Visits "</span> + sessionStorage.pagecount + <span class="string">" time(s) this session."</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>刷新页面,数字增长。当关闭浏览器窗口,再打开,数字回到初始值1。</p>
-<p><a href="https://github.com/wszhi/font_end/tree/master/src/com/html5/example" target="_blank" rel="external">Github参考代码</a><br>W3C school的<a href="http://www.w3c-schools.com/html/default.asp.htm" target="_blank" rel="external">HTML5教程</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/09/30/Html-5-storage/" class="archive-article-date">
-  	<time datetime="2016-09-30T07:31:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -968,7 +979,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     
