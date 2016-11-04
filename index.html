@@ -140,6 +140,107 @@
       <div class="body-wrap">
         
   
+    <article id="post-List-Task" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/02/List-Task/">任务分解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。</p>
+<h2 id="任务分解-列Task"><a href="#任务分解-列Task" class="headerlink" title="任务分解,列Task"></a>任务分解,列Task</h2><p>当我们拿到一个任务卡片时,经常干的一件事,就是明确卡片中的要求和明细,然后就直接开始码代码了。因为写的代码是可见的,运行成功会有极大成就感,然而其实这并不是一个好的方式。</p>
+<p>在我们写代码之前应该根据卡片内容,从开发的角度把一个大卡分解成各个小任务,然后针对每个小任务进行开发才是可取的。其实这种方法得到的成就感并不亚于前者。</p>
+<h4 id="Task-是什么-如何列"><a href="#Task-是什么-如何列" class="headerlink" title="Task 是什么,如何列"></a>Task 是什么,如何列</h4><p>很多人会和我一样困惑,要列Task,但是什么是Task呢?一般来说,一个function(函数),一个Process或者一个Code Block(代码块)都可以是一个Task。<br>每一个Task都有相应的输入和输出。输入的可以是函数的参数,全局变量,局部变量(对于代码块来说)。输出可以是返回值,变量等。</p>
+<p>每个Task的输入都是可穷尽的,在列Task的时候要列出所有用到的Task。<br>列Task的时候的命名要精确,每一个名字在不同的地方有不同的意思。</p>
+<p>列Task,一般会画一个包含Data和Process的图。类似一个有架构的数据流向图。Data(数据)一般有数组、队列、栈、树、对象、类、有循环的对象等,Process(过程)一般有顺序的、选择的(if/switch)、循环(for/while)等。</p>
+<p>参考<br><a href="https://www.zybuluo.com/jtong/note/504192" target="_blank" rel="external">编程的精进之法</a></p>
+<h2 id="PDCA-戴明环"><a href="#PDCA-戴明环" class="headerlink" title="PDCA 戴明环"></a>PDCA 戴明环</h2><p>PDCA指的是Plan-Do-Check-Action,而列Task属于Plan的内容。</p>
+<p>如何定义Done?<br>1.code Done<br>2.test pass<br>3.Integration env<br>4.showcase<br>5.production env<br>6.ux(用户使用)</p>
+<p>单个任务的开发流程:0)Spike即调研;1)写测试;2)写实现;3)测试通过</p>
+<h2 id="打印学生成绩单"><a href="#打印学生成绩单" class="headerlink" title="打印学生成绩单"></a>打印学生成绩单</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景:"></a>背景:</h4><p><a href="https://www.zybuluo.com/jtong/note/471501" target="_blank" rel="external">https://www.zybuluo.com/jtong/note/471501</a>  中的课后作业<br>打印所有人的成绩单,包括平均分和总分。<br>打印全班级的总分平均分和中位数。</p>
+<h4 id="列Task"><a href="#列Task" class="headerlink" title="列Task"></a>列Task</h4><h5 id="1-转换ViewModel"><a href="#1-转换ViewModel" class="headerlink" title="1) 转换ViewModel"></a>1) 转换ViewModel</h5><p>输入:</p>
+<pre><code>studentScoresArray:[[String]]
+</code></pre><p>输出:</p>
+<pre><code>studentScoresSheet:[{
+    name:String,
+    chinese:double,
+    english:double,
+    math:double,
+    programming:double
+    },
+    {
+    ...
+    }]
+</code></pre><h5 id="2-得到学生成绩"><a href="#2-得到学生成绩" class="headerlink" title="2) 得到学生成绩"></a>2) 得到学生成绩</h5><p>输入:</p>
+<pre><code>studentScoresSheet
+</code></pre><p>输出:</p>
+<pre><code>studentScoresSheetWithSummary:[{
+    name:String,
+    chinese:double,
+    english:double,
+    math:double,
+    programming:double,
+    average:double,
+    total:double
+    },
+    {
+     ...
+    }]
+</code></pre><h5 id="3-计算总计"><a href="#3-计算总计" class="headerlink" title="3) 计算总计"></a>3) 计算总计</h5><p>输入:</p>
+<pre><code>studentScoresSheetWithSummary
+</code></pre><p>输出:</p>
+<pre><code>summary:{
+    totalAverage:double,
+    totalMidden:double
+    }
+</code></pre><h5 id="4-打印成绩单"><a href="#4-打印成绩单" class="headerlink" title="4) 打印成绩单"></a>4) 打印成绩单</h5><p>输入:</p>
+<pre><code>studentScoresSheetWithSummary
+summary
+</code></pre><p>输出:</p>
+<pre><code>Result:String
+</code></pre><p><a href="https://github.com/wszhi/TaskConsoleStudentScoreInfo" target="_blank" rel="external">Github代码</a></p>
+<h2 id="猜数字游戏"><a href="#猜数字游戏" class="headerlink" title="猜数字游戏"></a>猜数字游戏</h2>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/02/List-Task/" class="archive-article-date">
+  	<time datetime="2016-11-02T07:26:15.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-02</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ansible" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -159,7 +260,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>因为项目需要,所以提前学习了一下ansible,ansible是一个配置管理工具。</p>
-<p>##ansible 安装<br>Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install ansible</div></pre></td></tr></table></figure></p>
+<h2 id="ansible-安装"><a href="#ansible-安装" class="headerlink" title="ansible 安装"></a>ansible 安装</h2><p>Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install ansible</div></pre></td></tr></table></figure></p>
 <p>Python包管理工具pip安装,root 安装方式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install ansible</div></pre></td></tr></table></figure></p>
 <p>非root安装方式,可以安装到一个Python virtualenv中,或者使用pipsi工具,自动安装到Python virtualenv中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py</div><div class="line">python get-pipsi.py</div><div class="line">pipsi install ansible</div></pre></td></tr></table></figure></p>
 <p>再将~/.local/bin添加到Path环境变量中。</p>
@@ -836,61 +937,6 @@
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-TWU-travel2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/03/TWU-travel2/">印度之旅(二)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>来到一个国家,不去体验当地的风土人情,就感觉就缺了点什么。所以在印度为数不多的空闲时间里,还是和小伙伴们组队去了一些地方。</p>
-<h3 id="孟买的trip"><a href="#孟买的trip" class="headerlink" title="孟买的trip"></a>孟买的trip</h3><p>在我们的计划中,只有第一个周的周末是free time,所以我们就想蹭着这个机会去印度的孟买玩一圈。<br>提前两三天的时候,在和美国同事聊天时发现她们也有意愿去孟买,所以立马表明了我们的心意。理所当然的,本来由中国人组成的团队扩张到了全球化的团队。</p>
-<p>说起来,在这个过程中确实体现了美国同事的快速行动力,他们联系好了车(公司的班车),也提前预约了酒店,所以对他们来说就显得比较的享受。而我们确实因为某些原因使得我们没有那么高效。<br>例如,我们并不知道国外的酒店是必须网上预约后才能Check in的,因为中国的酒店你去了有房间就可以入住;在很早的时候,我们也无法确认最后晚上入住的人员;还有天气的原因的等等。</p>
-<p>但是不论我们耽搁了多久,我们还是自己解决了住宿和吃饭的问题。</p>
-<p>在孟买,人人都说这是印度的旅游大城市,它靠近海边(虽然海是灰色的),也有很多小摊售卖印度特色的东西,还有遗留的英式建筑。</p>
-<p>印度人好像很喜欢装饰品,路边有超级多的卖金闪闪的项链、耳环、手链、脚链……</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/03/TWU-travel2/" class="archive-article-date">
-  	<time datetime="2016-10-03T06:33:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-03</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/essays/">essays</a></li></ul>
 	</div>
 
       
