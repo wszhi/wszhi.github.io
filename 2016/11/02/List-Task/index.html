@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20161107144618709">
 <meta property="og:image" content="http://img.blog.csdn.net/20161107144638756">
 <meta property="og:image" content="http://img.blog.csdn.net/20161107144657923">
-<meta property="og:updated_time" content="2016-11-07T07:40:24.000Z">
+<meta property="og:updated_time" content="2016-11-07T08:23:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="任务分解">
 <meta name="twitter:description" content="对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。
@@ -178,7 +178,7 @@
 <h2 id="PDCA-戴明环"><a href="#PDCA-戴明环" class="headerlink" title="PDCA 戴明环"></a>PDCA 戴明环</h2><p>PDCA指的是Plan-Do-Check-Action,而列Task属于Plan的内容。</p>
 <p>如何定义Done?<br>1.code Done<br>2.test pass<br>3.Integration env<br>4.showcase<br>5.production env<br>6.ux(用户使用)</p>
 <p>单个任务的开发流程:0)Spike即调研;1)写测试;2)写实现;3)测试通过</p>
-<h2 id="打印学生成绩单"><a href="#打印学生成绩单" class="headerlink" title="打印学生成绩单"></a>打印学生成绩单</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景:"></a>背景:</h4><p><a href="https://www.zybuluo.com/jtong/note/471501" target="_blank" rel="external">https://www.zybuluo.com/jtong/note/471501</a>  中的课后作业<br>打印所有人的成绩单,包括平均分和总分。<br>打印全班级的总分平均分和中位数。</p>
+<h2 id="例子一-打印学生成绩单"><a href="#例子一-打印学生成绩单" class="headerlink" title="例子一,打印学生成绩单"></a>例子一,打印学生成绩单</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景:"></a>背景:</h4><p><a href="https://www.zybuluo.com/jtong/note/471501" target="_blank" rel="external">https://www.zybuluo.com/jtong/note/471501</a>  中的课后作业<br>打印所有人的成绩单,包括平均分和总分。<br>打印全班级的总分平均分和中位数。</p>
 <h4 id="列Task"><a href="#列Task" class="headerlink" title="列Task"></a>列Task</h4><h5 id="1-转换ViewModel"><a href="#1-转换ViewModel" class="headerlink" title="1) 转换ViewModel"></a>1) 转换ViewModel</h5><p>输入:</p>
 <pre><code>studentScoresArray:[[String]]
 </code></pre><p>输出:</p>
@@ -220,13 +220,22 @@ summary
 </code></pre><p>输出:</p>
 <pre><code>Result:String
 </code></pre><p><a href="https://github.com/wszhi/TaskConsoleStudentScoreInfo" target="_blank" rel="external">Github代码</a></p>
-<h2 id="猜数字游戏"><a href="#猜数字游戏" class="headerlink" title="猜数字游戏"></a>猜数字游戏</h2><p><a href="https://github.com/raypeng/guess-number-raypeng/blob/master/README.md" target="_blank" rel="external">具体游戏内容</a></p>
-<p>应用启动<br><img src="http://img.blog.csdn.net/20161107144603037" alt=""></p>
-<p>界面1(按1启动游戏)<br><img src="http://img.blog.csdn.net/20161107144618709" alt=""></p>
+<h2 id="例子二-猜数字游戏"><a href="#例子二-猜数字游戏" class="headerlink" title="例子二,猜数字游戏"></a>例子二,猜数字游戏</h2><p><a href="https://github.com/raypeng/guess-number-raypeng/blob/master/README.md" target="_blank" rel="external">具体游戏内容</a><br>这个游戏有几个需要注意点:<br>1)Compare(两个数字对比的前提假设:符合要求的、合法的值)<br>2)生成随机数(生成的数是数字、四位、每位都不一样)<br>3)游戏流程(进入游戏–第一次成功/中间成功/最后一次成功/游戏失败)</p>
+<p>PS:不能放过任何一个逻辑冲突;等加类划分可以使用正交分解法;还要考虑系统状态怎么保持<br>正交分解法:</p>
+<pre><code> \ 位   |         |         | 
+  \ 置  |         |         |
+数 \    | 全都一样 | 全不一样 | 部分一样
+字  \   |         |         |
+--------------------------------------
+全都一样 | 4A0B    | 0A4B    | 2A4B
+全不一样 | 不可能   | 0A0B    | 不可能
+部分一样 | 不可能   | 0A2B    | 2A2B
+</code></pre><p>分解后的图如下:<br>1)应用启动<br><img src="http://img.blog.csdn.net/20161107144603037" alt=""></p>
+<p>2)界面1(按1启动游戏)<br><img src="http://img.blog.csdn.net/20161107144618709" alt=""></p>
 <p><img src="http://img.blog.csdn.net/20161107144638756" alt=""></p>
 <p>main是解决输入输出的。<br>Router通过输入输出解析找到具体的Command。<br>Command处理各种具体的用户输入,对Core层返回的结果翻译成友好的输出。<br>Core层函数生成计算结果。</p>
-<p>退出(按2退出游戏)<br><img src="http://img.blog.csdn.net/20161107144657923" alt=""></p>
-
+<p>3)退出(按2退出游戏)<br><img src="http://img.blog.csdn.net/20161107144657923" alt=""></p>
+<h2 id="例子三-邮编和条码的转化"><a href="#例子三-邮编和条码的转化" class="headerlink" title="例子三,邮编和条码的转化"></a>例子三,邮编和条码的转化</h2><h2 id="例子四-一对多web基础应用"><a href="#例子四-一对多web基础应用" class="headerlink" title="例子四,一对多web基础应用"></a>例子四,一对多web基础应用</h2><h2 id="例子五-多对多web基础应用"><a href="#例子五-多对多web基础应用" class="headerlink" title="例子五,多对多web基础应用"></a>例子五,多对多web基础应用</h2>
       
     </div>
     <div class="article-info article-info-index">
@@ -249,6 +258,15 @@ summary
 
   
 <nav id="article-nav">
+  
+    <a href="/2016/11/07/Docker-Learn2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Docker 学习笔记(二)
+        
+      </div>
+    </a>
   
   
     <a href="/2016/10/31/ansible/" id="article-nav-older" class="article-nav-link-wrap">
@@ -349,7 +367,7 @@ summary
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     

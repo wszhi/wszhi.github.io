@@ -140,6 +140,64 @@
       <div class="body-wrap">
         
   
+    <article id="post-Angular-Form" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/08/Angular-Form/">Angular Form Property And Class</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>好好学习,天天向上!</p>
+<p>form 的相关方法要生效，必须为 form 标签指定 name 和 ng-controller,并且每个控件都要绑定一个变量。<br>form 和控件的名字，即是 $scope 中的相关实例的引用变量名。</p>
+<h2 id="Form对象属性"><a href="#Form对象属性" class="headerlink" title="Form对象属性"></a>Form对象属性</h2><p>$pristine 表单是否未被动过<br>$dirty 表单是否被动过<br>$valid 表单是否验证通过<br>$invalid 表单是否验证失败<br>$error 表单的验证错误( key是失败信息,像required,minlength…… value是对应的字段实例列表。这里的失败信息是按序列取的一个)</p>
+<p>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;form name=<span class="string">"test_form"</span> ng-controller=<span class="string">"TestCtrl"</span>&gt;</div><div class="line">    &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"a"</span> required ng-model=<span class="string">"a"</span>  /&gt;</div><div class="line">    &lt;span&gt;&#123;&#123; test_form.<span class="variable">$valid</span> &#125;&#125;&lt;/span&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="Form标签特定的class属性"><a href="#Form标签特定的class属性" class="headerlink" title="Form标签特定的class属性"></a>Form标签特定的class属性</h2><p>除去对象的方法与属性， form 这个标签本身有一些class可以使用：<br>ng-valid 当表单验证通过时的设置<br>ng-invalid 当表单验证失败时的设置<br>ng-pristine 表单的未被动之前拥有<br>ng-dirty 表单被动过之后拥有</p>
+<p>使用方法:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">input.ng-invalid &#123;</div><div class="line">    border: 1px solid red;</div><div class="line">&#125;</div><div class="line">input.ng-valid &#123;</div><div class="line">    border: 1px solid green;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>加上两种class的css,input边框在验证通过的时候是绿色,不通过则是红色。</p>
+<p>Github<a href="https://github.com/wszhi/font_end/blob/master/src/com/angular/example/7.5_form_property_and_class.html" target="_blank" rel="external">参考代码</a></p>
+<p><a href="https://docs.angularjs.org/api/ng/directive/form" target="_blank" rel="external">angular官方文档</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/08/Angular-Form/" class="archive-article-date">
+  	<time datetime="2016-10-08T02:09:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-08</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-TWU-travel2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -576,7 +634,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 13.33px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     
