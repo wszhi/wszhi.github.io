@@ -4,18 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Docker 学习笔记(三) | Shengzhi Wang</title>
+  <title>Docker 学习笔记(三)--创建image | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="持续更新中。。。">
+  <meta name="description" content="build 构建一个镜像读取配置文件构建image(文件名默认Dockerfile,也可以自定义):1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。1Docker build - &amp;lt; Dockerfile
+2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。12Docker bu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker 学习笔记(三)">
+<meta property="og:title" content="Docker 学习笔记(三)--创建image">
 <meta property="og:url" content="http://yoursite.com/2016/11/09/Docker-learn3/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="持续更新中。。。">
-<meta property="og:updated_time" content="2016-11-09T09:31:15.000Z">
+<meta property="og:description" content="build 构建一个镜像读取配置文件构建image(文件名默认Dockerfile,也可以自定义):1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。1Docker build - &amp;lt; Dockerfile
+2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。12Docker bu">
+<meta property="og:updated_time" content="2016-11-11T03:45:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker 学习笔记(三)">
-<meta name="twitter:description" content="持续更新中。。。">
+<meta name="twitter:title" content="Docker 学习笔记(三)--创建image">
+<meta name="twitter:description" content="build 构建一个镜像读取配置文件构建image(文件名默认Dockerfile,也可以自定义):1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。1Docker build - &amp;lt; Dockerfile
+2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。12Docker bu">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -149,7 +152,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Docker 学习笔记(三)
+      Docker 学习笔记(三)--创建image
     </h1>
   
 
@@ -157,7 +160,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>持续更新中。。。</p>
+        <h2 id="build-构建一个镜像"><a href="#build-构建一个镜像" class="headerlink" title="build 构建一个镜像"></a>build 构建一个镜像</h2><p>读取配置文件构建image(文件名默认Dockerfile,也可以自定义):<br>1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build - &lt; Dockerfile</div></pre></td></tr></table></figure></p>
+<p>2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Docker build $(HOME)/Users/Dockerfile</div><div class="line">Docker build $(HOME)/Users/otherfile    名字可变</div></pre></td></tr></table></figure></p>
+<p>3)使用URL参数,URL必须指向一个git地址。Docker会把指定的git仓库克隆到本地,然后把仓库中的Dockerfile内容传给Docker Daemon。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build https://github.com/wszhi/Docker-image.git#container:Docker</div></pre></td></tr></table></figure></p>
+<p>以上命令通知Docker Daemon加载<a href="https://github.com/wszhi/Docker-image.git" target="_blank" rel="external">https://github.com/wszhi/Docker-image.git</a> 仓库,切换到container分支,在Docker目录下的Dockerfile文件来构建image。<br>注意: “:”后面的是Dockerfile文件的路径,此方式不支持自定义命名。若为master分支#后为空<br>若当前目录有Dockerfile文件可以省略路径使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build --rm=false .</div></pre></td></tr></table></figure></p>
+<p>–rm=false表示不删除临时镜像,当经常构建且变化不大的时候建议使用。</p>
+<h4 id="build-构建镜像三要素"><a href="#build-构建镜像三要素" class="headerlink" title="build 构建镜像三要素"></a>build 构建镜像三要素</h4><p>build命令构建镜像是用Dockerfile文件中的指令来构建的,三个要素为:Dockerfile文件、所涉及文件和镜像参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build -t image_name .</div></pre></td></tr></table></figure></p>
+<p>默认执行Dockerfile文件。</p>
+<h4 id="build命令执行的主要逻辑"><a href="#build命令执行的主要逻辑" class="headerlink" title="build命令执行的主要逻辑"></a>build命令执行的主要逻辑</h4><p>1)获取Dockerfile文件——客户端<br>2)加载Dockerfile文件所在目录下的所有文件——-客户端<br>3)解析Dockerfile文件指令<br>4)执行文件内指令,判断是否存在有效缓存镜像<br>5)执行指令</p>
+<p>其中获取Dockerfile文件的方式有三种:<br>1.通过标准输入传入,参数”-“;<br>2.通过远程方式获取,git;<br>3.通过指定路径方式获取。</p>
+<h4 id="build命令构建镜像原理"><a href="#build命令构建镜像原理" class="headerlink" title="build命令构建镜像原理"></a>build命令构建镜像原理</h4><p>客户端将Dockerfile所需要的文件和镜像参数传递给Daemon。<br>然后Daemon处理客户端传来的各项参数(为后续的解压操作和文件I/O操作做准备)。<br>当参数处理完成之后,Daemon开始解压文件,抽取文件。<br>最后Daemon解析Dockerfile,生成指令语法树。<br>之后Daemon使用解析后的指令从已经初始化的指令——函数对应表中找到对应的处理函数,最后执行函数。</p>
+<p>流程:<br>(客户端)<br>加载Dockerfile—&gt;压缩构建目录—&gt;添加镜像参数——发送构建请求—-&gt;<br>(服务端)<br>—-&gt;生成构建参数—&gt;获取压缩包—&gt;解压文件—&gt;解析Dockerfile生成语法树—&gt;初始化指令处理对照表—&gt;循环执行指令—&gt;删除解压文件—&gt;构建完成</p>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>Dockerfile 文件记录着用户”创建”镜像过程中需要执行的所有命令,Docker可以读懂的脚本文件。<br>镜像指的是一组特定的文件层,镜像的构建过程就是Docker执行Dockerfile所定义命令而形成这组文件层的过程。</p>
+<h4 id="Dockerfile-内置命令"><a href="#Dockerfile-内置命令" class="headerlink" title="Dockerfile 内置命令"></a>Dockerfile 内置命令</h4><p>FROM 指明基础镜像名称,必填<br>MAINTAINER 备注信息,包括作者、版本等,可选填<br>RUN 用于执行后面的命令,当RUN执行完毕后,将产生一个新的文件层,可选填<br>CMD 指定此镜像启动时默认执行命令,可选填<br>LABEL 在镜像中添加元数据。例如版本号、构建日期等,可选填<br>EXPOSE 指定需要暴露的网络端口号,可选填<br>ENV 在镜像中添加环境变量,可选填<br>ADD 向镜像添加新文件或者新目录,可选填<br>COPY 从主句镜像复制文件,可选填<br>ENTRYPOINT 在镜像中设定默认执行的二进制程序,可选填<br>VOLUME 向镜像挂载一个卷组,可选填<br>USER 在镜像构建过程中,生成或者切换到另外一个用户,可选填<br>WORKDITR 设定此镜像后续操作的默认工作目录,可选填<br>ONBUILD 配置构建触发指令集,可选填</p>
+<p>参考书籍<br>《Docker 全攻略》张涛著   该本书有很长的篇幅介绍docker的命令<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
 
       
     </div>
@@ -281,7 +297,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 17.5px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 12.5px;">essays</a> <a href="/tags/html5/" style="font-size: 12.5px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     

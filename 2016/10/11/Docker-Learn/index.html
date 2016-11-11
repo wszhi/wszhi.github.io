@@ -4,27 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Docker 学习笔记 | Shengzhi Wang</title>
+  <title>Docker 学习笔记(一) | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="自学笔记(一)因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。因为之前没有怎么接触过,所以是从零开始。
-安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
-Docker 三大组件仓库镜像容器
-仓库Docker 官方维护了一个公共仓库Docker Hub">
+  <meta name="description" content="安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
+Boot2DockerBoot2Docker 是一个包含了 VirtualBox 虚拟软件、Docker 程序和Boot2Docker Management Tool的一个集合软件。Boot2Docker Manage">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker 学习笔记">
+<meta property="og:title" content="Docker 学习笔记(一)">
 <meta property="og:url" content="http://yoursite.com/2016/10/11/Docker-Learn/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="自学笔记(一)因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。因为之前没有怎么接触过,所以是从零开始。
-安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
-Docker 三大组件仓库镜像容器
-仓库Docker 官方维护了一个公共仓库Docker Hub">
-<meta property="og:updated_time" content="2016-10-13T07:58:12.000Z">
+<meta property="og:description" content="安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
+Boot2DockerBoot2Docker 是一个包含了 VirtualBox 虚拟软件、Docker 程序和Boot2Docker Management Tool的一个集合软件。Boot2Docker Manage">
+<meta property="og:updated_time" content="2016-11-11T03:45:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker 学习笔记">
-<meta name="twitter:description" content="自学笔记(一)因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。因为之前没有怎么接触过,所以是从零开始。
-安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
-Docker 三大组件仓库镜像容器
-仓库Docker 官方维护了一个公共仓库Docker Hub">
+<meta name="twitter:title" content="Docker 学习笔记(一)">
+<meta name="twitter:description" content="安装DockerMac 安装地址关于在Ubuntu、CentOS和Debian系统安装Docker,Docker —— 从入门到实践书里有安装教程其他系统安装Docker,参考官网
+Boot2DockerBoot2Docker 是一个包含了 VirtualBox 虚拟软件、Docker 程序和Boot2Docker Management Tool的一个集合软件。Boot2Docker Manage">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -158,7 +152,7 @@ Docker 三大组件仓库镜像容器
         
   
     <h1 class="article-title" itemprop="name">
-      Docker 学习笔记
+      Docker 学习笔记(一)
     </h1>
   
 
@@ -166,8 +160,8 @@ Docker 三大组件仓库镜像容器
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>自学笔记(一)<br>因为接下来的项目需求,所以需要好好学习一下怎么使用Docker。<br>因为之前没有怎么接触过,所以是从零开始。</p>
-<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Mac 安装地址</a><br>关于在Ubuntu、CentOS和Debian系统安装Docker,<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>书里有安装教程<br>其他系统安装Docker,参考<a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">官网</a></p>
+        <h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Mac 安装地址</a><br>关于在Ubuntu、CentOS和Debian系统安装Docker,<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>书里有安装教程<br>其他系统安装Docker,参考<a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">官网</a></p>
+<h2 id="Boot2Docker"><a href="#Boot2Docker" class="headerlink" title="Boot2Docker"></a>Boot2Docker</h2><p>Boot2Docker 是一个包含了 VirtualBox 虚拟软件、Docker 程序和Boot2Docker Management Tool的一个集合软件。Boot2Docker Management Tool是一个运行在Mac系统上的轻量级Linux虚拟机。<br>这个轻量级虚拟机完全运行在内存中,启动很快,体积很小。<br>通过Boot2Docker安装的Docker相当于运行在一个 VirtualBox 虚拟机中,而客户端运行在Mac OS 上。<br>(Mac直接安装Docker,不通过Boot2Docker安装感觉起来没什么区别啊?)</p>
 <h1 id="Docker-三大组件"><a href="#Docker-三大组件" class="headerlink" title="Docker 三大组件"></a>Docker 三大组件</h1><p>仓库<br>镜像<br>容器</p>
 <h1 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h1><p>Docker 官方维护了一个公共仓库<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a></p>
 <h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>本地命令:docker login<br>会有提示输入用户名和密码,一次登录后,会记住登录信息。本地用户目录的 .dockercfg 中将保存用户的认证信息。</p>
@@ -187,16 +181,16 @@ Docker 三大组件仓库镜像容器
 <p>ouruser/sinatra:v2为目标镜像的仓库名和 tag 信息,如v2<br></p>
 <p><strong>2.docker build 来创建一个新的镜像</strong><br>新建一个文件Dockerfile,里面的每一条指令都创建镜像的一层。<br></p>
 <p>Dockerfile 基本的语法是:<br>    使用 # 来注释<br>    FROM 指令告诉 Docker 使用哪个镜像作为基础<br>    接着是维护者的信息<br>    RUN 开头的指令会在创建中运行，比如安装一个软件包，在这里使用 apt-get来安装了一些软件<br></p>
-<p>编写完成 Dockerfile 后可以使用 docker build 来生成镜像。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t=&quot;ouruser/sinatra:v2&quot; .</div></pre></td></tr></table></figure></p>
+<p>编写完成 Dockerfile 后可以使用 docker build 来生成镜像。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t ouruser/sinatra:v2 .</div></pre></td></tr></table></figure></p>
 <p>其中 -t 标记来添加 tag，指定新的镜像的用户信息。 “.” 是 Dockerfile 所在的路径（当前目录），也可以替换为一个具体的 Dockerfile 的路径。</p>
-<p>改变镜像标签内容:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker tag 5db5f8471261 ouruser/sinatra:devel #5db...是镜像ID  后面的是修改后的标签</div></pre></td></tr></table></figure></p>
+<h4 id="改变镜像标签内容"><a href="#改变镜像标签内容" class="headerlink" title="改变镜像标签内容"></a>改变镜像标签内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker tag 5db5f8471261 ouruser/sinatra:devel #5db...是镜像ID  后面的是修改后的标签</div></pre></td></tr></table></figure>
 <h4 id="本地导入镜像"><a href="#本地导入镜像" class="headerlink" title="本地导入镜像:"></a>本地导入镜像:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cat ubuntu-14.04-x86_64-minimal.tar.gz |docker import - ubuntu:14.04</div></pre></td></tr></table></figure>
 <h4 id="镜像上传到远程仓库"><a href="#镜像上传到远程仓库" class="headerlink" title="镜像上传到远程仓库:"></a>镜像上传到远程仓库:</h4><p>Docker Hub 上完成注册后，可以推送自己的镜像到仓库中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker push ouruser/sinatra</div></pre></td></tr></table></figure></p>
 <h4 id="保存镜像到本地文件"><a href="#保存镜像到本地文件" class="headerlink" title="保存镜像到本地文件:"></a>保存镜像到本地文件:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker save -o ubuntu_14.04.tar ubuntu:14.04</div></pre></td></tr></table></figure>
 <h4 id="从导出的本地文件中再加载到本地镜像库"><a href="#从导出的本地文件中再加载到本地镜像库" class="headerlink" title="从导出的本地文件中再加载到本地镜像库:"></a>从导出的本地文件中再加载到本地镜像库:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo docker load --input ubuntu_14.04.tar</div><div class="line">或</div><div class="line">$ sudo docker load &lt; ubuntu_14.04.tar</div></pre></td></tr></table></figure>
 <h4 id="移除镜像"><a href="#移除镜像" class="headerlink" title="移除镜像"></a>移除镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rmi training/sinatra</div></pre></td></tr></table></figure>
 <p>在删除镜像之前要先用 docker rm 删掉依赖于这个镜像的所有容器。</p>
-<p>清理所有未打过标签的本地镜像<br>$ sudo docker rmi $(docker images -q -f “dangling=true”)<br>sudo docker rmi $(docker images –quiet –filter “dangling=true”)</p>
+<p>清理所有未打过标签的本地镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo docker rmi $(docker images -q -f &quot;dangling=true&quot;)</div><div class="line">sudo docker rmi $(docker images --quiet --filter &quot;dangling=true&quot;)</div></pre></td></tr></table></figure></p>
 <h1 id="Docker-容器"><a href="#Docker-容器" class="headerlink" title="Docker 容器"></a>Docker 容器</h1><p>容器是独立运行的一个或一组应用，以及它们的运行态环境。</p>
 <h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><p>有两种方式:<br>1.基于镜像新建一个容器并启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
 <p>使用docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
@@ -261,8 +255,8 @@ Docker 三大组件仓库镜像容器
     </a>
   
   
-    <a href="/2016/10/09/markdown/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">使用Markdown编辑器写博客</div>
+    <a href="/2016/10/10/Docker-learn-first/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker 学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -359,7 +353,7 @@ Docker 三大组件仓库镜像容器
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 17.5px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 12.5px;">essays</a> <a href="/tags/html5/" style="font-size: 12.5px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     

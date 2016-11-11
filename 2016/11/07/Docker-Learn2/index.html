@@ -6,22 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Docker 学习笔记(二) | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Docker 目的是在减少软件开发周期中最繁琐、最耗时的环境准备环节。Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署和迁移这些要求。
-Docker优缺点Docker优点1)Docker的资源利用率比传统虚拟机要高2)Docker支持跨节点部署3)版本可控,组件可复用4)共享镜像5)轻量,易维护
-Docker缺点1)宿主资源没有完成做到隔离2">
+  <meta name="description" content="Docker中的某些命令详解logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令可以通过ID和name挂载12345➜  ~ docker psCONTAINER ID        IMAGE               COMMAND             CREATED">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 学习笔记(二)">
 <meta property="og:url" content="http://yoursite.com/2016/11/07/Docker-Learn2/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="Docker 目的是在减少软件开发周期中最繁琐、最耗时的环境准备环节。Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署和迁移这些要求。
-Docker优缺点Docker优点1)Docker的资源利用率比传统虚拟机要高2)Docker支持跨节点部署3)版本可控,组件可复用4)共享镜像5)轻量,易维护
-Docker缺点1)宿主资源没有完成做到隔离2">
-<meta property="og:updated_time" content="2016-11-09T09:06:54.000Z">
+<meta property="og:description" content="Docker中的某些命令详解logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令可以通过ID和name挂载12345➜  ~ docker psCONTAINER ID        IMAGE               COMMAND             CREATED">
+<meta property="og:updated_time" content="2016-11-11T03:46:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 学习笔记(二)">
-<meta name="twitter:description" content="Docker 目的是在减少软件开发周期中最繁琐、最耗时的环境准备环节。Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署和迁移这些要求。
-Docker优缺点Docker优点1)Docker的资源利用率比传统虚拟机要高2)Docker支持跨节点部署3)版本可控,组件可复用4)共享镜像5)轻量,易维护
-Docker缺点1)宿主资源没有完成做到隔离2">
+<meta name="twitter:description" content="Docker中的某些命令详解logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令可以通过ID和name挂载12345➜  ~ docker psCONTAINER ID        IMAGE               COMMAND             CREATED">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -163,19 +157,10 @@ Docker缺点1)宿主资源没有完成做到隔离2">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Docker 目的是在减少软件开发周期中最繁琐、最耗时的环境准备环节。<br>Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署和迁移这些要求。</p>
-<h2 id="Docker优缺点"><a href="#Docker优缺点" class="headerlink" title="Docker优缺点"></a>Docker优缺点</h2><h4 id="Docker优点"><a href="#Docker优点" class="headerlink" title="Docker优点"></a>Docker优点</h4><p>1)Docker的资源利用率比传统虚拟机要高<br>2)Docker支持跨节点部署<br>3)版本可控,组件可复用<br>4)共享镜像<br>5)轻量,易维护</p>
-<h4 id="Docker缺点"><a href="#Docker缺点" class="headerlink" title="Docker缺点"></a>Docker缺点</h4><p>1)宿主资源没有完成做到隔离<br>2)Golang语言尚未成熟<br>3)Docker虽已经开源,但在在未来可能收费</p>
-<h2 id="Boot2Docker"><a href="#Boot2Docker" class="headerlink" title="Boot2Docker"></a>Boot2Docker</h2><p>Boot2Docker 是一个包含了 VirtualBox 虚拟软件、Docker 程序和Boot2Docker Management Tool的一个集合软件。Boot2Docker Management Tool是一个运行在Mac系统上的轻量级Linux虚拟机。<br>这个轻量级虚拟机完全运行在内存中,启动很快,体积很小。<br>通过Boot2Docker安装的Docker相当于运行在一个 VirtualBox 虚拟机中,而客户端运行在Mac OS 上。<br>(Mac直接安装Docker,不通过Boot2Docker安装感觉起来没什么区别啊?)</p>
-<h2 id="Docker中的某些命令"><a href="#Docker中的某些命令" class="headerlink" title="Docker中的某些命令"></a>Docker中的某些命令</h2><h4 id="logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志"><a href="#logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志" class="headerlink" title="logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志"></a>logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志</h4><h4 id="attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令"><a href="#attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令" class="headerlink" title="attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令"></a>attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令</h4><p>可以通过ID和name挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         32 minutes ago      Up 32 minutes                           reverent_thompson</div><div class="line">➜  ~ docker attach 6caf2b2b8d00</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
+        <h2 id="Docker中的某些命令详解"><a href="#Docker中的某些命令详解" class="headerlink" title="Docker中的某些命令详解"></a>Docker中的某些命令详解</h2><h4 id="logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志"><a href="#logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志" class="headerlink" title="logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志"></a>logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志</h4><h4 id="attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令"><a href="#attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令" class="headerlink" title="attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令"></a>attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令</h4><p>可以通过ID和name挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         32 minutes ago      Up 32 minutes                           reverent_thompson</div><div class="line">➜  ~ docker attach 6caf2b2b8d00</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
 <p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker attach reverent_thompson</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
 <p>通过Ctrl+P+Q来退出容器,容器还在运行中。<br>使用exit退出容器,容器同步被关闭。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@6caf2b2b8d00:/# exit 10</div><div class="line">➜  ~ docker ps -a |grep reverent_thompson</div><div class="line">6caf2b2b8d00        b1873e247b48         &quot;/bin/bash&quot;              52 minutes ago      Exited (10) 45 seconds ago                       reverent_thompson</div></pre></td></tr></table></figure></p>
 <p>Exited (10) 容器的退出响应码变成了10,即可以通过exit命令来指定容器退出码。</p>
-<h4 id="build-创建image"><a href="#build-创建image" class="headerlink" title="build 创建image"></a>build 创建image</h4><p>读取配置文件构建image(文件名默认Dockerfile,也可以自定义):<br>1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build - &lt; Dockerfile</div></pre></td></tr></table></figure></p>
-<p>2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Docker build $(HOME)/Users/Dockerfile</div><div class="line">Docker build $(HOME)/Users/otherfile    名字可变</div></pre></td></tr></table></figure></p>
-<p>3)使用URL参数,URL必须指向一个git地址。Docker会把指定的git仓库克隆到本地,然后把仓库中的Dockerfile内容传给Docker Daemon。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build https://github.com/wszhi/Docker-image.git#container:Docker</div></pre></td></tr></table></figure></p>
-<p>以上命令通知Docker Daemon加载<a href="https://github.com/wszhi/Docker-image.git" target="_blank" rel="external">https://github.com/wszhi/Docker-image.git</a> 仓库,切换到container分支,在Docker目录下的Dockerfile文件来构建image。<br>注意: “:”后面的是Dockerfile文件的路径,此方式不支持自定义命名。若为master分支#后为空<br>若当前目录有Dockerfile文件可以省略路径使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build --rm=false .</div></pre></td></tr></table></figure></p>
-<p>–rm=false表示不删除临时镜像,当经常构建且变化不大的时候建议使用。</p>
 <h4 id="commit-以某个容器为基础保存成一个新的image"><a href="#commit-以某个容器为基础保存成一个新的image" class="headerlink" title="commit 以某个容器为基础保存成一个新的image"></a>commit 以某个容器为基础保存成一个新的image</h4><p>-a, –author=””这个参数的目标是保存新的作者。<br>-c, –change=[]这个参数保存的是修改image里面的配置参数。<br>目前支持的可以修改的配置参数有CMD|ENTRYPOINT|ENV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKDIR。其余的参数继承于上一个image<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit --change &quot;ENV DEBUG true&quot; 3af7938d2d31 svendowideit/testimage:version1</div><div class="line">sha256:c24a8c4cf76d9485e69fa4d975a6b8ccc3070dbf368a118672ab6a76a4249605</div></pre></td></tr></table></figure></p>
 <p>3af7938d2d31是一个正在运行的容器,svendowideit/testimage是repository的名字,version1是tag的内容<br>查看结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ Docker inspect -f &quot;&#123;&#123; .Config.Env&#125;&#125;&quot; c24a8c4cf76d</div><div class="line">[DEBUG=true no_proxy=local PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]</div></pre></td></tr></table></figure></p>
 <p>-m, –message=””这个参数是提交一个comment备注信息,说明image的用途,修改的内容等信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~  docker commit -m &quot;test message&quot; 3af7938d2d31 svendowideit/testimage:version2</div><div class="line">sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4</div><div class="line">➜  ~ Docker inspect 0d4f24b6a8d7</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Id&quot;: &quot;sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4&quot;,</div><div class="line">        &quot;RepoTags&quot;: [</div><div class="line">            &quot;svendowideit/testimage:version2&quot;</div><div class="line">        ],</div><div class="line">        &quot;RepoDigests&quot;: [],</div><div class="line">        &quot;Parent&quot;: &quot;sha256:78a0e8d9b39cdcbb93d433ec5de61ba6c6d10369eccdf45b7e60318b47356d9a&quot;,</div><div class="line">        &quot;Comment&quot;: &quot;test message&quot;,</div><div class="line">        .........</div><div class="line">     &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
@@ -231,7 +216,7 @@ Docker缺点1)宿主资源没有完成做到隔离2">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Docker 学习笔记(三)
+          Docker 学习笔记(三)--创建image
         
       </div>
     </a>
@@ -335,7 +320,7 @@ Docker缺点1)宿主资源没有完成做到隔离2">
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 17.5px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 12.5px;">essays</a> <a href="/tags/html5/" style="font-size: 12.5px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     
