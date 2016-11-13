@@ -140,7 +140,7 @@
       <div class="body-wrap">
         
   
-    <article id="post-Docker-learn3" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Docker-Learn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -150,7 +150,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/09/Docker-learn3/">Docker 学习笔记(三)--创建image</a>
+      <a class="article-title" href="/2016/11/13/Docker-Learn/">Docker 学习笔记(一)</a>
     </h1>
   
 
@@ -158,27 +158,126 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="build-构建一个镜像"><a href="#build-构建一个镜像" class="headerlink" title="build 构建一个镜像"></a>build 构建一个镜像</h2><p>读取配置文件构建image(文件名默认Dockerfile,也可以自定义):<br>1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build - &lt; Dockerfile</div></pre></td></tr></table></figure></p>
-<p>2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Docker build $(HOME)/Users/Dockerfile</div><div class="line">Docker build $(HOME)/Users/otherfile    名字可变</div></pre></td></tr></table></figure></p>
-<p>3)使用URL参数,URL必须指向一个git地址。Docker会把指定的git仓库克隆到本地,然后把仓库中的Dockerfile内容传给Docker Daemon。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build https://github.com/wszhi/Docker-image.git#container:Docker</div></pre></td></tr></table></figure></p>
-<p>以上命令通知Docker Daemon加载<a href="https://github.com/wszhi/Docker-image.git" target="_blank" rel="external">https://github.com/wszhi/Docker-image.git</a> 仓库,切换到container分支,在Docker目录下的Dockerfile文件来构建image。<br>注意: “:”后面的是Dockerfile文件的路径,此方式不支持自定义命名。若为master分支#后为空<br>若当前目录有Dockerfile文件可以省略路径使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build --rm=false .</div></pre></td></tr></table></figure></p>
-<p>–rm=false表示不删除临时镜像,当经常构建且变化不大的时候建议使用。</p>
-<h4 id="build-构建镜像三要素"><a href="#build-构建镜像三要素" class="headerlink" title="build 构建镜像三要素"></a>build 构建镜像三要素</h4><p>build命令构建镜像是用Dockerfile文件中的指令来构建的,三个要素为:Dockerfile文件、所涉及文件和镜像参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build -t image_name .</div></pre></td></tr></table></figure></p>
-<p>默认执行Dockerfile文件。</p>
-<h4 id="build命令执行的主要逻辑"><a href="#build命令执行的主要逻辑" class="headerlink" title="build命令执行的主要逻辑"></a>build命令执行的主要逻辑</h4><p>1)获取Dockerfile文件——客户端<br>2)加载Dockerfile文件所在目录下的所有文件——-客户端<br>3)解析Dockerfile文件指令<br>4)执行文件内指令,判断是否存在有效缓存镜像<br>5)执行指令</p>
-<p>其中获取Dockerfile文件的方式有三种:<br>1.通过标准输入传入,参数”-“;<br>2.通过远程方式获取,git;<br>3.通过指定路径方式获取。</p>
-<h4 id="build命令构建镜像原理"><a href="#build命令构建镜像原理" class="headerlink" title="build命令构建镜像原理"></a>build命令构建镜像原理</h4><p>客户端将Dockerfile所需要的文件和镜像参数传递给Daemon。<br>然后Daemon处理客户端传来的各项参数(为后续的解压操作和文件I/O操作做准备)。<br>当参数处理完成之后,Daemon开始解压文件,抽取文件。<br>最后Daemon解析Dockerfile,生成指令语法树。<br>之后Daemon使用解析后的指令从已经初始化的指令——函数对应表中找到对应的处理函数,最后执行函数。</p>
-<p>流程:<br>(客户端)<br>加载Dockerfile—&gt;压缩构建目录—&gt;添加镜像参数——发送构建请求—-&gt;<br>(服务端)<br>—-&gt;生成构建参数—&gt;获取压缩包—&gt;解压文件—&gt;解析Dockerfile生成语法树—&gt;初始化指令处理对照表—&gt;循环执行指令—&gt;删除解压文件—&gt;构建完成</p>
-<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>Dockerfile 文件记录着用户”创建”镜像过程中需要执行的所有命令,Docker可以读懂的脚本文件。<br>镜像指的是一组特定的文件层,镜像的构建过程就是Docker执行Dockerfile所定义命令而形成这组文件层的过程。</p>
-<h4 id="Dockerfile-内置命令"><a href="#Dockerfile-内置命令" class="headerlink" title="Dockerfile 内置命令"></a>Dockerfile 内置命令</h4><p>FROM 指明基础镜像名称,必填<br>MAINTAINER 备注信息,包括作者、版本等,可选填<br>RUN 用于执行后面的命令,当RUN执行完毕后,将产生一个新的文件层,可选填<br>CMD 指定此镜像启动时默认执行命令,可选填<br>LABEL 在镜像中添加元数据。例如版本号、构建日期等,可选填<br>EXPOSE 指定需要暴露的网络端口号,可选填<br>ENV 在镜像中添加环境变量,可选填<br>ADD 向镜像添加新文件或者新目录,可选填<br>COPY 从主句镜像复制文件,可选填<br>ENTRYPOINT 在镜像中设定默认执行的二进制程序,可选填<br>VOLUME 向镜像挂载一个卷组,可选填<br>USER 在镜像构建过程中,生成或者切换到另外一个用户,可选填<br>WORKDITR 设定此镜像后续操作的默认工作目录,可选填<br>ONBUILD 配置构建触发指令集,可选填</p>
-<p>参考书籍<br>《Docker 全攻略》张涛著   该本书有很长的篇幅介绍docker的命令<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
+        <h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Mac 安装地址</a><br>关于在Ubuntu、CentOS和Debian系统安装Docker,<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>书里有安装教程<br>其他系统安装Docker,参考<a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">官网</a></p>
+<h2 id="Boot2Docker"><a href="#Boot2Docker" class="headerlink" title="Boot2Docker"></a>Boot2Docker</h2><p>Boot2Docker 是一个包含了 VirtualBox 虚拟软件、Docker 程序和Boot2Docker Management Tool的一个集合软件。Boot2Docker Management Tool是一个运行在Mac系统上的轻量级Linux虚拟机。<br>这个轻量级虚拟机完全运行在内存中,启动很快,体积很小。<br>通过Boot2Docker安装的Docker相当于运行在一个 VirtualBox 虚拟机中,而客户端运行在Mac OS 上。<br>(Mac直接安装Docker,不通过Boot2Docker安装感觉起来没什么区别啊?)</p>
+<h1 id="Docker-三大组件"><a href="#Docker-三大组件" class="headerlink" title="Docker 三大组件"></a>Docker 三大组件</h1><p>仓库<br>镜像<br>容器</p>
+<h1 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h1><p>Docker 官方维护了一个公共仓库<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a></p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>本地命令:docker login<br>会有提示输入用户名和密码,一次登录后,会记住登录信息。本地用户目录的 .dockercfg 中将保存用户的认证信息。</p>
+<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>命令为docker search 命令来查找官方仓库中的镜像，并利用docker pull 命令来将它下载到本地。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker search centos -s 3</div></pre></td></tr></table></figure></p>
+<p>-s N(仅显示评价为 N 星以上的镜像)<br>下载命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull centos</div></pre></td></tr></table></figure></p>
+<h2 id="私有仓库配置"><a href="#私有仓库配置" class="headerlink" title="私有仓库配置"></a>私有仓库配置</h2><p>参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
+<h1 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h1><h2 id="Docker-镜像分层"><a href="#Docker-镜像分层" class="headerlink" title="Docker 镜像分层"></a>Docker 镜像分层</h2><p>有3层,分别为:<br>  基础镜像<br>  中间件镜像<br>  应用镜像</p>
+<h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull 镜像版本</div></pre></td></tr></table></figure>
+<p>将从 Docker Hub 仓库下载一个符合要求的镜像<br>完整的命令为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull registry.hub.docker.com/ubuntu:12.04</div></pre></td></tr></table></figure></p>
+<p>即从注册服务器registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 12.04 的镜像。</p>
+<h2 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h2><p>下载镜像完成后，可以使用该镜像了，摘自书中的例子:创建一个容器，让其中运行 bash 应用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<h4 id="显示本地已有的镜像"><a href="#显示本地已有的镜像" class="headerlink" title="显示本地已有的镜像"></a>显示本地已有的镜像</h4><p>命令:docker images </p>
+<h4 id="修改镜像"><a href="#修改镜像" class="headerlink" title="修改镜像:"></a>修改镜像:</h4><p><strong>1.docker commit 来扩展一个镜像</strong><br>镜像启动容器:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p> -t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， -i 则让容器的标准输入保持打开</p>
+<p>在容器中添加json package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root@0b2616b0e5a8:/# gem install json</div></pre></td></tr></table></figure></p>
+<p>退出: exit<br>提交更新后的副本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -m &quot;Added json gem&quot; -a &quot;Docker Newbee&quot; 0b2616b0e5a8 ouruser/sinatra:v2</div></pre></td></tr></table></figure></p>
+<p>ouruser/sinatra:v2为目标镜像的仓库名和 tag 信息,如v2<br></p>
+<p><strong>2.docker build 来创建一个新的镜像</strong><br>新建一个文件Dockerfile,里面的每一条指令都创建镜像的一层。<br></p>
+<p>Dockerfile 基本的语法是:<br>    使用 # 来注释<br>    FROM 指令告诉 Docker 使用哪个镜像作为基础<br>    接着是维护者的信息<br>    RUN 开头的指令会在创建中运行，比如安装一个软件包，在这里使用 apt-get来安装了一些软件<br></p>
+<p>编写完成 Dockerfile 后可以使用 docker build 来生成镜像。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t ouruser/sinatra:v2 .</div></pre></td></tr></table></figure></p>
+<p>其中 -t 标记来添加 tag，指定新的镜像的用户信息。 “.” 是 Dockerfile 所在的路径（当前目录），也可以替换为一个具体的 Dockerfile 的路径。</p>
+<h4 id="改变镜像标签内容"><a href="#改变镜像标签内容" class="headerlink" title="改变镜像标签内容"></a>改变镜像标签内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker tag 5db5f8471261 ouruser/sinatra:devel #5db...是镜像ID  后面的是修改后的标签</div></pre></td></tr></table></figure>
+<h4 id="本地导入镜像"><a href="#本地导入镜像" class="headerlink" title="本地导入镜像:"></a>本地导入镜像:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cat ubuntu-14.04-x86_64-minimal.tar.gz |docker import - ubuntu:14.04</div></pre></td></tr></table></figure>
+<h4 id="镜像上传到远程仓库"><a href="#镜像上传到远程仓库" class="headerlink" title="镜像上传到远程仓库:"></a>镜像上传到远程仓库:</h4><p>Docker Hub 上完成注册后，可以推送自己的镜像到仓库中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker push ouruser/sinatra</div></pre></td></tr></table></figure></p>
+<h4 id="保存镜像到本地文件"><a href="#保存镜像到本地文件" class="headerlink" title="保存镜像到本地文件:"></a>保存镜像到本地文件:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker save -o ubuntu_14.04.tar ubuntu:14.04</div></pre></td></tr></table></figure>
+<h4 id="从导出的本地文件中再加载到本地镜像库"><a href="#从导出的本地文件中再加载到本地镜像库" class="headerlink" title="从导出的本地文件中再加载到本地镜像库:"></a>从导出的本地文件中再加载到本地镜像库:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo docker load --input ubuntu_14.04.tar</div><div class="line">或</div><div class="line">$ sudo docker load &lt; ubuntu_14.04.tar</div></pre></td></tr></table></figure>
+<h4 id="移除镜像"><a href="#移除镜像" class="headerlink" title="移除镜像"></a>移除镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rmi training/sinatra</div></pre></td></tr></table></figure>
+<p>在删除镜像之前要先用 docker rm 删掉依赖于这个镜像的所有容器。</p>
+<p>清理所有未打过标签的本地镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo docker rmi $(docker images -q -f &quot;dangling=true&quot;)</div><div class="line">sudo docker rmi $(docker images --quiet --filter &quot;dangling=true&quot;)</div></pre></td></tr></table></figure></p>
+<h1 id="Docker-容器"><a href="#Docker-容器" class="headerlink" title="Docker 容器"></a>Docker 容器</h1><p>容器是独立运行的一个或一组应用，以及它们的运行态环境。</p>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><p>有两种方式:<br>1.基于镜像新建一个容器并启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p>使用docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+<p>2.将在终止状态（stopped）的容器重新启动<br>docker start命令，直接将一个已经终止的容器启动运行。可以利用 ps 或 top 来查看当前的进程信息。</p>
+<h2 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h2><p>命令:docker ps<br>可以查看所有的容器及进程</p>
+<h2 id="容器在后台运行"><a href="#容器在后台运行" class="headerlink" title="容器在后台运行"></a>容器在后台运行</h2><p>普通的docker run命令会在当前宿主机输出结果。<br>加上-d,此时容器会在后台运行并不会把输出的结果打印到宿主机上面,而是返回一个ID。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run -d ubuntu:14.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</div></pre></td></tr></table></figure>
+<p>查看输出结果可以用docker logs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker logs [container ID or NAMES]</div></pre></td></tr></table></figure></p>
+<p>里面可以是刚刚返回的ID也可以是NAME</p>
+<h2 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h2><p>使用命令docker stop ID来终止</p>
+<p>当Docker容器中指定的应用终结时，容器也自动终止。所以之前通过 exit 命令或 Ctrl+d 来退出终端时，所创建的容器立刻终止。<br>查看终止状态的容器可以用 docker ps -a命令。</p>
+<h4 id="重启已经终止的容器"><a href="#重启已经终止的容器" class="headerlink" title="重启已经终止的容器"></a>重启已经终止的容器</h4><p>处于终止状态的容器，可以通过 docker start 命令来重新启动。<br>docker restart 命令会将一个运行态的容器终止，然后再重新启动它。</p>
+<h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><p>当容器进入后台时,需要进入容器的操作<br>使用Attach命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker run -idt ubuntu <span class="comment">#后台运行</span></div><div class="line">docker ps <span class="comment">#查看进程</span></div><div class="line">docker attach 容器名或者ID</div></pre></td></tr></table></figure></p>
+<p>使用nsenter 命令<br>nsenter工具在 util-linux 包2.23版本后包含,设备上没有的,需要手动安装。<br>详细步骤参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
+<h2 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h2><p>导出本地某个容器，使用 docker export 命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker export 容器ID &gt; ubuntu.tar(文件名)</div></pre></td></tr></table></figure></p>
+<h2 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h2><p>使用docker import从容器快照文件中再导入为镜像:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cat ubuntu.tar | docker import - <span class="built_in">test</span>/ubuntu:v1.0(镜像名和标签)</div><div class="line">$ docker images <span class="comment">#查看结果</span></div></pre></td></tr></table></figure></p>
+<p>或者通过指定 URL 或者某个目录来导入，例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker import http://example.com/exampleimage.tgz example/imagerepo</div></pre></td></tr></table></figure></p>
+<p><strong>用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，<br>也可以使用 docker import 来导入一个容器快照到本地镜像库。<br>这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。<br>此外，从容器快照文件导入时可以重新指定标签等元数据信息。</strong></p>
+<h2 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h2><p>使用 docker rm 来删除一个处于终止状态的容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker rm trusting_newton</div></pre></td></tr></table></figure></p>
+<p>如果要删除一个运行中的容器，可以添加 -f 参数。<br>清理所有处于终止状态的容器,使用以下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm $(docker ps -a -q)</div></pre></td></tr></table></figure></p>
+<p>书籍:<br><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>此处有电子书的下载途径</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/09/Docker-learn3/" class="archive-article-date">
-  	<time datetime="2016-11-09T07:19:05.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-09</time>
+      <a href="/2016/11/13/Docker-Learn/" class="archive-article-date">
+  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Docker-learn-first" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/13/Docker-learn-first/">Docker 学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h2><p>Docker是一个开放源代码软件专案，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。<br>Docker目标是实现轻量级的操作系统虚拟化解决方案。减少软件开发周期中最繁琐、最耗时的环境准备环节。<br>Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署和迁移这些要求。</p>
+<h2 id="Docker优点"><a href="#Docker优点" class="headerlink" title="Docker优点"></a>Docker优点</h2><p>0）启动可以在秒级实现，比传统的虚拟机快很多<br>1）Docker的资源利用率比传统虚拟机要高，一台主机上可以同时运行数千个Docker容器<br>2）除了运行其中的应用，基本不消耗额外的系统资源，使得应用性能很高，同时系统开销小。<br>（传统的虚拟机方式运行10个不同的应用要10个虚拟机，Docker只要启动10个隔离的应用即可）<br>3）更快速的交付和部署，一次创建或配置可以在任意地方正常运行<br>4）更高效的虚拟化，Docker容器是内核级的虚拟化，可以实现更高的性能和效率<br>5）Docker支持跨节点部署，使得更轻松的迁移和扩展，Docker容器可以在任意的平台上运行，包括物理机、虚拟机、公有云、私有云、个人电脑、服务器等。兼容性高，用户可以把一个应用程序从一个平台直接迁移到另一个平台。“一次构建，自由分发。”<br>6）更简单的管理，小的修改代替大量的更新工作，所有的修改都以增量的方式被分发和更新，实现自动化并且高效的管理。<br>7）版本可控,组件可复用。镜像之间不是相互隔离的，镜像之间可以产生松耦合的关系。镜像是多层文件的联合体，这些文件层通过不同的组合可以产生不同的镜像，每一个镜像都有标签，标签代表了唯一的镜像，通过标签可以回溯加载特定的镜像。<br>8）共享镜像，Docker是开源的，构建的镜像可以上传到Docker Hub上<br>5）轻量，Docker是基于Linux内核进行的虚拟化操作，所有的容器共享内核资源的。</p>
+<h2 id="Docker缺点"><a href="#Docker缺点" class="headerlink" title="Docker缺点"></a>Docker缺点</h2><p>1)宿主资源没有完成做到隔离<br>2)Golang语言尚未成熟<br>3)Docker虽已经开源,但在在未来可能收费</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/13/Docker-learn-first/" class="archive-article-date">
+  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -213,7 +312,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/07/Docker-Learn2/">Docker 学习笔记(二)</a>
+      <a class="article-title" href="/2016/11/13/Docker-Learn2/">Docker 学习笔记(二)</a>
     </h1>
   
 
@@ -257,8 +356,71 @@
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/07/Docker-Learn2/" class="archive-article-date">
-  	<time datetime="2016-11-07T06:53:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-07</time>
+      <a href="/2016/11/13/Docker-Learn2/" class="archive-article-date">
+  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Docker-learn3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/13/Docker-learn3/">Docker 学习笔记(三)--创建image</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="build-构建一个镜像"><a href="#build-构建一个镜像" class="headerlink" title="build 构建一个镜像"></a>build 构建一个镜像</h2><p>读取配置文件构建image(文件名默认Dockerfile,也可以自定义):<br>1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build - &lt; Dockerfile</div></pre></td></tr></table></figure></p>
+<p>2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Docker build $(HOME)/Users/Dockerfile</div><div class="line">Docker build $(HOME)/Users/otherfile    名字可变</div></pre></td></tr></table></figure></p>
+<p>3)使用URL参数,URL必须指向一个git地址。Docker会把指定的git仓库克隆到本地,然后把仓库中的Dockerfile内容传给Docker Daemon。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build https://github.com/wszhi/Docker-image.git#container:Docker</div></pre></td></tr></table></figure></p>
+<p>以上命令通知Docker Daemon加载<a href="https://github.com/wszhi/Docker-image.git" target="_blank" rel="external">https://github.com/wszhi/Docker-image.git</a> 仓库,切换到container分支,在Docker目录下的Dockerfile文件来构建image。<br>注意: “:”后面的是Dockerfile文件的路径,此方式不支持自定义命名。若为master分支#后为空<br>若当前目录有Dockerfile文件可以省略路径使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build --rm=false .</div></pre></td></tr></table></figure></p>
+<p>–rm=false表示不删除临时镜像,当经常构建且变化不大的时候建议使用。</p>
+<h4 id="build-构建镜像三要素"><a href="#build-构建镜像三要素" class="headerlink" title="build 构建镜像三要素"></a>build 构建镜像三要素</h4><p>build命令构建镜像是用Dockerfile文件中的指令来构建的,三个要素为:Dockerfile文件、所涉及文件和镜像参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker build -t image_name .</div></pre></td></tr></table></figure></p>
+<p>默认执行Dockerfile文件。</p>
+<h4 id="build命令执行的主要逻辑"><a href="#build命令执行的主要逻辑" class="headerlink" title="build命令执行的主要逻辑"></a>build命令执行的主要逻辑</h4><p>1)获取Dockerfile文件——客户端<br>2)加载Dockerfile文件所在目录下的所有文件——-客户端<br>3)解析Dockerfile文件指令<br>4)执行文件内指令,判断是否存在有效缓存镜像<br>5)执行指令</p>
+<p>其中获取Dockerfile文件的方式有三种:<br>1.通过标准输入传入,参数”-“;<br>2.通过远程方式获取,git;<br>3.通过指定路径方式获取。</p>
+<h4 id="build命令构建镜像原理"><a href="#build命令构建镜像原理" class="headerlink" title="build命令构建镜像原理"></a>build命令构建镜像原理</h4><p>客户端将Dockerfile所需要的文件和镜像参数传递给Daemon。<br>然后Daemon处理客户端传来的各项参数(为后续的解压操作和文件I/O操作做准备)。<br>当参数处理完成之后,Daemon开始解压文件,抽取文件。<br>最后Daemon解析Dockerfile,生成指令语法树。<br>之后Daemon使用解析后的指令从已经初始化的指令——函数对应表中找到对应的处理函数,最后执行函数。</p>
+<p>流程:<br>(客户端)<br>加载Dockerfile—&gt;压缩构建目录—&gt;添加镜像参数——发送构建请求—-&gt;<br>(服务端)<br>—-&gt;生成构建参数—&gt;获取压缩包—&gt;解压文件—&gt;解析Dockerfile生成语法树—&gt;初始化指令处理对照表—&gt;循环执行指令—&gt;删除解压文件—&gt;构建完成</p>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>Dockerfile 文件记录着用户”创建”镜像过程中需要执行的所有命令,Docker可以读懂的脚本文件。<br>镜像指的是一组特定的文件层,镜像的构建过程就是Docker执行Dockerfile所定义命令而形成这组文件层的过程。</p>
+<h4 id="Dockerfile-内置命令"><a href="#Dockerfile-内置命令" class="headerlink" title="Dockerfile 内置命令"></a>Dockerfile 内置命令</h4><p>FROM 指明基础镜像名称,必填<br>MAINTAINER 备注信息,包括作者、版本等,可选填<br>RUN 用于执行后面的命令,当RUN执行完毕后,将产生一个新的文件层,可选填<br>CMD 指定此镜像启动时默认执行命令,可选填<br>LABEL 在镜像中添加元数据。例如版本号、构建日期等,可选填<br>EXPOSE 指定需要暴露的网络端口号,可选填<br>ENV 在镜像中添加环境变量,可选填<br>ADD 向镜像添加新文件或者新目录,可选填<br>COPY 从主句镜像复制文件,可选填<br>ENTRYPOINT 在镜像中设定默认执行的二进制程序,可选填<br>VOLUME 向镜像挂载一个卷组,可选填<br>USER 在镜像构建过程中,生成或者切换到另外一个用户,可选填<br>WORKDITR 设定此镜像后续操作的默认工作目录,可选填<br>ONBUILD 配置构建触发指令集,可选填</p>
+<p>参考书籍<br>《Docker 全攻略》张涛著   该本书有很长的篇幅介绍docker的命令<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/13/Docker-learn3/" class="archive-article-date">
+  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -574,168 +736,6 @@ summary
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/">CI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Docker-Learn" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/11/Docker-Learn/">Docker 学习笔记(一)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Mac 安装地址</a><br>关于在Ubuntu、CentOS和Debian系统安装Docker,<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>书里有安装教程<br>其他系统安装Docker,参考<a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">官网</a></p>
-<h2 id="Boot2Docker"><a href="#Boot2Docker" class="headerlink" title="Boot2Docker"></a>Boot2Docker</h2><p>Boot2Docker 是一个包含了 VirtualBox 虚拟软件、Docker 程序和Boot2Docker Management Tool的一个集合软件。Boot2Docker Management Tool是一个运行在Mac系统上的轻量级Linux虚拟机。<br>这个轻量级虚拟机完全运行在内存中,启动很快,体积很小。<br>通过Boot2Docker安装的Docker相当于运行在一个 VirtualBox 虚拟机中,而客户端运行在Mac OS 上。<br>(Mac直接安装Docker,不通过Boot2Docker安装感觉起来没什么区别啊?)</p>
-<h1 id="Docker-三大组件"><a href="#Docker-三大组件" class="headerlink" title="Docker 三大组件"></a>Docker 三大组件</h1><p>仓库<br>镜像<br>容器</p>
-<h1 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h1><p>Docker 官方维护了一个公共仓库<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a></p>
-<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>本地命令:docker login<br>会有提示输入用户名和密码,一次登录后,会记住登录信息。本地用户目录的 .dockercfg 中将保存用户的认证信息。</p>
-<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>命令为docker search 命令来查找官方仓库中的镜像，并利用docker pull 命令来将它下载到本地。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker search centos -s 3</div></pre></td></tr></table></figure></p>
-<p>-s N(仅显示评价为 N 星以上的镜像)<br>下载命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull centos</div></pre></td></tr></table></figure></p>
-<h2 id="私有仓库配置"><a href="#私有仓库配置" class="headerlink" title="私有仓库配置"></a>私有仓库配置</h2><p>参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
-<h1 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h1><h2 id="Docker-镜像分层"><a href="#Docker-镜像分层" class="headerlink" title="Docker 镜像分层"></a>Docker 镜像分层</h2><p>有3层,分别为:<br>  基础镜像<br>  中间件镜像<br>  应用镜像</p>
-<h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull 镜像版本</div></pre></td></tr></table></figure>
-<p>将从 Docker Hub 仓库下载一个符合要求的镜像<br>完整的命令为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker pull registry.hub.docker.com/ubuntu:12.04</div></pre></td></tr></table></figure></p>
-<p>即从注册服务器registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 12.04 的镜像。</p>
-<h2 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h2><p>下载镜像完成后，可以使用该镜像了，摘自书中的例子:创建一个容器，让其中运行 bash 应用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
-<h4 id="显示本地已有的镜像"><a href="#显示本地已有的镜像" class="headerlink" title="显示本地已有的镜像"></a>显示本地已有的镜像</h4><p>命令:docker images </p>
-<h4 id="修改镜像"><a href="#修改镜像" class="headerlink" title="修改镜像:"></a>修改镜像:</h4><p><strong>1.docker commit 来扩展一个镜像</strong><br>镜像启动容器:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
-<p> -t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， -i 则让容器的标准输入保持打开</p>
-<p>在容器中添加json package:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root@0b2616b0e5a8:/# gem install json</div></pre></td></tr></table></figure></p>
-<p>退出: exit<br>提交更新后的副本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -m &quot;Added json gem&quot; -a &quot;Docker Newbee&quot; 0b2616b0e5a8 ouruser/sinatra:v2</div></pre></td></tr></table></figure></p>
-<p>ouruser/sinatra:v2为目标镜像的仓库名和 tag 信息,如v2<br></p>
-<p><strong>2.docker build 来创建一个新的镜像</strong><br>新建一个文件Dockerfile,里面的每一条指令都创建镜像的一层。<br></p>
-<p>Dockerfile 基本的语法是:<br>    使用 # 来注释<br>    FROM 指令告诉 Docker 使用哪个镜像作为基础<br>    接着是维护者的信息<br>    RUN 开头的指令会在创建中运行，比如安装一个软件包，在这里使用 apt-get来安装了一些软件<br></p>
-<p>编写完成 Dockerfile 后可以使用 docker build 来生成镜像。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker build -t ouruser/sinatra:v2 .</div></pre></td></tr></table></figure></p>
-<p>其中 -t 标记来添加 tag，指定新的镜像的用户信息。 “.” 是 Dockerfile 所在的路径（当前目录），也可以替换为一个具体的 Dockerfile 的路径。</p>
-<h4 id="改变镜像标签内容"><a href="#改变镜像标签内容" class="headerlink" title="改变镜像标签内容"></a>改变镜像标签内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker tag 5db5f8471261 ouruser/sinatra:devel #5db...是镜像ID  后面的是修改后的标签</div></pre></td></tr></table></figure>
-<h4 id="本地导入镜像"><a href="#本地导入镜像" class="headerlink" title="本地导入镜像:"></a>本地导入镜像:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cat ubuntu-14.04-x86_64-minimal.tar.gz |docker import - ubuntu:14.04</div></pre></td></tr></table></figure>
-<h4 id="镜像上传到远程仓库"><a href="#镜像上传到远程仓库" class="headerlink" title="镜像上传到远程仓库:"></a>镜像上传到远程仓库:</h4><p>Docker Hub 上完成注册后，可以推送自己的镜像到仓库中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker push ouruser/sinatra</div></pre></td></tr></table></figure></p>
-<h4 id="保存镜像到本地文件"><a href="#保存镜像到本地文件" class="headerlink" title="保存镜像到本地文件:"></a>保存镜像到本地文件:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker save -o ubuntu_14.04.tar ubuntu:14.04</div></pre></td></tr></table></figure>
-<h4 id="从导出的本地文件中再加载到本地镜像库"><a href="#从导出的本地文件中再加载到本地镜像库" class="headerlink" title="从导出的本地文件中再加载到本地镜像库:"></a>从导出的本地文件中再加载到本地镜像库:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo docker load --input ubuntu_14.04.tar</div><div class="line">或</div><div class="line">$ sudo docker load &lt; ubuntu_14.04.tar</div></pre></td></tr></table></figure>
-<h4 id="移除镜像"><a href="#移除镜像" class="headerlink" title="移除镜像"></a>移除镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rmi training/sinatra</div></pre></td></tr></table></figure>
-<p>在删除镜像之前要先用 docker rm 删掉依赖于这个镜像的所有容器。</p>
-<p>清理所有未打过标签的本地镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo docker rmi $(docker images -q -f &quot;dangling=true&quot;)</div><div class="line">sudo docker rmi $(docker images --quiet --filter &quot;dangling=true&quot;)</div></pre></td></tr></table></figure></p>
-<h1 id="Docker-容器"><a href="#Docker-容器" class="headerlink" title="Docker 容器"></a>Docker 容器</h1><p>容器是独立运行的一个或一组应用，以及它们的运行态环境。</p>
-<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><p>有两种方式:<br>1.基于镜像新建一个容器并启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
-<p>使用docker run 来创建容器时，Docker 在后台运行的标准操作包括：</p>
-<ul>
-<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
-<li>利用镜像创建并启动一个容器</li>
-<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
-<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
-<li>从地址池配置一个 ip 地址给容器</li>
-<li>执行用户指定的应用程序</li>
-<li>执行完毕后容器被终止</li>
-</ul>
-<p>2.将在终止状态（stopped）的容器重新启动<br>docker start命令，直接将一个已经终止的容器启动运行。可以利用 ps 或 top 来查看当前的进程信息。</p>
-<h2 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h2><p>命令:docker ps<br>可以查看所有的容器及进程</p>
-<h2 id="容器在后台运行"><a href="#容器在后台运行" class="headerlink" title="容器在后台运行"></a>容器在后台运行</h2><p>普通的docker run命令会在当前宿主机输出结果。<br>加上-d,此时容器会在后台运行并不会把输出的结果打印到宿主机上面,而是返回一个ID。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run -d ubuntu:14.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</div></pre></td></tr></table></figure>
-<p>查看输出结果可以用docker logs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker logs [container ID or NAMES]</div></pre></td></tr></table></figure></p>
-<p>里面可以是刚刚返回的ID也可以是NAME</p>
-<h2 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h2><p>使用命令docker stop ID来终止</p>
-<p>当Docker容器中指定的应用终结时，容器也自动终止。所以之前通过 exit 命令或 Ctrl+d 来退出终端时，所创建的容器立刻终止。<br>查看终止状态的容器可以用 docker ps -a命令。</p>
-<h4 id="重启已经终止的容器"><a href="#重启已经终止的容器" class="headerlink" title="重启已经终止的容器"></a>重启已经终止的容器</h4><p>处于终止状态的容器，可以通过 docker start 命令来重新启动。<br>docker restart 命令会将一个运行态的容器终止，然后再重新启动它。</p>
-<h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><p>当容器进入后台时,需要进入容器的操作<br>使用Attach命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker run -idt ubuntu <span class="comment">#后台运行</span></div><div class="line">docker ps <span class="comment">#查看进程</span></div><div class="line">docker attach 容器名或者ID</div></pre></td></tr></table></figure></p>
-<p>使用nsenter 命令<br>nsenter工具在 util-linux 包2.23版本后包含,设备上没有的,需要手动安装。<br>详细步骤参考书籍<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a></p>
-<h2 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h2><p>导出本地某个容器，使用 docker export 命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker export 容器ID &gt; ubuntu.tar(文件名)</div></pre></td></tr></table></figure></p>
-<h2 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h2><p>使用docker import从容器快照文件中再导入为镜像:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cat ubuntu.tar | docker import - <span class="built_in">test</span>/ubuntu:v1.0(镜像名和标签)</div><div class="line">$ docker images <span class="comment">#查看结果</span></div></pre></td></tr></table></figure></p>
-<p>或者通过指定 URL 或者某个目录来导入，例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker import http://example.com/exampleimage.tgz example/imagerepo</div></pre></td></tr></table></figure></p>
-<p><strong>用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，<br>也可以使用 docker import 来导入一个容器快照到本地镜像库。<br>这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。<br>此外，从容器快照文件导入时可以重新指定标签等元数据信息。</strong></p>
-<h2 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h2><p>使用 docker rm 来删除一个处于终止状态的容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo docker rm trusting_newton</div></pre></td></tr></table></figure></p>
-<p>如果要删除一个运行中的容器，可以添加 -f 参数。<br>清理所有处于终止状态的容器,使用以下命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm $(docker ps -a -q)</div></pre></td></tr></table></figure></p>
-<p>书籍:<br><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="external">Docker —— 从入门到实践</a>此处有电子书的下载途径</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/11/Docker-Learn/" class="archive-article-date">
-  	<time datetime="2016-10-11T08:25:20.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-11</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Docker-learn-first" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/10/Docker-learn-first/">Docker 学习笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h2><p>Docker是一个开放源代码软件专案，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。<br>Docker目标是实现轻量级的操作系统虚拟化解决方案。减少软件开发周期中最繁琐、最耗时的环境准备环节。<br>Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署和迁移这些要求。</p>
-<h2 id="Docker优点"><a href="#Docker优点" class="headerlink" title="Docker优点"></a>Docker优点</h2><p>0）启动可以在秒级实现，比传统的虚拟机快很多<br>1）Docker的资源利用率比传统虚拟机要高，一台主机上可以同时运行数千个Docker容器<br>2）除了运行其中的应用，基本不消耗额外的系统资源，使得应用性能很高，同时系统开销小。<br>（传统的虚拟机方式运行10个不同的应用要10个虚拟机，Docker只要启动10个隔离的应用即可）<br>3）更快速的交付和部署，一次创建或配置可以在任意地方正常运行<br>4）更高效的虚拟化，Docker容器是内核级的虚拟化，可以实现更高的性能和效率<br>5）Docker支持跨节点部署，使得更轻松的迁移和扩展，Docker容器可以在任意的平台上运行，包括物理机、虚拟机、公有云、私有云、个人电脑、服务器等。兼容性高，用户可以把一个应用程序从一个平台直接迁移到另一个平台。“一次构建，自由分发。”<br>6）更简单的管理，小的修改代替大量的更新工作，所有的修改都以增量的方式被分发和更新，实现自动化并且高效的管理。<br>7）版本可控,组件可复用。镜像之间不是相互隔离的，镜像之间可以产生松耦合的关系。镜像是多层文件的联合体，这些文件层通过不同的组合可以产生不同的镜像，每一个镜像都有标签，标签代表了唯一的镜像，通过标签可以回溯加载特定的镜像。<br>8）共享镜像，Docker是开源的，构建的镜像可以上传到Docker Hub上<br>5）轻量，Docker是基于Linux内核进行的虚拟化操作，所有的容器共享内核资源的。</p>
-<h2 id="Docker缺点"><a href="#Docker缺点" class="headerlink" title="Docker缺点"></a>Docker缺点</h2><p>1)宿主资源没有完成做到隔离<br>2)Golang语言尚未成熟<br>3)Docker虽已经开源,但在在未来可能收费</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/10/Docker-learn-first/" class="archive-article-date">
-  	<time datetime="2016-10-10T03:08:31.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-10</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
 	</div>
 
       
