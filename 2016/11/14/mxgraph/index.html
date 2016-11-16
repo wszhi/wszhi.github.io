@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>mxgraph | Shengzhi Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="mxgraphmxGraph是一套用于图表图形的显示交互的开发工具库。支持的技术有：Java JavaScript PHP .NET。
+Java版本用于创建高性能的桌面应用程序。JavaScript版本的mxGraph是一个JS绘图组件,适用于需要在网页中设计/编辑Workflow/BPM流程图、图表、网络图和普通图形的Web应用程序,即主要用在所有的工作于网页浏览器本身的应用。
+JavaScri">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mxgraph">
+<meta property="og:url" content="http://yoursite.com/2016/11/14/mxgraph/index.html">
+<meta property="og:site_name" content="Shengzhi Wang">
+<meta property="og:description" content="mxgraphmxGraph是一套用于图表图形的显示交互的开发工具库。支持的技术有：Java JavaScript PHP .NET。
+Java版本用于创建高性能的桌面应用程序。JavaScript版本的mxGraph是一个JS绘图组件,适用于需要在网页中设计/编辑Workflow/BPM流程图、图表、网络图和普通图形的Web应用程序,即主要用在所有的工作于网页浏览器本身的应用。
+JavaScri">
+<meta property="og:updated_time" content="2016-11-14T08:19:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mxgraph">
+<meta name="twitter:description" content="mxgraphmxGraph是一套用于图表图形的显示交互的开发工具库。支持的技术有：Java JavaScript PHP .NET。
+Java版本用于创建高性能的桌面应用程序。JavaScript版本的mxGraph是一个JS绘图组件,适用于需要在网页中设计/编辑Workflow/BPM流程图、图表、网络图和普通图形的Web应用程序,即主要用在所有的工作于网页浏览器本身的应用。
+JavaScri">
+  
+    <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Shengzhi Wang</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/technical/">技术</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Shengzhi Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Shengzhi Wang</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/technical/">技术</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-mxgraph" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mxgraph
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mxgraph"><a href="#mxgraph" class="headerlink" title="mxgraph"></a>mxgraph</h2><p>mxGraph是一套用于图表图形的显示交互的开发工具库。支持的技术有：Java JavaScript PHP .NET。</p>
+<p>Java版本用于创建高性能的桌面应用程序。<br>JavaScript版本的mxGraph是一个JS绘图组件,适用于需要在网页中设计/编辑Workflow/BPM流程图、图表、网络图和普通图形的Web应用程序,即主要用在所有的工作于网页浏览器本身的应用。</p>
+<p>JavaScript版本主要技术优势:<br>    不需要第三方插件。<br>    涉及的技术是开放的。<br>    标准化的技术，应用程序可以轻松部署到最大数量的浏览器用户，而不需要在用户端的电脑进行额外的配置或安装。<br>JavaScript版本主要技术劣势：<br>    渲染速度。当用户屏幕上可见的单元数量攀升到数百时，在大多数浏览器上重绘减缓到超出可接受的水平。 在信息管理理论中，同时显示数百个单元通常是不正确的，因为用户无法一下子理解这么多的数据。有几种方法， 我们统称为复杂性管理机制，可以用来限制信息的数量，达到合理水平，从而保持可接受的重绘率。 复杂性管理在本用户手册后面的章节中有详细描述。</p>
+<p>下载地址： <a href="http://www.jgraph.com/mxdownload.html" target="_blank" rel="external">http://www.jgraph.com/mxdownload.html</a><br>中文手册： <a href="http://www.mxgraph.cn/doc/mxgraph" target="_blank" rel="external">http://www.mxgraph.cn/doc/mxgraph</a> </p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>在HTML页面加载mxGraph核心js文件即可使用mxGraph所有功能，几乎所有的js工具库都是这样使用的（JQuery ExtJs…）。 </p>
+<p>下载mxGraph并解压<br><a href="https://github.com/jgraph/mxgraph/releases/tag/v3.6.0.0" target="_blank" rel="external">https://github.com/jgraph/mxgraph/releases/tag/v3.6.0.0</a></p>
+<p>mxGraph/javascript/src 目录下包含了开发mxGraph项目所需要的所有东西,复制一份到项目中并指定正确的路径即可使用 </p>
+<p>PS : 当显示的元素数量增多到上百个时， mxGraph的渲染速度会相当的缓慢。这将使用复杂性管理机制来解决。</p>
+<h2 id="hello-world简单例子"><a href="#hello-world简单例子" class="headerlink" title="hello,world简单例子"></a>hello,world简单例子</h2><p>显示hello和world两个格子相连。</p>
+<p>1)新建一个helloWorld.html文件<br>2)放入一个container用于装载mxGraph<br>3)检测浏览器支持与否<br>4)画图</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">        mxBasePath = 'src/';</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"src/js/mxClient.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">    function main(container) &#123;</div><div class="line">        // 检查浏览器支持</div><div class="line">        if (!mxClient.isBrowserSupported()) &#123;</div><div class="line">            mxUtils.error('Browser is not supported!', 200, false);</div><div class="line">        &#125;</div><div class="line">        else &#123;</div><div class="line">            // 在指定容器中创建图形</div><div class="line">            var model = new mxGraphModel();</div><div class="line">            var graph = new mxGraph(container, model);</div><div class="line">            // 激活橡皮圈选择</div><div class="line">            new mxRubberband(graph);</div><div class="line">            // 拿到插入单元的默认父节点。</div><div class="line">            // 这通常是根节点的第一子节点（如0层）。</div><div class="line">            var parent = graph.getDefaultParent();</div><div class="line">            // 在一个步骤中，加入所有的单元到模型中</div><div class="line">            model.beginUpdate();</div><div class="line">            try &#123;</div><div class="line">                var v1 = graph.insertVertex(parent, null,</div><div class="line">                        'Hello', 20, 20, 80, 30);</div><div class="line">                var v2 = graph.insertVertex(parent, null,</div><div class="line">                        'World', 200, 150, 80, 30);</div><div class="line">                var e1 = graph.insertEdge(parent, null, '', v1, v2);</div><div class="line">            &#125;</div><div class="line">            finally &#123;</div><div class="line">                // 更新显示</div><div class="line">                model.endUpdate();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    ;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 页面传递图形的容器给程序 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"main(document.getElementById('container'))"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在script中的mxBasePath:<br>    一个JavaScript变量，用来定义CSS,图片,资源和js的使用的目录。是一段JavaScript代码,并需要被放置在脚本标记内。 它必须在加载mxClient.js之前,而且不应该斜线。</p>
+<p>mxClient.js<br>    这是mxGraph库的路径。</p>
+<p>onload=”main(document.getElementById(‘container’))”<br>    创建容器,onload加载网页时会被调用。它通过在传递即下定义的一个div 容器作为参数。<br>    mxGraph组件将被放置在这个div容器中。</p>
+<p>mxClient.isBrowserSupported()<br>    任何mxGraph应用程序的第一行应该检查浏览器的支持，如果不支持应该适当退出。如果浏览器支持， mxGraph将在div容器内被创建，在开始/结束更新调用之间，三个单元被添加到图形中。</p>
+<h2 id="部分方法"><a href="#部分方法" class="headerlink" title="部分方法"></a>部分方法</h2><p>// 无效<br>graph.setEnabled(false);</p>
+<p>// 连接<br>graph.setConnectable(true);</p>
+<p>// 提示信息<br>graph.setTooltips(true);</p>
+<p>// 右键移动容器坐标轴<br>graph.setPanning(true);</p>
+<p>// 容器大小自适应<br>graph.setResizeContainer(true);</p>
+<p>// 使用浏览器默认的按键监听<br>new mxRubberband(graph);</p>
+<p>// 动态改变样式<br>graph.getView().updateStyle = true;</p>
+<p>// 重复连接<br>graph.setMultigraph(false);</p>
+<p>// Label 将显示 Html 格式的 Value<br>graph.setHtmlLabels(true);</p>
+<p>// 禁用浏览器默认的右键菜单栏<br>mxEvent.disableContextMenu(container);</p>
+<p>// 允许移动 Vertex 的 Label<br>graph.setVertexLabelsMovable(true);</p>
+<p>// 禁止改变元素大小<br>graph.setCellsResizable(false);</p>
+<p>// 允许连线的目标和源是同一元素<br>graph.setAllowLoops(true);</p>
+<p>——节点样式设置<br>1、如何设节点颜色？<br>通过属性fillColor（填充色）、gradientColor（渐变色），设为一样的颜色就是节点颜色了。<br>2、如何设置透明颜色？<br>在配置文件中none可设为默认颜色，transparent可设透明颜色<br>3、节点不可改变大小<br>0否，1是<br>4、节点与连线紧密连接，无空隙</p>
+<p>5、节点颜色渐变方向？</p>
+<p>6、如果不用配置文件？<br>你可以通过cell.setStyle(“XXXX”) 来实现样式的动态设置。<br>XXX形如：”样式属性=属性值;样式属性2=属性值2；”，可通过mxGraph官方doc搜索mxConstants来查找你需要的属性。<br>若设定选中节点的样式，还可通过graph.setCellStyles(mxConstants.属性,mxConstants.属性值);来设定该节点的样式。如：graph.setCellStyles(mxConstants.STYLE_GRADIENT_DIRECTION,mxConstants.DIRECTION_NORTH);<br>参考资料<br><a href="http://www.longboo.com/docs/mxGraph_jiaochen.htm" target="_blank" rel="external">mxGraph 教程1 - 开发入门指南</a><br><a href="http://www.mxgraph.cn/doc/mxgraph/" target="_blank" rel="external">mxGraph 用户手册 – JavaScript客户端</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/14/mxgraph/" class="archive-article-date">
+  	<time datetime="2016-11-14T02:17:26.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-14</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/11/16/Docker-learn3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Docker 学习笔记(三)--创建image
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/13/Docker-Learn/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker 学习笔记(一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Shengzhi Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次, 本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 17.5px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 12.5px;">essays</a> <a href="/tags/html5/" style="font-size: 12.5px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/wszhi">我的Github</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u012138931">我的CSDN</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">靡不有初，&lt;br&gt;&lt;br&gt;鲜克有终。&lt;br&gt;&lt;br&gt;不断努力,一步一步往前走,做最好的自己</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
