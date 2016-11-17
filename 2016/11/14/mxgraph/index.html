@@ -16,7 +16,7 @@ JavaScri">
 <meta property="og:description" content="mxgraphmxGraph是一套用于图表图形的显示交互的开发工具库。支持的技术有：Java JavaScript PHP .NET。
 Java版本用于创建高性能的桌面应用程序。JavaScript版本的mxGraph是一个JS绘图组件,适用于需要在网页中设计/编辑Workflow/BPM流程图、图表、网络图和普通图形的Web应用程序,即主要用在所有的工作于网页浏览器本身的应用。
 JavaScri">
-<meta property="og:updated_time" content="2016-11-14T08:19:15.000Z">
+<meta property="og:updated_time" content="2016-11-16T09:53:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mxgraph">
 <meta name="twitter:description" content="mxgraphmxGraph是一套用于图表图形的显示交互的开发工具库。支持的技术有：Java JavaScript PHP .NET。
@@ -191,6 +191,9 @@ JavaScri">
 <p>// 允许移动 Vertex 的 Label<br>graph.setVertexLabelsMovable(true);</p>
 <p>// 禁止改变元素大小<br>graph.setCellsResizable(false);</p>
 <p>// 允许连线的目标和源是同一元素<br>graph.setAllowLoops(true);</p>
+<p>//选中所有的线<br>raph.selectEdges();</p>
+<p>//使线在所有元素的底下<br>graph.orderCells(true);</p>
+<p>//取消选中的元素<br>graph.clearSelection();</p>
 <p>——节点样式设置<br>1、如何设节点颜色？<br>通过属性fillColor（填充色）、gradientColor（渐变色），设为一样的颜色就是节点颜色了。<br>2、如何设置透明颜色？<br>在配置文件中none可设为默认颜色，transparent可设透明颜色<br>3、节点不可改变大小<br>0否，1是<br>4、节点与连线紧密连接，无空隙</p>
 <p>5、节点颜色渐变方向？</p>
 <p>6、如果不用配置文件？<br>你可以通过cell.setStyle(“XXXX”) 来实现样式的动态设置。<br>XXX形如：”样式属性=属性值;样式属性2=属性值2；”，可通过mxGraph官方doc搜索mxConstants来查找你需要的属性。<br>若设定选中节点的样式，还可通过graph.setCellStyles(mxConstants.属性,mxConstants.属性值);来设定该节点的样式。如：graph.setCellStyles(mxConstants.STYLE_GRADIENT_DIRECTION,mxConstants.DIRECTION_NORTH);<br>参考资料<br><a href="http://www.longboo.com/docs/mxGraph_jiaochen.htm" target="_blank" rel="external">mxGraph 教程1 - 开发入门指南</a><br><a href="http://www.mxgraph.cn/doc/mxgraph/" target="_blank" rel="external">mxGraph 用户手册 – JavaScript客户端</a></p>
@@ -218,7 +221,7 @@ JavaScri">
   
 <nav id="article-nav">
   
-    <a href="/2016/11/16/Docker-learn3/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/11/17/Docker-learn3/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
