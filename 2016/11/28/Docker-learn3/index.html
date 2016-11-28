@@ -10,11 +10,11 @@
 2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。12Docker bu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 学习笔记(三)--创建image">
-<meta property="og:url" content="http://yoursite.com/2016/11/17/Docker-learn3/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/11/28/Docker-learn3/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
 <meta property="og:description" content="build 构建一个镜像读取配置文件构建image(文件名默认Dockerfile,也可以自定义):1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。1Docker build - &amp;lt; Dockerfile
 2)PATH参数表示Dockerfile全路径,即将Dockerfile放置到$(HOME)/Users目录下。12Docker bu">
-<meta property="og:updated_time" content="2016-11-17T07:56:34.000Z">
+<meta property="og:updated_time" content="2016-11-28T06:30:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 学习笔记(三)--创建image">
 <meta name="twitter:description" content="build 构建一个镜像读取配置文件构建image(文件名默认Dockerfile,也可以自定义):1)”-“表示将从STDIN读入数据,即将Dockerfile中的数据通过STDIN传入build中。1Docker build - &amp;lt; Dockerfile
@@ -276,27 +276,73 @@ RUN rm -rf ROOT
 WORKDIR /usr/local/tomcat/conf/Catalina/localhost
 RUN echo &quot;&lt;?xml version=&apos;1.0&apos; encoding=&apos;utf-8&apos;?&gt;&quot; &gt; ROOT.xml 
 RUN echo &quot;&lt;Context path=&apos;/show_books&apos; docBase=&apos;/build_image_share/show_books_base_on_angularJS_Underscore_master&apos; debug=&apos;0&apos; privileged=&apos;true&apos; reloadable=&apos;true&apos;/&gt; &quot; &gt;&gt; ROOT.xml
+# RUN echo &quot;&lt;Context path=&apos;/shoppingweb&apos; docBase=&apos;/build_image_share/shoppingweb&apos; debug=&apos;0&apos; privileged=&apos;true&apos; reloadable=&apos;true&apos;/&gt; &quot; &gt;&gt; ROOT.xml
 
 LABEL &quot;description&quot;=&quot;just for test&quot; &quot;version&quot;=&quot;1.0&quot;
 ENV myName=&quot;Shengzhi Wang&quot; mySoft=&quot;Docker image build&quot;
 
 CMD /usr/local/tomcat/bin/catalina.sh run
 </code></pre><p>build_image_share里面有一个命名为show_books_base_on_angularJS_Underscore_master的war包,只有网页没有集成数据库。<br>然后在同目录下运行docker build -t showbooks .<br>生成镜像后运行docker run -d -p 8888:8080 showbooks<br>在本机访问localhost:8080查看结果</p>
-<h2 id="Dockerfile-优化方案"><a href="#Dockerfile-优化方案" class="headerlink" title="Dockerfile 优化方案"></a>Dockerfile 优化方案</h2><p>1.容器要尽可能短小精悍,在写Dockerfile之前确定容器要提供的服务,要可以快速的启动和停止,同时用最少的步骤来配置容器服务。<br>2.多使用.Dockerignore文件,当加载文件时过滤某些文件。<br>    当Docker加载文件时,如果发现目录存在.Dockerignore文件,那么此目录中符合.Dockerignore文件中定义规则的文件将会被过滤掉,不会被加载到缓存中。<br>    ./Dockerfile文件必须放到Dockerfile所在目录下面。./Dockerfile文件中的路径是以./Dockerfile所在目录为起点的。<br>3.不要安装非必需的软件包<br>4.一个容器尽量只运行一种服务<br>    为了达到容器可以快速部署的目的,应该尽量每个容器只对外提供一种服务。当容器需要其他服务时,通过link的方式从其他容器获取服务,而不是在当前容器再启动另外一种服务。<br>5.控制文件层数量<br>    文件层过多时,创建容器将会耗费更多的时间。<br>    可以将相似的命令放到同一个RUN指令中运行,以减少文件层数量。但是命令合并的太厉害,会影响到Dockerfile中RUN指令的可读性,导致Dockerfile的维护成本很高。<br>    要在文件层数量和可维护性之间找到平衡。<br>6.对命令中的参数进行排序</p>
+<p>Dockerfile3              </p>
+<pre><code>FROM tomcat:7.0.72-jre7
+MAINTAINER WSZ
+
+ADD build_image_share /build_image_share
+RUN [&quot;chmod&quot;,&quot;+x&quot;, &quot;/build_image_share&quot;]
+
+WORKDIR /usr/local/tomcat/webapps
+RUN cp /build_image_share/shoppingweb.war shoppingweb.war
+
+WORKDIR /usr/local/tomcat/conf
+RUN sed -i~ &apos;/&lt;\/Host/i &lt;Context path=&quot;/&quot; docBase=&quot;shoppingweb.war&quot; debug=&quot;0&quot; privileged=&quot;true&quot; reloadable=&quot;true&quot;/&gt;&apos; server.xml
+
+CMD /usr/local/tomcat/bin/catalina.sh run
+</code></pre><h2 id="Dockerfile-优化方案"><a href="#Dockerfile-优化方案" class="headerlink" title="Dockerfile 优化方案"></a>Dockerfile 优化方案</h2><p>1.容器要尽可能短小精悍,在写Dockerfile之前确定容器要提供的服务,要可以快速的启动和停止,同时用最少的步骤来配置容器服务。<br>2.多使用.Dockerignore文件,当加载文件时过滤某些文件。<br>    当Docker加载文件时,如果发现目录存在.Dockerignore文件,那么此目录中符合.Dockerignore文件中定义规则的文件将会被过滤掉,不会被加载到缓存中。<br>    ./Dockerfile文件必须放到Dockerfile所在目录下面。./Dockerfile文件中的路径是以./Dockerfile所在目录为起点的。<br>3.不要安装非必需的软件包<br>4.一个容器尽量只运行一种服务<br>    为了达到容器可以快速部署的目的,应该尽量每个容器只对外提供一种服务。当容器需要其他服务时,通过link的方式从其他容器获取服务,而不是在当前容器再启动另外一种服务。<br>5.控制文件层数量<br>    文件层过多时,创建容器将会耗费更多的时间。<br>    可以将相似的命令放到同一个RUN指令中运行,以减少文件层数量。但是命令合并的太厉害,会影响到Dockerfile中RUN指令的可读性,导致Dockerfile的维护成本很高。<br>    要在文件层数量和可维护性之间找到平衡。<br>6.对命令中的参数进行排序</p>
 <pre><code>RUN apt-get update &amp;&amp; apt-get install -y \
     bzr \
     cvs \
     git \
     subversion
 </code></pre><p>对参数排序以后,可以避免下载重复的软件包,同时增添软件包时更为容易和控制,提高Dockerfile的可读性和可维护性。<br>默认规则,每行最后加空格和\<br>7.尽可能多使用缓存中的数据<br>    在Dockerfile执行过程中,Docker会讲某些命令的执行结果保存成临时镜像,保存在缓存中。在下次执行Dockerfile时,Docker会在执行每一条指令之前检测此条指令缓存值是否有效。只有当缓存没有或者缓存失效时,才会再次执行此条指令。<br>    若是不希望使用缓存中的结果,通过–no-cache=true来关闭此项功能。<br>    Docker加载完基础镜像之后,会对比由此基础镜像所派生出来的所有子镜像。对比规则就是看这些子镜像是否由Dockerfile后面的命令所创建的,如果后面的命令发生了变化,那么缓存自动失效。<br>    单纯的比较指令是否发生变化来判定缓存是否有效。ADD和COPY命令会检查其所涉及的文件是否发生了变更,标准是计算文件的校验和,而且只是校验镜像中的数据,不校验容器中的数据。<br>    一旦缓存的镜像失效,那么此缓存镜像以后的所有镜像都自动失效。</p>
-<p>参考书籍<br>《Docker 全攻略》张涛著   该本书有很长的篇幅介绍docker的命令<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
+<h2 id="某些命令"><a href="#某些命令" class="headerlink" title="某些命令"></a>某些命令</h2><p><strong>Delete all stopped containers</strong><br>docker rm $( docker ps -q -f status=exited)<br><strong>Delete all dangling (unused) images</strong><br>docker rmi $( docker images -q -f dangling=true)<br><strong>安装mysql server</strong><br>RUN apt-get update \<br>        &amp;&amp; apt-get install -y mysql-server<br><strong>mysql server启动</strong><br>docker run –name my-container-name -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql/mysql-server:tag<br><strong>重启mysql service</strong><br>service mysql restart<br>mysql -u root -p</p>
+<p><strong>在容器外进入mysql</strong><br>docker exec -it mysql mysql -uroot -p<br><strong>加一个目录存数据</strong><br>docker run –name mysql2 -v /Users/szwang/DockerForMe/build_image/init_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql/mysql-server</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>基于原先做的Shoppingweb项目,数据库是Mysql<br>修改root-context.xml相关的数据库的内容</p>
+<pre><code>&lt;bean id=&quot;dataSource&quot;
+            class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+            &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
+            &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://mysql:3306/shoppingdb?useUnicode=true&amp;amp;characterEncoding=UTF-8&quot; /&gt;
+            &lt;property name=&quot;username&quot; value=&quot;shop&quot; /&gt;
+            &lt;property name=&quot;password&quot; value=&quot;123456&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p>Dockerfile文件的内容如下:</p>
+<pre><code>FROM tomcat:7.0.72-jre7
+MAINTAINER WSZ
+
+ADD build_image_share /build_image_share
+RUN [&quot;chmod&quot;,&quot;+x&quot;, &quot;/build_image_share&quot;]
+
+WORKDIR /usr/local/tomcat/webapps
+RUN cp /build_image_share/shoppingweb.war shoppingweb.war
+
+WORKDIR /usr/local/tomcat/conf
+RUN sed -i~ &apos;/&lt;\/Host/i &lt;Context path=&quot;/&quot; docBase=&quot;shoppingweb.war&quot; debug=&quot;0&quot; privileged=&quot;true&quot; reloadable=&quot;true&quot;/&gt;&apos; server.xml
+
+CMD /usr/local/tomcat/bin/catalina.sh run
+</code></pre><p>template_envfile的内容如下:</p>
+<pre><code>MYSQL_ROOT_PASSWORD=123456
+MYSQL_ROOT_HOST=mysql
+MYSQL_DATABASE=shoppingdb
+MYSQL_USER=shop
+MYSQL_PASSWORD=123456
+</code></pre><p>在命令行里跑<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#下载mysql server</span></div><div class="line">docker pull mysql/mysql-server</div><div class="line"><span class="comment">#跑起一个数据库容器,root密码设置为123456,数据库的host设置为mysql,数据库名为shoppingdb,数据库用户名和密码为shop和123456</span></div><div class="line">docker run --name mysql2 --env-file ./template_envfile <span class="_">-d</span> mysql/mysql-server</div><div class="line"><span class="comment">#一样的效果</span></div><div class="line"><span class="comment">#docker run --name mysql -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_ROOT_HOST=mysql -e MYSQL_DATABASE=shoppingdb -e MYSQL_USER=shop -e MYSQL_PASSWORD=123456  -d mysql/mysql-server</span></div><div class="line"></div><div class="line"><span class="comment">#进入mysql容器,初始化数据库</span></div><div class="line">docker <span class="built_in">exec</span> -it mysql mysql -uroot -p</div><div class="line"><span class="comment">#如果Access denied失败,则运行docker exec -it mysql2 bash,在容器内运行mysql -u root -p</span></div><div class="line"><span class="comment">#运行sql文件</span></div><div class="line"></div><div class="line"><span class="comment">#启动运行应用的容器</span></div><div class="line">docker run --name shoppingwithlinkmysqlserver <span class="_">-d</span> -p 8080:8080 --env-file ./template_envfile --link mysql:mysql shoppingweb:2.0</div><div class="line"><span class="comment">#一样的效果</span></div><div class="line"><span class="comment">#docker run --name shoppingwithlinkmysqlserver -p 8080:8080 -d -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_ROOT_HOST=mysql -e MYSQL_DATABASE=shoppingdb -e MYSQL_USER=shop -e MYSQL_PASSWORD=123456 --link mysql:mysql shoppingweb:2.0</span></div></pre></td></tr></table></figure></p>
+<p>参考书籍<br>《Docker 全攻略》张涛著   该本书有很长的篇幅介绍docker的命令<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a><br><a href="https://hub.docker.com/r/mysql/mysql-server/" target="_blank" rel="external">mysql/mysql-server in Docker</a><br><a href="http://blog.awolski.com/using-docker-to-spin-up-databases-for-development/" target="_blank" rel="external">Using Docker to spin up databases for development</a><br><a href="http://txt.fliglio.com/2013/11/creating-a-mysql-docker-container/" target="_blank" rel="external">Creating a MySQL Docker Container</a></p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/17/Docker-learn3/" class="archive-article-date">
-  	<time datetime="2016-11-17T07:56:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-17</time>
+      <a href="/2016/11/28/Docker-learn3/" class="archive-article-date">
+  	<time datetime="2016-11-28T06:30:41.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-28</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -315,8 +361,8 @@ CMD /usr/local/tomcat/bin/catalina.sh run
 <nav id="article-nav">
   
   
-    <a href="/2016/11/14/mxgraph/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mxgraph</div>
+    <a href="/2016/11/17/Docker-learn-first/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker 学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   

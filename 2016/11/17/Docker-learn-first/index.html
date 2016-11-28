@@ -9,10 +9,10 @@
   <meta name="description" content="Docker是什么Docker是一个开放源代码软件专案，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。Docker目标是实现轻量级的操作系统虚拟化解决方案。减少软件开发周期中最繁琐、最耗时的环境准备环节。Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 学习笔记">
-<meta property="og:url" content="http://yoursite.com/2016/11/13/Docker-learn-first/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/11/17/Docker-learn-first/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
 <meta property="og:description" content="Docker是什么Docker是一个开放源代码软件专案，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。Docker目标是实现轻量级的操作系统虚拟化解决方案。减少软件开发周期中最繁琐、最耗时的环境准备环节。Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署">
-<meta property="og:updated_time" content="2016-11-13T12:14:25.000Z">
+<meta property="og:updated_time" content="2016-11-17T08:09:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 学习笔记">
 <meta name="twitter:description" content="Docker是什么Docker是一个开放源代码软件专案，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。Docker目标是实现轻量级的操作系统虚拟化解决方案。减少软件开发周期中最繁琐、最耗时的环境准备环节。Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署">
@@ -158,15 +158,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h2><p>Docker是一个开放源代码软件专案，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。<br>Docker目标是实现轻量级的操作系统虚拟化解决方案。减少软件开发周期中最繁琐、最耗时的环境准备环节。<br>Docker满足了免费的、轻量级、可移植、虚拟化、资源隔离、数据统一、语言无关、封装后的镜像可以随处部署和迁移这些要求。</p>
-<h2 id="Docker优点"><a href="#Docker优点" class="headerlink" title="Docker优点"></a>Docker优点</h2><p>0）启动可以在秒级实现，比传统的虚拟机快很多<br>1）Docker的资源利用率比传统虚拟机要高，一台主机上可以同时运行数千个Docker容器<br>2）除了运行其中的应用，基本不消耗额外的系统资源，使得应用性能很高，同时系统开销小。<br>（传统的虚拟机方式运行10个不同的应用要10个虚拟机，Docker只要启动10个隔离的应用即可）<br>3）更快速的交付和部署，一次创建或配置可以在任意地方正常运行<br>4）更高效的虚拟化，Docker容器是内核级的虚拟化，可以实现更高的性能和效率<br>5）Docker支持跨节点部署，使得更轻松的迁移和扩展，Docker容器可以在任意的平台上运行，包括物理机、虚拟机、公有云、私有云、个人电脑、服务器等。兼容性高，用户可以把一个应用程序从一个平台直接迁移到另一个平台。“一次构建，自由分发。”<br>6）更简单的管理，小的修改代替大量的更新工作，所有的修改都以增量的方式被分发和更新，实现自动化并且高效的管理。<br>7）版本可控,组件可复用。镜像之间不是相互隔离的，镜像之间可以产生松耦合的关系。镜像是多层文件的联合体，这些文件层通过不同的组合可以产生不同的镜像，每一个镜像都有标签，标签代表了唯一的镜像，通过标签可以回溯加载特定的镜像。<br>8）共享镜像，Docker是开源的，构建的镜像可以上传到Docker Hub上<br>5）轻量，Docker是基于Linux内核进行的虚拟化操作，所有的容器共享内核资源的。</p>
+<h2 id="Docker优点"><a href="#Docker优点" class="headerlink" title="Docker优点"></a>Docker优点</h2><p>0）启动可以在秒级实现，比传统的虚拟机快很多<br>1）Docker的资源利用率比传统虚拟机要高，一台主机上可以同时运行数千个Docker容器<br>2）除了运行其中的应用，基本不消耗额外的系统资源，使得应用性能很高，同时系统开销小。<br>（传统的虚拟机方式运行10个不同的应用要10个虚拟机，Docker只要启动10个隔离的应用即可）<br>3）更快速的交付和部署，一次创建或配置可以在任意地方正常运行<br>4）更高效的虚拟化，Docker容器是内核级的虚拟化，可以实现更高的性能和效率<br>5）Docker支持跨节点部署，使得更轻松的迁移和扩展，Docker容器可以在任意的平台上运行，包括物理机、虚拟机、公有云、私有云、个人电脑、服务器等。兼容性高，用户可以把一个应用程序从一个平台直接迁移到另一个平台。“一次构建，自由分发。”<br>6）更简单的管理，小的修改代替大量的更新工作，所有的修改都以增量的方式被分发和更新，实现自动化并且高效的管理。<br>7）版本可控,组件可复用。镜像之间不是相互隔离的，镜像之间可以产生松耦合的关系。镜像是多层文件的联合体，这些文件层通过不同的组合可以产生不同的镜像，每一个镜像都有标签，标签代表了唯一的镜像，通过标签可以回溯加载特定的镜像。<br>8）共享镜像，Docker是开源的，构建的镜像可以上传到Docker Hub上<br>9）轻量，Docker是基于Linux内核进行的虚拟化操作，所有的容器共享内核资源的。</p>
 <h2 id="Docker缺点"><a href="#Docker缺点" class="headerlink" title="Docker缺点"></a>Docker缺点</h2><p>1)宿主资源没有完成做到隔离<br>2)Golang语言尚未成熟<br>3)Docker虽已经开源,但在在未来可能收费</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/13/Docker-learn-first/" class="archive-article-date">
-  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
+      <a href="/2016/11/17/Docker-learn-first/" class="archive-article-date">
+  	<time datetime="2016-11-17T08:09:07.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-17</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -184,18 +184,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/11/13/Docker-Learn2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/11/28/Docker-learn3/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Docker 学习笔记(二)
+          Docker 学习笔记(三)--创建image
         
       </div>
     </a>
   
   
-    <a href="/2016/11/02/List-Task/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">任务分解</div>
+    <a href="/2016/11/14/mxgraph/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mxgraph</div>
       <i class="icon-circle-right"></i>
     </a>
   
