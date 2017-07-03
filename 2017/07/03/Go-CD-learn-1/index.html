@@ -4,18 +4,30 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>tags | Shengzhi Wang</title>
+  <title>Go CD 学习笔记(一) | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="靡不有初,鲜克有终">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+  <meta name="description" content="Go CD 是属于在持续集成，持续交付过程中使用的自动化构建工具，可以执行编译，自动化测试，自动部署等等。    在此之前，已经使用过Jenkins工具了，Go CD 的功能和Jenkins差不多，但又有其特点。
+Go CD中的某些概念Tasktask是要执行的一个build任务，一般是一个命令行指令
+Job
+一个Job由多个task组成，每个task按排列顺序执行。
+当一个task执行失败，那么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go CD 学习笔记(一)">
+<meta property="og:url" content="http://yoursite.com/2017/07/03/Go-CD-learn-1/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="靡不有初,鲜克有终">
-<meta property="og:updated_time" content="2016-09-30T03:56:57.000Z">
+<meta property="og:description" content="Go CD 是属于在持续集成，持续交付过程中使用的自动化构建工具，可以执行编译，自动化测试，自动部署等等。    在此之前，已经使用过Jenkins工具了，Go CD 的功能和Jenkins差不多，但又有其特点。
+Go CD中的某些概念Tasktask是要执行的一个build任务，一般是一个命令行指令
+Job
+一个Job由多个task组成，每个task按排列顺序执行。
+当一个task执行失败，那么">
+<meta property="og:updated_time" content="2017-07-03T03:11:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="靡不有初,鲜克有终">
+<meta name="twitter:title" content="Go CD 学习笔记(一)">
+<meta name="twitter:description" content="Go CD 是属于在持续集成，持续交付过程中使用的自动化构建工具，可以执行编译，自动化测试，自动部署等等。    在此之前，已经使用过Jenkins工具了，Go CD 的功能和Jenkins差不多，但又有其特点。
+Go CD中的某些概念Tasktask是要执行的一个build任务，一般是一个命令行指令
+Job
+一个Job由多个task组成，每个task按排列顺序执行。
+当一个task执行失败，那么">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -139,7 +151,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-Go-CD-learn-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -149,7 +161,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      Go CD 学习笔记(一)
     </h1>
   
 
@@ -157,15 +169,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>Go CD 是属于在持续集成，持续交付过程中使用的自动化构建工具，可以执行编译，自动化测试，自动部署等等。<br>    在此之前，已经使用过Jenkins工具了，Go CD 的功能和Jenkins差不多，但又有其特点。</p>
+<h3 id="Go-CD中的某些概念"><a href="#Go-CD中的某些概念" class="headerlink" title="Go CD中的某些概念"></a>Go CD中的某些概念</h3><h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>task是要执行的一个build任务，一般是一个命令行指令</p>
+<h4 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h4><ul>
+<li>一个Job由多个task组成，每个task按排列顺序执行。</li>
+<li>当一个task执行失败，那么这个job就会被认为失败，并且没有其他特殊的设置的话，这个失败的task之后的其他task都不会被执行。</li>
+<li>在一个job中的task作为独立的程序运行的，某一个task改变的环境变量不会影响后续的tasks，但是这个task对文件系统的更改在后续的tasks中可见。<h4 id="Stage"><a href="#Stage" class="headerlink" title="Stage"></a>Stage</h4></li>
+<li>一个Stage由多个job组成，job之间可以相互独立运行，也就是说在Stage之中的job可以并行。</li>
+<li>一个job失败了，那么该stage也被认为是失败的，由于stage的job相互独立，所以其他的job还是会继续执行，不受影响。<h4 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h4>一个Pipeline由多个stage组成，stage按顺序执行，若是一个stage执行失败了，那么该pipeline也被认为是失败的，并且之后的stage不会继续执行。<h4 id="Materials"><a href="#Materials" class="headerlink" title="Materials"></a>Materials</h4></li>
+<li>Materials是pipeline跑的起因，一般是源代码仓库，例如git、SVN等。</li>
+<li>当代码更新的时候，Go Server会持续的获取代码仓库的代码。</li>
+<li>在某一个pipeline1中的stage也可以作为另一个pipeline2的Materials，如此在stage执行完毕后会触发pipeline2运行。<h4 id="Artifacts"><a href="#Artifacts" class="headerlink" title="Artifacts"></a>Artifacts</h4>  Artifacts一般是文件或者文件夹，当job执行完毕后会发布Artifacts，供给用户、后续执行的stage或pipeline使用。<h4 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h4>  Go Agents是tasks, jobs, stages 和 pipeline 运行的地方。<h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h4>  Resources指的是Agent中有的资源，它帮助jobs寻找适合的Agent，当job需要的资源在某agent中都存在的时候，才会使用该agent。<h4 id="Environments"><a href="#Environments" class="headerlink" title="Environments"></a>Environments</h4></li>
+<li>Environments是用来分组的，把有联系agent 和 pipelines分成一组。</li>
+<li>一个pipeline最多只能在一个environment中。</li>
+<li>一个agent可以在多个environment中，或不属于任何一个environment。</li>
+<li>一个agent只能获取到属于和该agent有联系的environment中的pipeline中的jobs；无法获取其他jobs，哪怕这些jobs不属于任何environment。<h4 id="Environment-Variables"><a href="#Environment-Variables" class="headerlink" title="Environment Variables"></a>Environment Variables</h4></li>
+<li>Environment Variables和Environments没有关系，它是用户在配置中自己定义的变量。这些环境变量与Task在运行时可用的其他环境变量一样。</li>
+<li>Environment Variables可以在 Environment ，pipelines，stages 和 jobs 中定义。并且下一层的Environment Variables可以重写上一层的，例如jobs重写Environment的变量。</li>
+</ul>
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/tags/index.html" class="archive-article-date">
-  	<time datetime="2016-09-30T03:56:57.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
+      <a href="/2017/07/03/Go-CD-learn-1/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:10:56.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
 </a>
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pipeline/">pipeline</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
       
 
       <div class="clearfix"></div>
@@ -174,6 +209,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/03/java-generate-pdf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java 生成 pdf</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -228,7 +273,7 @@
 		mathjax: false,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

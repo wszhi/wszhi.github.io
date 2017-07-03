@@ -140,6 +140,73 @@
       <div class="body-wrap">
         
   
+    <article id="post-Go-CD-learn-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/03/Go-CD-learn-1/">Go CD 学习笔记(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Go CD 是属于在持续集成，持续交付过程中使用的自动化构建工具，可以执行编译，自动化测试，自动部署等等。<br>    在此之前，已经使用过Jenkins工具了，Go CD 的功能和Jenkins差不多，但又有其特点。</p>
+<h3 id="Go-CD中的某些概念"><a href="#Go-CD中的某些概念" class="headerlink" title="Go CD中的某些概念"></a>Go CD中的某些概念</h3><h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>task是要执行的一个build任务，一般是一个命令行指令</p>
+<h4 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h4><ul>
+<li>一个Job由多个task组成，每个task按排列顺序执行。</li>
+<li>当一个task执行失败，那么这个job就会被认为失败，并且没有其他特殊的设置的话，这个失败的task之后的其他task都不会被执行。</li>
+<li>在一个job中的task作为独立的程序运行的，某一个task改变的环境变量不会影响后续的tasks，但是这个task对文件系统的更改在后续的tasks中可见。<h4 id="Stage"><a href="#Stage" class="headerlink" title="Stage"></a>Stage</h4></li>
+<li>一个Stage由多个job组成，job之间可以相互独立运行，也就是说在Stage之中的job可以并行。</li>
+<li>一个job失败了，那么该stage也被认为是失败的，由于stage的job相互独立，所以其他的job还是会继续执行，不受影响。<h4 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h4>一个Pipeline由多个stage组成，stage按顺序执行，若是一个stage执行失败了，那么该pipeline也被认为是失败的，并且之后的stage不会继续执行。<h4 id="Materials"><a href="#Materials" class="headerlink" title="Materials"></a>Materials</h4></li>
+<li>Materials是pipeline跑的起因，一般是源代码仓库，例如git、SVN等。</li>
+<li>当代码更新的时候，Go Server会持续的获取代码仓库的代码。</li>
+<li>在某一个pipeline1中的stage也可以作为另一个pipeline2的Materials，如此在stage执行完毕后会触发pipeline2运行。<h4 id="Artifacts"><a href="#Artifacts" class="headerlink" title="Artifacts"></a>Artifacts</h4>  Artifacts一般是文件或者文件夹，当job执行完毕后会发布Artifacts，供给用户、后续执行的stage或pipeline使用。<h4 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h4>  Go Agents是tasks, jobs, stages 和 pipeline 运行的地方。<h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h4>  Resources指的是Agent中有的资源，它帮助jobs寻找适合的Agent，当job需要的资源在某agent中都存在的时候，才会使用该agent。<h4 id="Environments"><a href="#Environments" class="headerlink" title="Environments"></a>Environments</h4></li>
+<li>Environments是用来分组的，把有联系agent 和 pipelines分成一组。</li>
+<li>一个pipeline最多只能在一个environment中。</li>
+<li>一个agent可以在多个environment中，或不属于任何一个environment。</li>
+<li>一个agent只能获取到属于和该agent有联系的environment中的pipeline中的jobs；无法获取其他jobs，哪怕这些jobs不属于任何environment。<h4 id="Environment-Variables"><a href="#Environment-Variables" class="headerlink" title="Environment Variables"></a>Environment Variables</h4></li>
+<li>Environment Variables和Environments没有关系，它是用户在配置中自己定义的变量。这些环境变量与Task在运行时可用的其他环境变量一样。</li>
+<li>Environment Variables可以在 Environment ，pipelines，stages 和 jobs 中定义。并且下一层的Environment Variables可以重写上一层的，例如jobs重写Environment的变量。</li>
+</ul>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/07/03/Go-CD-learn-1/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:10:56.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pipeline/">pipeline</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java-generate-pdf" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -742,86 +809,6 @@ MYSQL_PASSWORD=123456
 
 
   
-    <article id="post-Docker-Learn2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/13/Docker-Learn2/">Docker 学习笔记(二)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Docker中的某些命令详解"><a href="#Docker中的某些命令详解" class="headerlink" title="Docker中的某些命令详解"></a>Docker中的某些命令详解</h2><h4 id="logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志"><a href="#logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志" class="headerlink" title="logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志"></a>logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志</h4><h4 id="attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令"><a href="#attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令" class="headerlink" title="attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令"></a>attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令</h4><p>可以通过ID和name挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         32 minutes ago      Up 32 minutes                           reverent_thompson</div><div class="line">➜  ~ docker attach 6caf2b2b8d00</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker attach reverent_thompson</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
-<p>通过Ctrl+P+Q来退出容器,容器还在运行中。<br>使用exit退出容器,容器同步被关闭。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@6caf2b2b8d00:/# exit 10</div><div class="line">➜  ~ docker ps -a |grep reverent_thompson</div><div class="line">6caf2b2b8d00        b1873e247b48         &quot;/bin/bash&quot;              52 minutes ago      Exited (10) 45 seconds ago                       reverent_thompson</div></pre></td></tr></table></figure></p>
-<p>Exited (10) 容器的退出响应码变成了10,即可以通过exit命令来指定容器退出码。</p>
-<h4 id="commit-以某个容器为基础保存成一个新的image"><a href="#commit-以某个容器为基础保存成一个新的image" class="headerlink" title="commit 以某个容器为基础保存成一个新的image"></a>commit 以某个容器为基础保存成一个新的image</h4><p>-a, –author=””这个参数的目标是保存新的作者。<br>-c, –change=[]这个参数保存的是修改image里面的配置参数。<br>目前支持的可以修改的配置参数有CMD|ENTRYPOINT|ENV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKDIR。其余的参数继承于上一个image<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit --change &quot;ENV DEBUG true&quot; 3af7938d2d31 svendowideit/testimage:version1</div><div class="line">sha256:c24a8c4cf76d9485e69fa4d975a6b8ccc3070dbf368a118672ab6a76a4249605</div></pre></td></tr></table></figure></p>
-<p>3af7938d2d31是一个正在运行的容器,svendowideit/testimage是repository的名字,version1是tag的内容<br>查看结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ Docker inspect -f &quot;&#123;&#123; .Config.Env&#125;&#125;&quot; c24a8c4cf76d</div><div class="line">[DEBUG=true no_proxy=local PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]</div></pre></td></tr></table></figure></p>
-<p>-m, –message=””这个参数是提交一个comment备注信息,说明image的用途,修改的内容等信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~  docker commit -m &quot;test message&quot; 3af7938d2d31 svendowideit/testimage:version2</div><div class="line">sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4</div><div class="line">➜  ~ Docker inspect 0d4f24b6a8d7</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Id&quot;: &quot;sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4&quot;,</div><div class="line">        &quot;RepoTags&quot;: [</div><div class="line">            &quot;svendowideit/testimage:version2&quot;</div><div class="line">        ],</div><div class="line">        &quot;RepoDigests&quot;: [],</div><div class="line">        &quot;Parent&quot;: &quot;sha256:78a0e8d9b39cdcbb93d433ec5de61ba6c6d10369eccdf45b7e60318b47356d9a&quot;,</div><div class="line">        &quot;Comment&quot;: &quot;test message&quot;,</div><div class="line">        .........</div><div class="line">     &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
-<p>-p, –pause=true 默认情况下执行commit时,容器中所有进程处于暂停状态,如果此时容器对外提供服务,那其他容器会受到影响。<br>-pause=false使用这个参数使得在执行commit时保持容器内进程继续工作。但是commit效率会下降。</p>
-<h4 id="create-创建容器"><a href="#create-创建容器" class="headerlink" title="create 创建容器"></a>create 创建容器</h4><p>create命令是以image为模板创建的一个容器,并且在容器文件的最上面一层添加一个读写层,容器里面的数据变化会被保存在读写层。<br>create成功后需要通过start来启动容器。<br>参数:<br>-i 将Host的Stdin和容器的Stdin相连接<br>-t 创建一个pty终端<br>(-it 前两者结合使用相当于在host环境中启动一个链接容器的pty伪终端,在host的pty中输入的数据就会传到容器之中。)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker create -it addwszfile bash</div><div class="line">7019c6b575fe673954f2019a99fb6679b7a2f4a604d324290ff5111c42feae2b</div><div class="line">➜  ~ docker create -it -v /dockerforme/sinatra/share_folder/:/tmp --name data1 addwszfile</div><div class="line">7cfc3205a8df843d1b7219a31f51976b5df638cb20a03c57134ec690da990875</div><div class="line">➜  ~ docker create -P --name data2 addwszfile</div></pre></td></tr></table></figure></p>
-<p>addwszfile是image名称。</p>
-<p>-p 映射网络端口,当应用需要访问其他应用或被访问,需要开放一个端口<br>-P 容器中所有需要暴露的端口都会映射到主机随机的一个端口(端口范围49153~65535)<br>-v 挂载参数,把主机的一个文件或者一个目录挂载到容器中</p>
-<h4 id="diff-比较容器文件文件层数据差异的命令"><a href="#diff-比较容器文件文件层数据差异的命令" class="headerlink" title="diff 比较容器文件文件层数据差异的命令"></a>diff 比较容器文件文件层数据差异的命令</h4><p>首先启动一个容器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
-<p>在容器中做某些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is wsz add test&quot; &gt; /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# rm /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is a change test&quot; &gt; /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;I add a new line&quot; &gt;&gt; /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
-<p>新开一个命令行窗口,查看diff<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">543f21cb4a4e        ubuntu:12.04        &quot;/bin/bash&quot;         4 minutes ago       Up 4 minutes                            trusting_bell</div><div class="line">➜  ~ docker diff 543f21cb4a4e</div><div class="line">C /tmp</div><div class="line">A /tmp/wsz.txt</div><div class="line">A /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
-<p>结果中的A表示add;C表示Change;D表示Delete<br>可以看见之中我们是创建一个wsz2.txt的文件然后又删除了,但是在diff中并没有反应出来,这是因为我们操作产生的数据保存在最上面的读写层里,diff比较的是最上层和其他层的差异,其中wsz2的文件不存在于其他层所以不显示。<br>若想时时刻刻保存状态,可以save读写层,再进行删除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit 543f21cb4a4e addwszfile</div><div class="line">sha256:b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">➜  ~ docker run -it b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">root@6caf2b2b8d00:/# rm /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
-<p>新开一个命令行窗口可以看到删除的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         40 seconds ago      Up 39 seconds                           reverent_thompson</div><div class="line">➜  ~ docker diff 6caf2b2b8d00</div><div class="line">C /tmp</div><div class="line">D /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
-<h4 id="events-获取容器所报告的事件"><a href="#events-获取容器所报告的事件" class="headerlink" title="events 获取容器所报告的事件"></a>events 获取容器所报告的事件</h4><p>Docker容器再运行过程中会向Docker Daemon报告如下事件:<br>create、destroy、die、export、kill、oom、pause、start、stop、unpause<br>Image镜像会向Docker Daemon报告untag、delete事件<br>筛选的几种方式:<br>–since 指从某一个时间点开始Docker Daemon接收的所有事件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos;</div></pre></td></tr></table></figure></p>
-<p>–until 需要和 –since结合使用,指的是从某一个时间点开始到某一个时间点结束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos; --until &apos;2016-11-08T15:00:00&apos;</div></pre></td></tr></table></figure></p>
-<p>–filter 接收的是key=value的键值对。目前有效的key是container、event、image。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --filter &apos;event=stop&apos;</div><div class="line">➜  ~ docker events --filter &apos;image=ubuntu:14.04&apos;</div><div class="line">➜  ~ docker events --filter &apos;container=543f21cb4a4e&apos;</div></pre></td></tr></table></figure></p>
-<h4 id="exec-在容器中运行其他命令"><a href="#exec-在容器中运行其他命令" class="headerlink" title="exec 在容器中运行其他命令"></a>exec 在容器中运行其他命令</h4><p>执行ps删选进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 ps -s|grep bash</div></pre></td></tr></table></figure></p>
-<p>创建一个新文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 touch /tmp/1.txt</div></pre></td></tr></table></figure></p>
-<p>修改文件,前提需要申请一个pty和绑定一个stdin用来保存编辑的文件,因为没有pty容器无法收到控制字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec -it 6caf2b2b8d00 vi /tmp/1.txt</div></pre></td></tr></table></figure></p>
-<h4 id="history-追踪image的历史记录"><a href="#history-追踪image的历史记录" class="headerlink" title="history 追踪image的历史记录"></a>history 追踪image的历史记录</h4><p>diff 查看的是容器中文件系统的变更历史。History查看的是image的变更历史。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker history ouruser/sinatra:v3</div></pre></td></tr></table></figure></p>
-<p>-H,–human 表示是否输出方便用户识别的格式。<br>–no-trunc=false 默认false,表示将输出按照一定的格式进行截断。<br>–quiet 若是设置为true,只返回image构建过程中所有的临时文件层的image ID,为false时返回所有信息。</p>
-<h4 id="info-显示Docker摘要信息"><a href="#info-显示Docker摘要信息" class="headerlink" title="info 显示Docker摘要信息"></a>info 显示Docker摘要信息</h4><p>info 指令显示Docker摘要信息,用来确认Docker信息。包含Docker内核版本号、Docker所设定的CPU、内存参数等环境底层信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker info</div></pre></td></tr></table></figure></p>
-<h4 id="inspect-返回指定目标的底层信息"><a href="#inspect-返回指定目标的底层信息" class="headerlink" title="inspect 返回指定目标的底层信息"></a>inspect 返回指定目标的底层信息</h4><p>inspect可以返回image和container的底层信息。包括某个容器的IP地址,MAC地址,端口信息等等。<br>返回的几类信息:<br>1.基本信息类:名称,创建时间,当前状态(运行、停止、暂停)等<br>2.运行参数类:网络信息、环境变量、主机名称等<br>3.底层数据类:CPU设置、内存设置、虚拟化设置等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker inspect -f &#123;&#123;要查看的参数名&#125;&#125; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;json .Config&#125;&#125;&apos; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;(index (index .Config &quot;Env&quot;) 0)&#125;&#125;&apos; ID号              取出Config中Env第一个元素命令</div></pre></td></tr></table></figure></p>
-<p>json是指把数据格式化成json字符串<br>index取第几个</p>
-<h4 id="kill-强制停止容器"><a href="#kill-强制停止容器" class="headerlink" title="kill 强制停止容器"></a>kill 强制停止容器</h4><p>一般使用stop关掉容器。出现异常使用kill<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker kill 容器名</div></pre></td></tr></table></figure></p>
-<h4 id="ps-查看当前容器的运行状态"><a href="#ps-查看当前容器的运行状态" class="headerlink" title="ps 查看当前容器的运行状态"></a>ps 查看当前容器的运行状态</h4><h4 id="rename-对容器重命名"><a href="#rename-对容器重命名" class="headerlink" title="rename 对容器重命名"></a>rename 对容器重命名</h4><p>docker rename 旧名字 新名字</p>
-<h4 id="tag-对镜像重命名"><a href="#tag-对镜像重命名" class="headerlink" title="tag 对镜像重命名"></a>tag 对镜像重命名</h4><p>……还有很多命令看文档</p>
-<p>参考书籍<br>《Docker 全攻略》张涛著<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/13/Docker-Learn2/" class="archive-article-date">
-  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-Docker-Learn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -932,7 +919,7 @@ MYSQL_PASSWORD=123456
 
 
   
-    <article id="post-List-Task" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Docker-Learn2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -942,7 +929,7 @@ MYSQL_PASSWORD=123456
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/02/List-Task/">任务分解</a>
+      <a class="article-title" href="/2016/11/13/Docker-Learn2/">Docker 学习笔记(二)</a>
     </h1>
   
 
@@ -950,85 +937,49 @@ MYSQL_PASSWORD=123456
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。</p>
-<h2 id="任务分解-列Task"><a href="#任务分解-列Task" class="headerlink" title="任务分解,列Task"></a>任务分解,列Task</h2><p>当我们拿到一个任务卡片时,经常干的一件事,就是明确卡片中的要求和明细,然后就直接开始码代码了。因为写的代码是可见的,运行成功会有极大成就感,然而其实这并不是一个好的方式。</p>
-<p>在我们写代码之前应该根据卡片内容,从开发的角度把一个大卡分解成各个小任务,然后针对每个小任务进行开发才是可取的。其实这种方法得到的成就感并不亚于前者。</p>
-<h4 id="Task-是什么-如何列"><a href="#Task-是什么-如何列" class="headerlink" title="Task 是什么,如何列"></a>Task 是什么,如何列</h4><p>很多人会和我一样困惑,要列Task,但是什么是Task呢?一般来说,一个function(函数),一个Process或者一个Code Block(代码块)都可以是一个Task。<br>每一个Task都有相应的输入和输出。输入的可以是函数的参数,全局变量,局部变量(对于代码块来说)。输出可以是返回值,变量等。</p>
-<p>每个Task的输入都是可穷尽的,在列Task的时候要列出所有用到的Task。<br>列Task的时候的命名要精确,每一个名字在不同的地方有不同的意思。</p>
-<p>列Task,一般会画一个包含Data和Process的图。类似一个有架构的数据流向图。Data(数据)一般有数组、队列、栈、树、对象、类、有循环的对象等,Process(过程)一般有顺序的、选择的(if/switch)、循环(for/while)等。</p>
-<p>参考<br><a href="https://www.zybuluo.com/jtong/note/504192" target="_blank" rel="external">编程的精进之法</a></p>
-<h2 id="PDCA-戴明环"><a href="#PDCA-戴明环" class="headerlink" title="PDCA 戴明环"></a>PDCA 戴明环</h2><p>PDCA指的是Plan-Do-Check-Action,而列Task属于Plan的内容。</p>
-<p>如何定义Done?<br>1.code Done<br>2.test pass<br>3.Integration env<br>4.showcase<br>5.production env<br>6.ux(用户使用)</p>
-<p>单个任务的开发流程:0)Spike即调研;1)写测试;2)写实现;3)测试通过</p>
-<h2 id="例子一-打印学生成绩单"><a href="#例子一-打印学生成绩单" class="headerlink" title="例子一,打印学生成绩单"></a>例子一,打印学生成绩单</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景:"></a>背景:</h4><p><a href="https://www.zybuluo.com/jtong/note/471501" target="_blank" rel="external">https://www.zybuluo.com/jtong/note/471501</a>  中的课后作业<br>打印所有人的成绩单,包括平均分和总分。<br>打印全班级的总分平均分和中位数。</p>
-<h4 id="列Task"><a href="#列Task" class="headerlink" title="列Task"></a>列Task</h4><h5 id="1-转换ViewModel"><a href="#1-转换ViewModel" class="headerlink" title="1) 转换ViewModel"></a>1) 转换ViewModel</h5><p>输入:</p>
-<pre><code>studentScoresArray:[[String]]
-</code></pre><p>输出:</p>
-<pre><code>studentScoresSheet:[{
-    name:String,
-    chinese:double,
-    english:double,
-    math:double,
-    programming:double
-    },
-    {
-    ...
-    }]
-</code></pre><h5 id="2-得到学生成绩"><a href="#2-得到学生成绩" class="headerlink" title="2) 得到学生成绩"></a>2) 得到学生成绩</h5><p>输入:</p>
-<pre><code>studentScoresSheet
-</code></pre><p>输出:</p>
-<pre><code>studentScoresSheetWithSummary:[{
-    name:String,
-    chinese:double,
-    english:double,
-    math:double,
-    programming:double,
-    average:double,
-    total:double
-    },
-    {
-     ...
-    }]
-</code></pre><h5 id="3-计算总计"><a href="#3-计算总计" class="headerlink" title="3) 计算总计"></a>3) 计算总计</h5><p>输入:</p>
-<pre><code>studentScoresSheetWithSummary
-</code></pre><p>输出:</p>
-<pre><code>summary:{
-    totalAverage:double,
-    totalMidden:double
-    }
-</code></pre><h5 id="4-打印成绩单"><a href="#4-打印成绩单" class="headerlink" title="4) 打印成绩单"></a>4) 打印成绩单</h5><p>输入:</p>
-<pre><code>studentScoresSheetWithSummary
-summary
-</code></pre><p>输出:</p>
-<pre><code>Result:String
-</code></pre><p><a href="https://github.com/wszhi/TaskConsoleStudentScoreInfo" target="_blank" rel="external">Github代码</a></p>
-<h2 id="例子二-猜数字游戏"><a href="#例子二-猜数字游戏" class="headerlink" title="例子二,猜数字游戏"></a>例子二,猜数字游戏</h2><p><a href="https://github.com/raypeng/guess-number-raypeng/blob/master/README.md" target="_blank" rel="external">具体游戏内容</a><br>这个游戏有几个需要注意点:<br>1)Compare(两个数字对比的前提假设:符合要求的、合法的值)<br>2)生成随机数(生成的数是数字、四位、每位都不一样)<br>3)游戏流程(进入游戏–第一次成功/中间成功/最后一次成功/游戏失败)</p>
-<p>PS:不能放过任何一个逻辑冲突;等加类划分可以使用正交分解法;还要考虑系统状态怎么保持<br>正交分解法:</p>
-<pre><code> \ 位   |         |         | 
-  \ 置  |         |         |
-数 \    | 全都一样 | 全不一样 | 部分一样
-字  \   |         |         |
---------------------------------------
-全都一样 | 4A0B    | 0A4B    | 2A4B
-全不一样 | 不可能   | 0A0B    | 不可能
-部分一样 | 不可能   | 0A2B    | 2A2B
-</code></pre><p>分解后的图如下:<br>1)应用启动<br><img src="http://img.blog.csdn.net/20161107144603037" alt=""></p>
-<p>2)界面1(按1启动游戏)<br><img src="http://img.blog.csdn.net/20161107144618709" alt=""></p>
-<p><img src="http://img.blog.csdn.net/20161107144638756" alt=""></p>
-<p>main是解决输入输出的。<br>Router通过输入输出解析找到具体的Command。<br>Command处理各种具体的用户输入,对Core层返回的结果翻译成友好的输出。<br>Core层函数生成计算结果。</p>
-<p>3)退出(按2退出游戏)<br><img src="http://img.blog.csdn.net/20161107144657923" alt=""></p>
-<h2 id="例子三-邮编和条码的转化"><a href="#例子三-邮编和条码的转化" class="headerlink" title="例子三,邮编和条码的转化"></a>例子三,邮编和条码的转化</h2><h2 id="例子四-一对多web基础应用"><a href="#例子四-一对多web基础应用" class="headerlink" title="例子四,一对多web基础应用"></a>例子四,一对多web基础应用</h2><h2 id="例子五-多对多web基础应用"><a href="#例子五-多对多web基础应用" class="headerlink" title="例子五,多对多web基础应用"></a>例子五,多对多web基础应用</h2>
+        <h2 id="Docker中的某些命令详解"><a href="#Docker中的某些命令详解" class="headerlink" title="Docker中的某些命令详解"></a>Docker中的某些命令详解</h2><h4 id="logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志"><a href="#logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志" class="headerlink" title="logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志"></a>logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志</h4><h4 id="attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令"><a href="#attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令" class="headerlink" title="attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令"></a>attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令</h4><p>可以通过ID和name挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         32 minutes ago      Up 32 minutes                           reverent_thompson</div><div class="line">➜  ~ docker attach 6caf2b2b8d00</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker attach reverent_thompson</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
+<p>通过Ctrl+P+Q来退出容器,容器还在运行中。<br>使用exit退出容器,容器同步被关闭。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@6caf2b2b8d00:/# exit 10</div><div class="line">➜  ~ docker ps -a |grep reverent_thompson</div><div class="line">6caf2b2b8d00        b1873e247b48         &quot;/bin/bash&quot;              52 minutes ago      Exited (10) 45 seconds ago                       reverent_thompson</div></pre></td></tr></table></figure></p>
+<p>Exited (10) 容器的退出响应码变成了10,即可以通过exit命令来指定容器退出码。</p>
+<h4 id="commit-以某个容器为基础保存成一个新的image"><a href="#commit-以某个容器为基础保存成一个新的image" class="headerlink" title="commit 以某个容器为基础保存成一个新的image"></a>commit 以某个容器为基础保存成一个新的image</h4><p>-a, –author=””这个参数的目标是保存新的作者。<br>-c, –change=[]这个参数保存的是修改image里面的配置参数。<br>目前支持的可以修改的配置参数有CMD|ENTRYPOINT|ENV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKDIR。其余的参数继承于上一个image<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit --change &quot;ENV DEBUG true&quot; 3af7938d2d31 svendowideit/testimage:version1</div><div class="line">sha256:c24a8c4cf76d9485e69fa4d975a6b8ccc3070dbf368a118672ab6a76a4249605</div></pre></td></tr></table></figure></p>
+<p>3af7938d2d31是一个正在运行的容器,svendowideit/testimage是repository的名字,version1是tag的内容<br>查看结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ Docker inspect -f &quot;&#123;&#123; .Config.Env&#125;&#125;&quot; c24a8c4cf76d</div><div class="line">[DEBUG=true no_proxy=local PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]</div></pre></td></tr></table></figure></p>
+<p>-m, –message=””这个参数是提交一个comment备注信息,说明image的用途,修改的内容等信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~  docker commit -m &quot;test message&quot; 3af7938d2d31 svendowideit/testimage:version2</div><div class="line">sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4</div><div class="line">➜  ~ Docker inspect 0d4f24b6a8d7</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Id&quot;: &quot;sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4&quot;,</div><div class="line">        &quot;RepoTags&quot;: [</div><div class="line">            &quot;svendowideit/testimage:version2&quot;</div><div class="line">        ],</div><div class="line">        &quot;RepoDigests&quot;: [],</div><div class="line">        &quot;Parent&quot;: &quot;sha256:78a0e8d9b39cdcbb93d433ec5de61ba6c6d10369eccdf45b7e60318b47356d9a&quot;,</div><div class="line">        &quot;Comment&quot;: &quot;test message&quot;,</div><div class="line">        .........</div><div class="line">     &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>-p, –pause=true 默认情况下执行commit时,容器中所有进程处于暂停状态,如果此时容器对外提供服务,那其他容器会受到影响。<br>-pause=false使用这个参数使得在执行commit时保持容器内进程继续工作。但是commit效率会下降。</p>
+<h4 id="create-创建容器"><a href="#create-创建容器" class="headerlink" title="create 创建容器"></a>create 创建容器</h4><p>create命令是以image为模板创建的一个容器,并且在容器文件的最上面一层添加一个读写层,容器里面的数据变化会被保存在读写层。<br>create成功后需要通过start来启动容器。<br>参数:<br>-i 将Host的Stdin和容器的Stdin相连接<br>-t 创建一个pty终端<br>(-it 前两者结合使用相当于在host环境中启动一个链接容器的pty伪终端,在host的pty中输入的数据就会传到容器之中。)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker create -it addwszfile bash</div><div class="line">7019c6b575fe673954f2019a99fb6679b7a2f4a604d324290ff5111c42feae2b</div><div class="line">➜  ~ docker create -it -v /dockerforme/sinatra/share_folder/:/tmp --name data1 addwszfile</div><div class="line">7cfc3205a8df843d1b7219a31f51976b5df638cb20a03c57134ec690da990875</div><div class="line">➜  ~ docker create -P --name data2 addwszfile</div></pre></td></tr></table></figure></p>
+<p>addwszfile是image名称。</p>
+<p>-p 映射网络端口,当应用需要访问其他应用或被访问,需要开放一个端口<br>-P 容器中所有需要暴露的端口都会映射到主机随机的一个端口(端口范围49153~65535)<br>-v 挂载参数,把主机的一个文件或者一个目录挂载到容器中</p>
+<h4 id="diff-比较容器文件文件层数据差异的命令"><a href="#diff-比较容器文件文件层数据差异的命令" class="headerlink" title="diff 比较容器文件文件层数据差异的命令"></a>diff 比较容器文件文件层数据差异的命令</h4><p>首先启动一个容器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p>在容器中做某些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is wsz add test&quot; &gt; /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# rm /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is a change test&quot; &gt; /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;I add a new line&quot; &gt;&gt; /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
+<p>新开一个命令行窗口,查看diff<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">543f21cb4a4e        ubuntu:12.04        &quot;/bin/bash&quot;         4 minutes ago       Up 4 minutes                            trusting_bell</div><div class="line">➜  ~ docker diff 543f21cb4a4e</div><div class="line">C /tmp</div><div class="line">A /tmp/wsz.txt</div><div class="line">A /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
+<p>结果中的A表示add;C表示Change;D表示Delete<br>可以看见之中我们是创建一个wsz2.txt的文件然后又删除了,但是在diff中并没有反应出来,这是因为我们操作产生的数据保存在最上面的读写层里,diff比较的是最上层和其他层的差异,其中wsz2的文件不存在于其他层所以不显示。<br>若想时时刻刻保存状态,可以save读写层,再进行删除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit 543f21cb4a4e addwszfile</div><div class="line">sha256:b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">➜  ~ docker run -it b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">root@6caf2b2b8d00:/# rm /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
+<p>新开一个命令行窗口可以看到删除的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         40 seconds ago      Up 39 seconds                           reverent_thompson</div><div class="line">➜  ~ docker diff 6caf2b2b8d00</div><div class="line">C /tmp</div><div class="line">D /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
+<h4 id="events-获取容器所报告的事件"><a href="#events-获取容器所报告的事件" class="headerlink" title="events 获取容器所报告的事件"></a>events 获取容器所报告的事件</h4><p>Docker容器再运行过程中会向Docker Daemon报告如下事件:<br>create、destroy、die、export、kill、oom、pause、start、stop、unpause<br>Image镜像会向Docker Daemon报告untag、delete事件<br>筛选的几种方式:<br>–since 指从某一个时间点开始Docker Daemon接收的所有事件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos;</div></pre></td></tr></table></figure></p>
+<p>–until 需要和 –since结合使用,指的是从某一个时间点开始到某一个时间点结束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos; --until &apos;2016-11-08T15:00:00&apos;</div></pre></td></tr></table></figure></p>
+<p>–filter 接收的是key=value的键值对。目前有效的key是container、event、image。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --filter &apos;event=stop&apos;</div><div class="line">➜  ~ docker events --filter &apos;image=ubuntu:14.04&apos;</div><div class="line">➜  ~ docker events --filter &apos;container=543f21cb4a4e&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="exec-在容器中运行其他命令"><a href="#exec-在容器中运行其他命令" class="headerlink" title="exec 在容器中运行其他命令"></a>exec 在容器中运行其他命令</h4><p>执行ps删选进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 ps -s|grep bash</div></pre></td></tr></table></figure></p>
+<p>创建一个新文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 touch /tmp/1.txt</div></pre></td></tr></table></figure></p>
+<p>修改文件,前提需要申请一个pty和绑定一个stdin用来保存编辑的文件,因为没有pty容器无法收到控制字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec -it 6caf2b2b8d00 vi /tmp/1.txt</div></pre></td></tr></table></figure></p>
+<h4 id="history-追踪image的历史记录"><a href="#history-追踪image的历史记录" class="headerlink" title="history 追踪image的历史记录"></a>history 追踪image的历史记录</h4><p>diff 查看的是容器中文件系统的变更历史。History查看的是image的变更历史。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker history ouruser/sinatra:v3</div></pre></td></tr></table></figure></p>
+<p>-H,–human 表示是否输出方便用户识别的格式。<br>–no-trunc=false 默认false,表示将输出按照一定的格式进行截断。<br>–quiet 若是设置为true,只返回image构建过程中所有的临时文件层的image ID,为false时返回所有信息。</p>
+<h4 id="info-显示Docker摘要信息"><a href="#info-显示Docker摘要信息" class="headerlink" title="info 显示Docker摘要信息"></a>info 显示Docker摘要信息</h4><p>info 指令显示Docker摘要信息,用来确认Docker信息。包含Docker内核版本号、Docker所设定的CPU、内存参数等环境底层信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker info</div></pre></td></tr></table></figure></p>
+<h4 id="inspect-返回指定目标的底层信息"><a href="#inspect-返回指定目标的底层信息" class="headerlink" title="inspect 返回指定目标的底层信息"></a>inspect 返回指定目标的底层信息</h4><p>inspect可以返回image和container的底层信息。包括某个容器的IP地址,MAC地址,端口信息等等。<br>返回的几类信息:<br>1.基本信息类:名称,创建时间,当前状态(运行、停止、暂停)等<br>2.运行参数类:网络信息、环境变量、主机名称等<br>3.底层数据类:CPU设置、内存设置、虚拟化设置等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker inspect -f &#123;&#123;要查看的参数名&#125;&#125; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;json .Config&#125;&#125;&apos; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;(index (index .Config &quot;Env&quot;) 0)&#125;&#125;&apos; ID号              取出Config中Env第一个元素命令</div></pre></td></tr></table></figure></p>
+<p>json是指把数据格式化成json字符串<br>index取第几个</p>
+<h4 id="kill-强制停止容器"><a href="#kill-强制停止容器" class="headerlink" title="kill 强制停止容器"></a>kill 强制停止容器</h4><p>一般使用stop关掉容器。出现异常使用kill<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker kill 容器名</div></pre></td></tr></table></figure></p>
+<h4 id="ps-查看当前容器的运行状态"><a href="#ps-查看当前容器的运行状态" class="headerlink" title="ps 查看当前容器的运行状态"></a>ps 查看当前容器的运行状态</h4><h4 id="rename-对容器重命名"><a href="#rename-对容器重命名" class="headerlink" title="rename 对容器重命名"></a>rename 对容器重命名</h4><p>docker rename 旧名字 新名字</p>
+<h4 id="tag-对镜像重命名"><a href="#tag-对镜像重命名" class="headerlink" title="tag 对镜像重命名"></a>tag 对镜像重命名</h4><p>……还有很多命令看文档</p>
+<p>参考书籍<br>《Docker 全攻略》张涛著<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/02/List-Task/" class="archive-article-date">
-  	<time datetime="2016-11-02T07:26:15.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-02</time>
+      <a href="/2016/11/13/Docker-Learn2/" class="archive-article-date">
+  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
 	</div>
 
       
@@ -1117,7 +1068,7 @@ summary
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/pipeline/" style="font-size: 10px;">pipeline</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     

@@ -140,6 +140,122 @@
       <div class="body-wrap">
         
   
+    <article id="post-List-Task" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/02/List-Task/">任务分解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。</p>
+<h2 id="任务分解-列Task"><a href="#任务分解-列Task" class="headerlink" title="任务分解,列Task"></a>任务分解,列Task</h2><p>当我们拿到一个任务卡片时,经常干的一件事,就是明确卡片中的要求和明细,然后就直接开始码代码了。因为写的代码是可见的,运行成功会有极大成就感,然而其实这并不是一个好的方式。</p>
+<p>在我们写代码之前应该根据卡片内容,从开发的角度把一个大卡分解成各个小任务,然后针对每个小任务进行开发才是可取的。其实这种方法得到的成就感并不亚于前者。</p>
+<h4 id="Task-是什么-如何列"><a href="#Task-是什么-如何列" class="headerlink" title="Task 是什么,如何列"></a>Task 是什么,如何列</h4><p>很多人会和我一样困惑,要列Task,但是什么是Task呢?一般来说,一个function(函数),一个Process或者一个Code Block(代码块)都可以是一个Task。<br>每一个Task都有相应的输入和输出。输入的可以是函数的参数,全局变量,局部变量(对于代码块来说)。输出可以是返回值,变量等。</p>
+<p>每个Task的输入都是可穷尽的,在列Task的时候要列出所有用到的Task。<br>列Task的时候的命名要精确,每一个名字在不同的地方有不同的意思。</p>
+<p>列Task,一般会画一个包含Data和Process的图。类似一个有架构的数据流向图。Data(数据)一般有数组、队列、栈、树、对象、类、有循环的对象等,Process(过程)一般有顺序的、选择的(if/switch)、循环(for/while)等。</p>
+<p>参考<br><a href="https://www.zybuluo.com/jtong/note/504192" target="_blank" rel="external">编程的精进之法</a></p>
+<h2 id="PDCA-戴明环"><a href="#PDCA-戴明环" class="headerlink" title="PDCA 戴明环"></a>PDCA 戴明环</h2><p>PDCA指的是Plan-Do-Check-Action,而列Task属于Plan的内容。</p>
+<p>如何定义Done?<br>1.code Done<br>2.test pass<br>3.Integration env<br>4.showcase<br>5.production env<br>6.ux(用户使用)</p>
+<p>单个任务的开发流程:0)Spike即调研;1)写测试;2)写实现;3)测试通过</p>
+<h2 id="例子一-打印学生成绩单"><a href="#例子一-打印学生成绩单" class="headerlink" title="例子一,打印学生成绩单"></a>例子一,打印学生成绩单</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景:"></a>背景:</h4><p><a href="https://www.zybuluo.com/jtong/note/471501" target="_blank" rel="external">https://www.zybuluo.com/jtong/note/471501</a>  中的课后作业<br>打印所有人的成绩单,包括平均分和总分。<br>打印全班级的总分平均分和中位数。</p>
+<h4 id="列Task"><a href="#列Task" class="headerlink" title="列Task"></a>列Task</h4><h5 id="1-转换ViewModel"><a href="#1-转换ViewModel" class="headerlink" title="1) 转换ViewModel"></a>1) 转换ViewModel</h5><p>输入:</p>
+<pre><code>studentScoresArray:[[String]]
+</code></pre><p>输出:</p>
+<pre><code>studentScoresSheet:[{
+    name:String,
+    chinese:double,
+    english:double,
+    math:double,
+    programming:double
+    },
+    {
+    ...
+    }]
+</code></pre><h5 id="2-得到学生成绩"><a href="#2-得到学生成绩" class="headerlink" title="2) 得到学生成绩"></a>2) 得到学生成绩</h5><p>输入:</p>
+<pre><code>studentScoresSheet
+</code></pre><p>输出:</p>
+<pre><code>studentScoresSheetWithSummary:[{
+    name:String,
+    chinese:double,
+    english:double,
+    math:double,
+    programming:double,
+    average:double,
+    total:double
+    },
+    {
+     ...
+    }]
+</code></pre><h5 id="3-计算总计"><a href="#3-计算总计" class="headerlink" title="3) 计算总计"></a>3) 计算总计</h5><p>输入:</p>
+<pre><code>studentScoresSheetWithSummary
+</code></pre><p>输出:</p>
+<pre><code>summary:{
+    totalAverage:double,
+    totalMidden:double
+    }
+</code></pre><h5 id="4-打印成绩单"><a href="#4-打印成绩单" class="headerlink" title="4) 打印成绩单"></a>4) 打印成绩单</h5><p>输入:</p>
+<pre><code>studentScoresSheetWithSummary
+summary
+</code></pre><p>输出:</p>
+<pre><code>Result:String
+</code></pre><p><a href="https://github.com/wszhi/TaskConsoleStudentScoreInfo" target="_blank" rel="external">Github代码</a></p>
+<h2 id="例子二-猜数字游戏"><a href="#例子二-猜数字游戏" class="headerlink" title="例子二,猜数字游戏"></a>例子二,猜数字游戏</h2><p><a href="https://github.com/raypeng/guess-number-raypeng/blob/master/README.md" target="_blank" rel="external">具体游戏内容</a><br>这个游戏有几个需要注意点:<br>1)Compare(两个数字对比的前提假设:符合要求的、合法的值)<br>2)生成随机数(生成的数是数字、四位、每位都不一样)<br>3)游戏流程(进入游戏–第一次成功/中间成功/最后一次成功/游戏失败)</p>
+<p>PS:不能放过任何一个逻辑冲突;等加类划分可以使用正交分解法;还要考虑系统状态怎么保持<br>正交分解法:</p>
+<pre><code> \ 位   |         |         | 
+  \ 置  |         |         |
+数 \    | 全都一样 | 全不一样 | 部分一样
+字  \   |         |         |
+--------------------------------------
+全都一样 | 4A0B    | 0A4B    | 2A4B
+全不一样 | 不可能   | 0A0B    | 不可能
+部分一样 | 不可能   | 0A2B    | 2A2B
+</code></pre><p>分解后的图如下:<br>1)应用启动<br><img src="http://img.blog.csdn.net/20161107144603037" alt=""></p>
+<p>2)界面1(按1启动游戏)<br><img src="http://img.blog.csdn.net/20161107144618709" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20161107144638756" alt=""></p>
+<p>main是解决输入输出的。<br>Router通过输入输出解析找到具体的Command。<br>Command处理各种具体的用户输入,对Core层返回的结果翻译成友好的输出。<br>Core层函数生成计算结果。</p>
+<p>3)退出(按2退出游戏)<br><img src="http://img.blog.csdn.net/20161107144657923" alt=""></p>
+<h2 id="例子三-邮编和条码的转化"><a href="#例子三-邮编和条码的转化" class="headerlink" title="例子三,邮编和条码的转化"></a>例子三,邮编和条码的转化</h2><h2 id="例子四-一对多web基础应用"><a href="#例子四-一对多web基础应用" class="headerlink" title="例子四,一对多web基础应用"></a>例子四,一对多web基础应用</h2><h2 id="例子五-多对多web基础应用"><a href="#例子五-多对多web基础应用" class="headerlink" title="例子五,多对多web基础应用"></a>例子五,多对多web基础应用</h2>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/02/List-Task/" class="archive-article-date">
+  	<time datetime="2016-11-02T07:26:15.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-02</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ansible" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -809,64 +925,6 @@
 
 
   
-    <article id="post-Html-5-storage" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/30/Html-5-storage/">Html 5 新特性之本地存储</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在HTML5中对本地离线存储有了更好的支持,它提供了两种在客户端存储数据的新方法,即localStorage和sessionStorage</p>
-<h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>localStorage是没有时间限制的数据存储</p>
-<p>使用方式:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">local</span>Storage.pagecount) &#123;</div><div class="line">        <span class="built_in">local</span>Storage.pagecount = Number(<span class="built_in">local</span>Storage.pagecount) + 1;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">local</span>Storage.pagecount = 1;</div><div class="line">    &#125;</div><div class="line">    document.write(<span class="string">"Visits: "</span> + <span class="built_in">local</span>Storage.pagecount + <span class="string">" time(s)."</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>刷新页面,数字增长。就算关闭浏览器窗口,再打开,数字还是在继续增长,而没有回到1。</p>
-<p>删除存储的数据代码:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">local</span>Storage.removeItem(<span class="string">"pagecount"</span>);</div></pre></td></tr></table></figure></p>
-<h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage是针对一个 session 的数据存储</p>
-<p>使用方式:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="keyword">if</span> (sessionStorage.pagecount) &#123;</div><div class="line">        sessionStorage.pagecount = Number(sessionStorage.pagecount) + 1;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        sessionStorage.pagecount = 1;</div><div class="line">    &#125;</div><div class="line">    document.write(<span class="string">"Visits "</span> + sessionStorage.pagecount + <span class="string">" time(s) this session."</span>);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>刷新页面,数字增长。当关闭浏览器窗口,再打开,数字回到初始值1。</p>
-<p><a href="https://github.com/wszhi/font_end/tree/master/src/com/html5/example" target="_blank" rel="external">Github参考代码</a><br>W3C school的<a href="http://www.w3c-schools.com/html/default.asp.htm" target="_blank" rel="external">HTML5教程</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/09/30/Html-5-storage/" class="archive-article-date">
-  	<time datetime="2016-09-30T07:31:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -936,7 +994,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/pipeline/" style="font-size: 10px;">pipeline</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     
