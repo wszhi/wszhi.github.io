@@ -140,6 +140,246 @@
       <div class="body-wrap">
         
   
+    <article id="post-java-generate-pdf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/03/java-generate-pdf/">java 生成 pdf</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在日常开发过程中，若是想要把java中的某个对象中的内容，按某种排列方式输出到PDF中，有几种方式，此处只使用了itextpdf的方式。<br><a href="http://developers.itextpdf.com/content/itext-5-examples" target="_blank" rel="external">itext pdf 文档</a></p>
+<h4 id="一、加入依赖"><a href="#一、加入依赖" class="headerlink" title="一、加入依赖"></a>一、加入依赖</h4><p>在gradle中只需要加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile group: &apos;com.itextpdf&apos;, name: &apos;itextpdf&apos;, version: &apos;5.5.6&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="二、创建一个Document，并加入内容"><a href="#二、创建一个Document，并加入内容" class="headerlink" title="二、创建一个Document，并加入内容"></a>二、创建一个Document，并加入内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public void createPdf() &#123;</div><div class="line">        Document document = new Document();</div><div class="line">        try &#123;</div><div class="line">            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(&quot;HelloWorld.pdf&quot;));</div><div class="line">            document.open();</div><div class="line">            document.add(new Paragraph(&quot;Some content here&quot;));</div><div class="line">            settings(document);            </div><div class="line">            style(document);</div><div class="line">            document.close();</div><div class="line">            writer.close();</div><div class="line">        &#125; catch (FileNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; catch (DocumentException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>新建一个Document对象，再定义PdfWriter，把document中的内容写入HelloWorld.pdf文件。<br>在添加内容到document之前需要执行document.open()才可以。<br>document可以添加Paragraph、<a href="http://developers.itextpdf.com/examples/itext-action-second-edition/chapter-4" target="_blank" rel="external">PdfPTable</a>等元素。</p>
+<h4 id="三、踩过的坑"><a href="#三、踩过的坑" class="headerlink" title="三、踩过的坑"></a>三、踩过的坑</h4><ul>
+<li>问题：使用PdfPTable来构造整体结构时，如何设置行间距？<br>解决方案：在给cell中添加内容的时候有两种方式，一种是直接初始化的时候添加，另一种是调用addElement方法添加内容。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PdfPCell cell = new PdfPCell(new Paragraph(100,&quot;Table 1&quot;));</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PdfPCell cell= new PdfPCell();</div><div class="line">cell.addElement(new Paragraph(100,&quot;Table 1&quot;));</div></pre></td></tr></table></figure>
+<p>这两种方法中第一种不支持设置Leading为100，第二种方法支持设置Leading为100。除了在初始化Paragraph时可以设置Leading，还可以调用setLeading()来设置，第一个参数是固定的行间距，第二个参数是行间距为行高的倍数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Paragraph element = new Paragraph(&quot;Some content here&quot;);</div><div class="line">element.setLeading(0,2);</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>问题：如何给PdfPTable设置每列的宽度？<br>解决方案：设置table的列宽时，需要把所有列的宽度放进数组列表中，缺一不可，如果数组的大小和table的列数不匹配则整体都不会显示出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PdfPTable table = new PdfPTable(3);</div><div class="line">table.setWidths(new int[]&#123;2, 1, 1&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>问题：如何设置边框？<br>解决方案：边框的值不一样，当setBorder()函数的参数为0时，没有边框，1为上边框TOP，2为下边框BOTTOM，4为左边框LEFT，8为右边框RIGHT。具体的可以调用Rectangle中的固定值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PdfPCell cell = new PdfPCell(new Phrase(&quot;StackOverflow&quot;));</div><div class="line">cell.setBorder(Rectangle.NO_BORDER);</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/07/03/java-generate-pdf/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:08:47.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java-download-pdf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/03/java-download-pdf/">Java 下载 pdf</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在实际应用中有这么一个场景，用户希望在页面上有一个下载按钮，点击按钮时把当前页的内容生产一个PDF文件下载下来。</p>
+<p>这个需求有两种表现形式，一种是当用户点击按钮时直接在浏览器中弹出保存框下载PDF文件，另一种是返回PDF的视图，在浏览器中预览PDF文件的内容，然后再下载。</p>
+<p>这里分别介绍两种实现方式：</p>
+<h4 id="一、直接下载PDF文件"><a href="#一、直接下载PDF文件" class="headerlink" title="一、直接下载PDF文件"></a>一、直接下载PDF文件</h4><p>本质上来说，把PDF文件读取到inputStream中，继而放入返回的的实体中。<br>返回的ResponseEntity中，注意指定Content-Type的内容为application/pdf，<br>且Content-Disposition的内容为attachment; filename=”helloWorld.pdf”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@RequestMapping(value = &quot;/pdfDownload&quot;, method = GET)</div><div class="line">    public ResponseEntity download() throws IOException &#123;</div><div class="line">        File file = new File(&quot;HelloWorld.pdf&quot;);</div><div class="line">        InputStream in = new FileInputStream(file);</div><div class="line">        final HttpHeaders headers = new HttpHeaders();</div><div class="line">        headers.add(&quot;Content-Type&quot;, &quot;application/pdf&quot;);</div><div class="line">        headers.add(&quot;Content-Disposition&quot;, &quot;attachment; filename=&quot; + file.getName() );</div><div class="line">        return new ResponseEntity&lt;&gt;(IOUtils.toByteArray(in), headers, HttpStatus.OK);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>该方法在浏览器中直接访问localhost:8080/pdfDownload就回弹出一个文件保存框，选择保存的本地路径即可下载，或者有的效果是直接在浏览器中下载了PDF文件，这是因为所使用的浏览器本身的下载设置，可以根据个人喜好来设置究竟弹出还是不弹出保存框。</p>
+<h4 id="二、浏览器预览PDF文件，再下载"><a href="#二、浏览器预览PDF文件，再下载" class="headerlink" title="二、浏览器预览PDF文件，再下载"></a>二、浏览器预览PDF文件，再下载</h4><p>如果使用的不是RestController，就可以直接返回一个String字符串，内容为PDF文件的视图名称，这里定义为helloWorldPDF，该视图名在views.properties中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@RequestMapping(value = &quot;/pdfDownload2&quot;, method = GET)</div><div class="line">    public String download2(HttpServletRequest request) throws IOException &#123;</div><div class="line">        return &quot;helloWorldPDF&quot;;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>resource资源文件夹中的views.properties文件的内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">helloWorldPDF.(class)=com.test.report.PDFView</div></pre></td></tr></table></figure></p>
+<p>这里的com.test.report.PDFView指的是定义的PDF视图的内容。<br>我们使用了itextpdf的jar包来生成PDF文件的内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile group: &apos;com.itextpdf&apos;, name: &apos;itextpdf&apos;, version: &apos;5.5.6&apos;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public class PDFView extends AbstractView &#123;</div><div class="line">    public PDFView() &#123;</div><div class="line">        setContentType(&quot;application/pdf&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected boolean generatesDownloadContent() &#123;</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected final void renderMergedOutputModel(Map&lt;String, Object&gt; model,</div><div class="line">                                                 HttpServletRequest request, HttpServletResponse response)</div><div class="line">            throws Exception &#123;</div><div class="line">        ByteArrayOutputStream baos = createTemporaryOutputStream();</div><div class="line">        Document document = new Document(PageSize.A4);</div><div class="line">        PdfWriter writer = PdfWriter.getInstance(document, baos);</div><div class="line">        writer.setViewerPreferences(PdfWriter.ALLOW_PRINTING | PdfWriter.PageLayoutSinglePage);</div><div class="line">        document.open();</div><div class="line">        Paragraph header = new Paragraph(new Chunk(&quot;hello world&quot;));</div><div class="line">        document.add(header);</div><div class="line">        document.close();</div><div class="line">        writeToResponse(response, baos);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上就生成了我们需要的PDF文件的内容，并放进ByteArrayOutputStream中，调用writeToResponse方法把字节流传进response中。</p>
+<p>因为使用的是SpringBootApplication，所以需要加的一些配置是在 Application 的包含main方法的class中进行的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">    public ResourceBundleViewResolver viewResolver() &#123;</div><div class="line">        ResourceBundleViewResolver resolver = new ResourceBundleViewResolver();</div><div class="line">        resolver.setOrder(1);</div><div class="line">        resolver.setBasename(&quot;views&quot;);</div><div class="line">        return resolver;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>如此一来就可以直接在浏览器中访问localhost:8080/pdfDownload2看到PDF文件的预览页面，在页面中可以进行下载，打印等操作。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/07/03/java-download-pdf/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:07:52.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Angular2-Learn-note-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/03/Angular2-Learn-note-1/">Angular2 Learn note(1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>推荐<a href="https://angular.io/docs/ts/latest/guide/learning-angular.html" target="_blank" rel="external">官方学习文档</a></p>
+<h4 id="安装开发环境"><a href="#安装开发环境" class="headerlink" title="安装开发环境"></a>安装开发环境</h4><p>新建一个文件夹simpleExample，创建一个文件名为tsconfig.json的文件，内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;compilerOptions&quot;: &#123;</div><div class="line">    &quot;target&quot;: &quot;es5&quot;,</div><div class="line">    &quot;module&quot;: &quot;system&quot;,</div><div class="line">    &quot;moduleResolution&quot;: &quot;node&quot;,</div><div class="line">    &quot;sourceMap&quot;: true,</div><div class="line">    &quot;emitDecoratorMetadata&quot;: true,</div><div class="line">    &quot;experimentalDecorators&quot;: true,</div><div class="line">    &quot;removeComments&quot;: false,</div><div class="line">    &quot;noImplicitAny&quot;: false</div><div class="line">  &#125;,</div><div class="line">  &quot;exclude&quot;: [</div><div class="line">    &quot;node_modules&quot;,</div><div class="line">    &quot;typings/main&quot;,</div><div class="line">    &quot;typings/main.d.ts&quot;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>创建一个文件名为typings.json的文件，内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;globalDependencies&quot;: &#123;</div><div class="line">    &quot;core-js&quot;: &quot;registry:dt/core-js#0.0.0+20160602141332&quot;,</div><div class="line">    &quot;jasmine&quot;: &quot;registry:dt/jasmine#2.2.0+20160621224255&quot;,</div><div class="line">    &quot;node&quot;: &quot;registry:dt/node#6.0.0+20160621231320&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>创建一个文件名为package.json的文件，该文件中包含了我们应用所需要用到的packages，文件内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;angular2-demo&quot;,</div><div class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</div><div class="line">  &quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;concurrent \&quot;npm run tsc:w\&quot; \&quot;npm run lite\&quot; &quot;,</div><div class="line">    &quot;tsc&quot;: &quot;tsc&quot;,</div><div class="line">    &quot;tsc:w&quot;: &quot;tsc -w&quot;,</div><div class="line">    &quot;lite&quot;: &quot;lite-server&quot;,</div><div class="line">    &quot;typings&quot;: &quot;typings&quot;,</div><div class="line">    &quot;postinstall&quot;: &quot;typings install&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;license&quot;: &quot;ISC&quot;,</div><div class="line">  &quot;dependencies&quot;: &#123;</div><div class="line">    &quot;angular2&quot;: &quot;2.0.0-beta.7&quot;,</div><div class="line">    &quot;systemjs&quot;: &quot;0.19.22&quot;,</div><div class="line">    &quot;es6-promise&quot;: &quot;^3.0.2&quot;,</div><div class="line">    &quot;es6-shim&quot;: &quot;^0.33.3&quot;,</div><div class="line">    &quot;reflect-metadata&quot;: &quot;0.1.2&quot;,</div><div class="line">    &quot;rxjs&quot;: &quot;5.0.0-beta.2&quot;,</div><div class="line">    &quot;zone.js&quot;: &quot;0.5.15&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;devDependencies&quot;: &#123;</div><div class="line">    &quot;concurrently&quot;: &quot;^2.0.0&quot;,</div><div class="line">    &quot;lite-server&quot;: &quot;^2.1.0&quot;,</div><div class="line">    &quot;typescript&quot;: &quot;^1.7.5&quot;,</div><div class="line">    &quot;typings&quot;:&quot;^0.6.8&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行npm install 可以下载以上的依赖包</p>
+<h4 id="开始第一个angular-2-程序"><a href="#开始第一个angular-2-程序" class="headerlink" title="开始第一个angular 2 程序"></a>开始第一个angular 2 程序</h4><p>新建文件夹名为app，在该文件目录下新建hello_world_main.ts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import &#123;bootstrap&#125; from &quot;angular2/platform/browser&quot;</div><div class="line">import &#123;MyHelloWorldClass&#125; from &quot;./hello_world_app.component&quot;</div><div class="line"></div><div class="line">bootstrap(MyHelloWorldClass);</div></pre></td></tr></table></figure></p>
+<p>同样目录下新建hello_world_app.component.ts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import &#123;Component, View&#125; from &quot;angular2/core&quot;;</div><div class="line"></div><div class="line">@Component(&#123;</div><div class="line">   selector: &apos;my-app&apos;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">@View(&#123;</div><div class="line">  template: &apos;&lt;h2&gt;Hello World !!&lt;/h2&gt;&apos;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">export class MyHelloWorldClass &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>回到上一层目录新建index.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;Hello World&lt;/title&gt;</div><div class="line">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/2.0.0-beta.6/angular2-polyfills.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/tools/system.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/tools/typescript.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/2.0.0-beta.6/Rx.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/2.0.0-beta.6/angular2.dev.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">      System.config(&#123;</div><div class="line">        transpiler: &apos;typescript&apos;,</div><div class="line">        typescriptOptions: &#123; emitDecoratorMetadata: true &#125;,</div><div class="line">        packages: &#123;&apos;app&apos;: &#123;defaultExtension: &apos;ts&apos;&#125;&#125;,</div><div class="line">        map: &#123; &apos;app&apos;: &apos;app&apos; &#125;</div><div class="line">      &#125;);</div><div class="line">      System.import(&apos;app/hello_world_main&apos;)</div><div class="line">            .then(null, console.error.bind(console));</div><div class="line">    &lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">   &lt;my-app&gt;Loading...&lt;/my-app&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>index.html中使用SystemJS加载所需的模块，通过System.config函数配置。<br>配置详情为：<br>packages 告知System loader当没有文件名或者没有后缀的时候如何加载文件<br>map 告知System loader在何处加载所需的文件,此处app(左边)指向的是名为app(右边)的目录，所以在import的时候可以找到在app目录下的hello_world_main.ts 文件。</p>
+<p>参考文章<br><a href="http://www.jianshu.com/p/db4be331b026" target="_blank" rel="external">Angular2 – SystemJS解析</a><br><a href="https://www.tutorialspoint.com/angular2/angular2_hello_world.htm" target="_blank" rel="external">tutorialspoint 网站</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/07/03/Angular2-Learn-note-1/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:06:20.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-text-editor-tinymce" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/03/text-editor-tinymce/">text editor(tinymce)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近需要在 react 代码中插入一个文本编辑器，然后看了一下tinymce这个库。</p>
+<h3 id="导入库"><a href="#导入库" class="headerlink" title="导入库"></a>导入库</h3><p>在<a href="https://www.npmjs.com/search?q=tinymce" target="_blank" rel="external">npm中搜索相关的库</a>，然后发现有直接包装好的<a href="https://www.npmjs.com/package/react-tinymce" target="_blank" rel="external">react-tinymce</a>库，但是在引用过程中会出现 “Unknown prop <code>config</code> on <tinymce> tag” 的错误提示。所以就放弃了直接引用这个库转而使用<a href="https://www.tinymce.com/" target="_blank" rel="external">tinymce</a>。</tinymce></p>
+<p>导入tinymce,可以参考<a href="https://www.tinymce.com/download/" target="_blank" rel="external">官方网站</a>，有多种导入的方式。<br>这里选用了在js中直接引入库的方式。<br>把下面的代码插入到HTML中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;//tinymce.cachefly.net/4.3/tinymce.min.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在react js 代码中加入以下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">componentDidMount()&#123;</div><div class="line">    tinymce.init(&#123;</div><div class="line">      selector: &quot;textarea.tinymce-editor&quot;,</div><div class="line">      theme: &quot;modern&quot;,</div><div class="line">      skin_url: &apos;//cdnjs.cloudflare.com/ajax/libs/tinymce/4.3.5/skins/lightgray/&apos;,</div><div class="line">      height: 150,</div><div class="line">      resize: &quot;both&quot;,</div><div class="line">      content_css: [&quot;//nuance.jiveon.com/resources/statics/30387/nuance_simplified.css&quot;, &quot;//nuance.jiveon.com/resources/statics/30387/nuance_bootstrap_combined.css&quot;],</div><div class="line">      plugins: [</div><div class="line">        &apos;advlist autolink lists link image charmap print preview hr anchor pagebreak&apos;,</div><div class="line">        &apos;searchreplace wordcount visualblocks visualchars code fullscreen&apos;,</div><div class="line">        &apos;insertdatetime media nonbreaking save table contextmenu directionality&apos;,</div><div class="line">        &apos;emoticons template paste textcolor colorpicker textpattern imagetools&apos;</div><div class="line">      ],</div><div class="line">      toolbar1: &apos;undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image&apos;,</div><div class="line">      toolbar2: &apos;forecolor backcolor emoticons&apos;,</div><div class="line">      image_advtab: true</div><div class="line">    &#125;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>在对应的HTML中加入以下代码，然后就生效了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;textarea className=&quot;tinymce-editor&quot;&gt;&lt;/textarea&gt;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/07/03/text-editor-tinymce/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:04:05.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Docker-learn3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -502,6 +742,86 @@ MYSQL_PASSWORD=123456
 
 
   
+    <article id="post-Docker-Learn2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/13/Docker-Learn2/">Docker 学习笔记(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Docker中的某些命令详解"><a href="#Docker中的某些命令详解" class="headerlink" title="Docker中的某些命令详解"></a>Docker中的某些命令详解</h2><h4 id="logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志"><a href="#logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志" class="headerlink" title="logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志"></a>logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志</h4><h4 id="attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令"><a href="#attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令" class="headerlink" title="attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令"></a>attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令</h4><p>可以通过ID和name挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         32 minutes ago      Up 32 minutes                           reverent_thompson</div><div class="line">➜  ~ docker attach 6caf2b2b8d00</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker attach reverent_thompson</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
+<p>通过Ctrl+P+Q来退出容器,容器还在运行中。<br>使用exit退出容器,容器同步被关闭。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@6caf2b2b8d00:/# exit 10</div><div class="line">➜  ~ docker ps -a |grep reverent_thompson</div><div class="line">6caf2b2b8d00        b1873e247b48         &quot;/bin/bash&quot;              52 minutes ago      Exited (10) 45 seconds ago                       reverent_thompson</div></pre></td></tr></table></figure></p>
+<p>Exited (10) 容器的退出响应码变成了10,即可以通过exit命令来指定容器退出码。</p>
+<h4 id="commit-以某个容器为基础保存成一个新的image"><a href="#commit-以某个容器为基础保存成一个新的image" class="headerlink" title="commit 以某个容器为基础保存成一个新的image"></a>commit 以某个容器为基础保存成一个新的image</h4><p>-a, –author=””这个参数的目标是保存新的作者。<br>-c, –change=[]这个参数保存的是修改image里面的配置参数。<br>目前支持的可以修改的配置参数有CMD|ENTRYPOINT|ENV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKDIR。其余的参数继承于上一个image<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit --change &quot;ENV DEBUG true&quot; 3af7938d2d31 svendowideit/testimage:version1</div><div class="line">sha256:c24a8c4cf76d9485e69fa4d975a6b8ccc3070dbf368a118672ab6a76a4249605</div></pre></td></tr></table></figure></p>
+<p>3af7938d2d31是一个正在运行的容器,svendowideit/testimage是repository的名字,version1是tag的内容<br>查看结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ Docker inspect -f &quot;&#123;&#123; .Config.Env&#125;&#125;&quot; c24a8c4cf76d</div><div class="line">[DEBUG=true no_proxy=local PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]</div></pre></td></tr></table></figure></p>
+<p>-m, –message=””这个参数是提交一个comment备注信息,说明image的用途,修改的内容等信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~  docker commit -m &quot;test message&quot; 3af7938d2d31 svendowideit/testimage:version2</div><div class="line">sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4</div><div class="line">➜  ~ Docker inspect 0d4f24b6a8d7</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Id&quot;: &quot;sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4&quot;,</div><div class="line">        &quot;RepoTags&quot;: [</div><div class="line">            &quot;svendowideit/testimage:version2&quot;</div><div class="line">        ],</div><div class="line">        &quot;RepoDigests&quot;: [],</div><div class="line">        &quot;Parent&quot;: &quot;sha256:78a0e8d9b39cdcbb93d433ec5de61ba6c6d10369eccdf45b7e60318b47356d9a&quot;,</div><div class="line">        &quot;Comment&quot;: &quot;test message&quot;,</div><div class="line">        .........</div><div class="line">     &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>-p, –pause=true 默认情况下执行commit时,容器中所有进程处于暂停状态,如果此时容器对外提供服务,那其他容器会受到影响。<br>-pause=false使用这个参数使得在执行commit时保持容器内进程继续工作。但是commit效率会下降。</p>
+<h4 id="create-创建容器"><a href="#create-创建容器" class="headerlink" title="create 创建容器"></a>create 创建容器</h4><p>create命令是以image为模板创建的一个容器,并且在容器文件的最上面一层添加一个读写层,容器里面的数据变化会被保存在读写层。<br>create成功后需要通过start来启动容器。<br>参数:<br>-i 将Host的Stdin和容器的Stdin相连接<br>-t 创建一个pty终端<br>(-it 前两者结合使用相当于在host环境中启动一个链接容器的pty伪终端,在host的pty中输入的数据就会传到容器之中。)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker create -it addwszfile bash</div><div class="line">7019c6b575fe673954f2019a99fb6679b7a2f4a604d324290ff5111c42feae2b</div><div class="line">➜  ~ docker create -it -v /dockerforme/sinatra/share_folder/:/tmp --name data1 addwszfile</div><div class="line">7cfc3205a8df843d1b7219a31f51976b5df638cb20a03c57134ec690da990875</div><div class="line">➜  ~ docker create -P --name data2 addwszfile</div></pre></td></tr></table></figure></p>
+<p>addwszfile是image名称。</p>
+<p>-p 映射网络端口,当应用需要访问其他应用或被访问,需要开放一个端口<br>-P 容器中所有需要暴露的端口都会映射到主机随机的一个端口(端口范围49153~65535)<br>-v 挂载参数,把主机的一个文件或者一个目录挂载到容器中</p>
+<h4 id="diff-比较容器文件文件层数据差异的命令"><a href="#diff-比较容器文件文件层数据差异的命令" class="headerlink" title="diff 比较容器文件文件层数据差异的命令"></a>diff 比较容器文件文件层数据差异的命令</h4><p>首先启动一个容器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
+<p>在容器中做某些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is wsz add test&quot; &gt; /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# rm /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is a change test&quot; &gt; /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;I add a new line&quot; &gt;&gt; /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
+<p>新开一个命令行窗口,查看diff<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">543f21cb4a4e        ubuntu:12.04        &quot;/bin/bash&quot;         4 minutes ago       Up 4 minutes                            trusting_bell</div><div class="line">➜  ~ docker diff 543f21cb4a4e</div><div class="line">C /tmp</div><div class="line">A /tmp/wsz.txt</div><div class="line">A /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
+<p>结果中的A表示add;C表示Change;D表示Delete<br>可以看见之中我们是创建一个wsz2.txt的文件然后又删除了,但是在diff中并没有反应出来,这是因为我们操作产生的数据保存在最上面的读写层里,diff比较的是最上层和其他层的差异,其中wsz2的文件不存在于其他层所以不显示。<br>若想时时刻刻保存状态,可以save读写层,再进行删除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit 543f21cb4a4e addwszfile</div><div class="line">sha256:b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">➜  ~ docker run -it b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">root@6caf2b2b8d00:/# rm /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
+<p>新开一个命令行窗口可以看到删除的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         40 seconds ago      Up 39 seconds                           reverent_thompson</div><div class="line">➜  ~ docker diff 6caf2b2b8d00</div><div class="line">C /tmp</div><div class="line">D /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
+<h4 id="events-获取容器所报告的事件"><a href="#events-获取容器所报告的事件" class="headerlink" title="events 获取容器所报告的事件"></a>events 获取容器所报告的事件</h4><p>Docker容器再运行过程中会向Docker Daemon报告如下事件:<br>create、destroy、die、export、kill、oom、pause、start、stop、unpause<br>Image镜像会向Docker Daemon报告untag、delete事件<br>筛选的几种方式:<br>–since 指从某一个时间点开始Docker Daemon接收的所有事件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos;</div></pre></td></tr></table></figure></p>
+<p>–until 需要和 –since结合使用,指的是从某一个时间点开始到某一个时间点结束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos; --until &apos;2016-11-08T15:00:00&apos;</div></pre></td></tr></table></figure></p>
+<p>–filter 接收的是key=value的键值对。目前有效的key是container、event、image。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --filter &apos;event=stop&apos;</div><div class="line">➜  ~ docker events --filter &apos;image=ubuntu:14.04&apos;</div><div class="line">➜  ~ docker events --filter &apos;container=543f21cb4a4e&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="exec-在容器中运行其他命令"><a href="#exec-在容器中运行其他命令" class="headerlink" title="exec 在容器中运行其他命令"></a>exec 在容器中运行其他命令</h4><p>执行ps删选进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 ps -s|grep bash</div></pre></td></tr></table></figure></p>
+<p>创建一个新文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 touch /tmp/1.txt</div></pre></td></tr></table></figure></p>
+<p>修改文件,前提需要申请一个pty和绑定一个stdin用来保存编辑的文件,因为没有pty容器无法收到控制字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec -it 6caf2b2b8d00 vi /tmp/1.txt</div></pre></td></tr></table></figure></p>
+<h4 id="history-追踪image的历史记录"><a href="#history-追踪image的历史记录" class="headerlink" title="history 追踪image的历史记录"></a>history 追踪image的历史记录</h4><p>diff 查看的是容器中文件系统的变更历史。History查看的是image的变更历史。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker history ouruser/sinatra:v3</div></pre></td></tr></table></figure></p>
+<p>-H,–human 表示是否输出方便用户识别的格式。<br>–no-trunc=false 默认false,表示将输出按照一定的格式进行截断。<br>–quiet 若是设置为true,只返回image构建过程中所有的临时文件层的image ID,为false时返回所有信息。</p>
+<h4 id="info-显示Docker摘要信息"><a href="#info-显示Docker摘要信息" class="headerlink" title="info 显示Docker摘要信息"></a>info 显示Docker摘要信息</h4><p>info 指令显示Docker摘要信息,用来确认Docker信息。包含Docker内核版本号、Docker所设定的CPU、内存参数等环境底层信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker info</div></pre></td></tr></table></figure></p>
+<h4 id="inspect-返回指定目标的底层信息"><a href="#inspect-返回指定目标的底层信息" class="headerlink" title="inspect 返回指定目标的底层信息"></a>inspect 返回指定目标的底层信息</h4><p>inspect可以返回image和container的底层信息。包括某个容器的IP地址,MAC地址,端口信息等等。<br>返回的几类信息:<br>1.基本信息类:名称,创建时间,当前状态(运行、停止、暂停)等<br>2.运行参数类:网络信息、环境变量、主机名称等<br>3.底层数据类:CPU设置、内存设置、虚拟化设置等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker inspect -f &#123;&#123;要查看的参数名&#125;&#125; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;json .Config&#125;&#125;&apos; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;(index (index .Config &quot;Env&quot;) 0)&#125;&#125;&apos; ID号              取出Config中Env第一个元素命令</div></pre></td></tr></table></figure></p>
+<p>json是指把数据格式化成json字符串<br>index取第几个</p>
+<h4 id="kill-强制停止容器"><a href="#kill-强制停止容器" class="headerlink" title="kill 强制停止容器"></a>kill 强制停止容器</h4><p>一般使用stop关掉容器。出现异常使用kill<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker kill 容器名</div></pre></td></tr></table></figure></p>
+<h4 id="ps-查看当前容器的运行状态"><a href="#ps-查看当前容器的运行状态" class="headerlink" title="ps 查看当前容器的运行状态"></a>ps 查看当前容器的运行状态</h4><h4 id="rename-对容器重命名"><a href="#rename-对容器重命名" class="headerlink" title="rename 对容器重命名"></a>rename 对容器重命名</h4><p>docker rename 旧名字 新名字</p>
+<h4 id="tag-对镜像重命名"><a href="#tag-对镜像重命名" class="headerlink" title="tag 对镜像重命名"></a>tag 对镜像重命名</h4><p>……还有很多命令看文档</p>
+<p>参考书籍<br>《Docker 全攻略》张涛著<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/13/Docker-Learn2/" class="archive-article-date">
+  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Docker-Learn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -587,86 +907,6 @@ MYSQL_PASSWORD=123456
     <div class="article-info article-info-index">
       
       <a href="/2016/11/13/Docker-Learn/" class="archive-article-date">
-  	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Docker-Learn2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/13/Docker-Learn2/">Docker 学习笔记(二)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Docker中的某些命令详解"><a href="#Docker中的某些命令详解" class="headerlink" title="Docker中的某些命令详解"></a>Docker中的某些命令详解</h2><h4 id="logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志"><a href="#logs-获取容器内部应用输出的日志-只能获取到重定向到STDOUT和STDERR的日志" class="headerlink" title="logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志"></a>logs 获取容器内部应用输出的日志,只能获取到重定向到STDOUT和STDERR的日志</h4><h4 id="attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令"><a href="#attach-挂载到正在运行的容器中-并且可以在容器中执行任何命令" class="headerlink" title="attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令"></a>attach 挂载到正在运行的容器中,并且可以在容器中执行任何命令</h4><p>可以通过ID和name挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         32 minutes ago      Up 32 minutes                           reverent_thompson</div><div class="line">➜  ~ docker attach 6caf2b2b8d00</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker attach reverent_thompson</div><div class="line">root@6caf2b2b8d00:/#</div></pre></td></tr></table></figure></p>
-<p>通过Ctrl+P+Q来退出容器,容器还在运行中。<br>使用exit退出容器,容器同步被关闭。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@6caf2b2b8d00:/# exit 10</div><div class="line">➜  ~ docker ps -a |grep reverent_thompson</div><div class="line">6caf2b2b8d00        b1873e247b48         &quot;/bin/bash&quot;              52 minutes ago      Exited (10) 45 seconds ago                       reverent_thompson</div></pre></td></tr></table></figure></p>
-<p>Exited (10) 容器的退出响应码变成了10,即可以通过exit命令来指定容器退出码。</p>
-<h4 id="commit-以某个容器为基础保存成一个新的image"><a href="#commit-以某个容器为基础保存成一个新的image" class="headerlink" title="commit 以某个容器为基础保存成一个新的image"></a>commit 以某个容器为基础保存成一个新的image</h4><p>-a, –author=””这个参数的目标是保存新的作者。<br>-c, –change=[]这个参数保存的是修改image里面的配置参数。<br>目前支持的可以修改的配置参数有CMD|ENTRYPOINT|ENV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKDIR。其余的参数继承于上一个image<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit --change &quot;ENV DEBUG true&quot; 3af7938d2d31 svendowideit/testimage:version1</div><div class="line">sha256:c24a8c4cf76d9485e69fa4d975a6b8ccc3070dbf368a118672ab6a76a4249605</div></pre></td></tr></table></figure></p>
-<p>3af7938d2d31是一个正在运行的容器,svendowideit/testimage是repository的名字,version1是tag的内容<br>查看结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  ~ Docker inspect -f &quot;&#123;&#123; .Config.Env&#125;&#125;&quot; c24a8c4cf76d</div><div class="line">[DEBUG=true no_proxy=local PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]</div></pre></td></tr></table></figure></p>
-<p>-m, –message=””这个参数是提交一个comment备注信息,说明image的用途,修改的内容等信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  ~  docker commit -m &quot;test message&quot; 3af7938d2d31 svendowideit/testimage:version2</div><div class="line">sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4</div><div class="line">➜  ~ Docker inspect 0d4f24b6a8d7</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Id&quot;: &quot;sha256:0d4f24b6a8d7d7239b9cfa163845c09866f30de9cc7ac23d48510e3ac095f6a4&quot;,</div><div class="line">        &quot;RepoTags&quot;: [</div><div class="line">            &quot;svendowideit/testimage:version2&quot;</div><div class="line">        ],</div><div class="line">        &quot;RepoDigests&quot;: [],</div><div class="line">        &quot;Parent&quot;: &quot;sha256:78a0e8d9b39cdcbb93d433ec5de61ba6c6d10369eccdf45b7e60318b47356d9a&quot;,</div><div class="line">        &quot;Comment&quot;: &quot;test message&quot;,</div><div class="line">        .........</div><div class="line">     &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
-<p>-p, –pause=true 默认情况下执行commit时,容器中所有进程处于暂停状态,如果此时容器对外提供服务,那其他容器会受到影响。<br>-pause=false使用这个参数使得在执行commit时保持容器内进程继续工作。但是commit效率会下降。</p>
-<h4 id="create-创建容器"><a href="#create-创建容器" class="headerlink" title="create 创建容器"></a>create 创建容器</h4><p>create命令是以image为模板创建的一个容器,并且在容器文件的最上面一层添加一个读写层,容器里面的数据变化会被保存在读写层。<br>create成功后需要通过start来启动容器。<br>参数:<br>-i 将Host的Stdin和容器的Stdin相连接<br>-t 创建一个pty终端<br>(-it 前两者结合使用相当于在host环境中启动一个链接容器的pty伪终端,在host的pty中输入的数据就会传到容器之中。)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker create -it addwszfile bash</div><div class="line">7019c6b575fe673954f2019a99fb6679b7a2f4a604d324290ff5111c42feae2b</div><div class="line">➜  ~ docker create -it -v /dockerforme/sinatra/share_folder/:/tmp --name data1 addwszfile</div><div class="line">7cfc3205a8df843d1b7219a31f51976b5df638cb20a03c57134ec690da990875</div><div class="line">➜  ~ docker create -P --name data2 addwszfile</div></pre></td></tr></table></figure></p>
-<p>addwszfile是image名称。</p>
-<p>-p 映射网络端口,当应用需要访问其他应用或被访问,需要开放一个端口<br>-P 容器中所有需要暴露的端口都会映射到主机随机的一个端口(端口范围49153~65535)<br>-v 挂载参数,把主机的一个文件或者一个目录挂载到容器中</p>
-<h4 id="diff-比较容器文件文件层数据差异的命令"><a href="#diff-比较容器文件文件层数据差异的命令" class="headerlink" title="diff 比较容器文件文件层数据差异的命令"></a>diff 比较容器文件文件层数据差异的命令</h4><p>首先启动一个容器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -t -i ubuntu:12.04 /bin/bash</div></pre></td></tr></table></figure></p>
-<p>在容器中做某些操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is wsz add test&quot; &gt; /tmp/wsz.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# rm /tmp/wsz2.txt</div><div class="line">root@543f21cb4a4e:/# touch /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;This is a change test&quot; &gt; /tmp/wsz3.txt</div><div class="line">root@543f21cb4a4e:/# echo &quot;I add a new line&quot; &gt;&gt; /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
-<p>新开一个命令行窗口,查看diff<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">543f21cb4a4e        ubuntu:12.04        &quot;/bin/bash&quot;         4 minutes ago       Up 4 minutes                            trusting_bell</div><div class="line">➜  ~ docker diff 543f21cb4a4e</div><div class="line">C /tmp</div><div class="line">A /tmp/wsz.txt</div><div class="line">A /tmp/wsz3.txt</div></pre></td></tr></table></figure></p>
-<p>结果中的A表示add;C表示Change;D表示Delete<br>可以看见之中我们是创建一个wsz2.txt的文件然后又删除了,但是在diff中并没有反应出来,这是因为我们操作产生的数据保存在最上面的读写层里,diff比较的是最上层和其他层的差异,其中wsz2的文件不存在于其他层所以不显示。<br>若想时时刻刻保存状态,可以save读写层,再进行删除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker commit 543f21cb4a4e addwszfile</div><div class="line">sha256:b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">➜  ~ docker run -it b1873e247b48d2ffb12725552691db3c8a2d1f097efdfbb04aeddb9cf13d8c9c</div><div class="line">root@6caf2b2b8d00:/# rm /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
-<p>新开一个命令行窗口可以看到删除的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">6caf2b2b8d00        b1873e247b48        &quot;/bin/bash&quot;         40 seconds ago      Up 39 seconds                           reverent_thompson</div><div class="line">➜  ~ docker diff 6caf2b2b8d00</div><div class="line">C /tmp</div><div class="line">D /tmp/wsz.txt</div></pre></td></tr></table></figure></p>
-<h4 id="events-获取容器所报告的事件"><a href="#events-获取容器所报告的事件" class="headerlink" title="events 获取容器所报告的事件"></a>events 获取容器所报告的事件</h4><p>Docker容器再运行过程中会向Docker Daemon报告如下事件:<br>create、destroy、die、export、kill、oom、pause、start、stop、unpause<br>Image镜像会向Docker Daemon报告untag、delete事件<br>筛选的几种方式:<br>–since 指从某一个时间点开始Docker Daemon接收的所有事件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos;</div></pre></td></tr></table></figure></p>
-<p>–until 需要和 –since结合使用,指的是从某一个时间点开始到某一个时间点结束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --since &apos;2016-09-01&apos; --until &apos;2016-11-08T15:00:00&apos;</div></pre></td></tr></table></figure></p>
-<p>–filter 接收的是key=value的键值对。目前有效的key是container、event、image。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker events --filter &apos;event=stop&apos;</div><div class="line">➜  ~ docker events --filter &apos;image=ubuntu:14.04&apos;</div><div class="line">➜  ~ docker events --filter &apos;container=543f21cb4a4e&apos;</div></pre></td></tr></table></figure></p>
-<h4 id="exec-在容器中运行其他命令"><a href="#exec-在容器中运行其他命令" class="headerlink" title="exec 在容器中运行其他命令"></a>exec 在容器中运行其他命令</h4><p>执行ps删选进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 ps -s|grep bash</div></pre></td></tr></table></figure></p>
-<p>创建一个新文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec 6caf2b2b8d00 touch /tmp/1.txt</div></pre></td></tr></table></figure></p>
-<p>修改文件,前提需要申请一个pty和绑定一个stdin用来保存编辑的文件,因为没有pty容器无法收到控制字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker exec -it 6caf2b2b8d00 vi /tmp/1.txt</div></pre></td></tr></table></figure></p>
-<h4 id="history-追踪image的历史记录"><a href="#history-追踪image的历史记录" class="headerlink" title="history 追踪image的历史记录"></a>history 追踪image的历史记录</h4><p>diff 查看的是容器中文件系统的变更历史。History查看的是image的变更历史。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker history ouruser/sinatra:v3</div></pre></td></tr></table></figure></p>
-<p>-H,–human 表示是否输出方便用户识别的格式。<br>–no-trunc=false 默认false,表示将输出按照一定的格式进行截断。<br>–quiet 若是设置为true,只返回image构建过程中所有的临时文件层的image ID,为false时返回所有信息。</p>
-<h4 id="info-显示Docker摘要信息"><a href="#info-显示Docker摘要信息" class="headerlink" title="info 显示Docker摘要信息"></a>info 显示Docker摘要信息</h4><p>info 指令显示Docker摘要信息,用来确认Docker信息。包含Docker内核版本号、Docker所设定的CPU、内存参数等环境底层信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ~ docker info</div></pre></td></tr></table></figure></p>
-<h4 id="inspect-返回指定目标的底层信息"><a href="#inspect-返回指定目标的底层信息" class="headerlink" title="inspect 返回指定目标的底层信息"></a>inspect 返回指定目标的底层信息</h4><p>inspect可以返回image和container的底层信息。包括某个容器的IP地址,MAC地址,端口信息等等。<br>返回的几类信息:<br>1.基本信息类:名称,创建时间,当前状态(运行、停止、暂停)等<br>2.运行参数类:网络信息、环境变量、主机名称等<br>3.底层数据类:CPU设置、内存设置、虚拟化设置等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker inspect -f &#123;&#123;要查看的参数名&#125;&#125; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;json .Config&#125;&#125;&apos; ID号</div><div class="line">docker inspect -f &apos;&#123;&#123;(index (index .Config &quot;Env&quot;) 0)&#125;&#125;&apos; ID号              取出Config中Env第一个元素命令</div></pre></td></tr></table></figure></p>
-<p>json是指把数据格式化成json字符串<br>index取第几个</p>
-<h4 id="kill-强制停止容器"><a href="#kill-强制停止容器" class="headerlink" title="kill 强制停止容器"></a>kill 强制停止容器</h4><p>一般使用stop关掉容器。出现异常使用kill<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker kill 容器名</div></pre></td></tr></table></figure></p>
-<h4 id="ps-查看当前容器的运行状态"><a href="#ps-查看当前容器的运行状态" class="headerlink" title="ps 查看当前容器的运行状态"></a>ps 查看当前容器的运行状态</h4><h4 id="rename-对容器重命名"><a href="#rename-对容器重命名" class="headerlink" title="rename 对容器重命名"></a>rename 对容器重命名</h4><p>docker rename 旧名字 新名字</p>
-<h4 id="tag-对镜像重命名"><a href="#tag-对镜像重命名" class="headerlink" title="tag 对镜像重命名"></a>tag 对镜像重命名</h4><p>……还有很多命令看文档</p>
-<p>参考书籍<br>《Docker 全攻略》张涛著<br><a href="https://docs.docker.com/" target="_blank" rel="external">《Docker 官方文档》</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/13/Docker-Learn2/" class="archive-article-date">
   	<time datetime="2016-11-13T12:14:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-13</time>
 </a>
       
@@ -808,376 +1048,9 @@ summary
 
 
   
-    <article id="post-ansible" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/31/ansible/">ansible</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>因为项目需要,所以提前学习了一下ansible,ansible是一个配置管理工具。</p>
-<h2 id="ansible-安装"><a href="#ansible-安装" class="headerlink" title="ansible 安装"></a>ansible 安装</h2><p>Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install ansible</div></pre></td></tr></table></figure></p>
-<p>Python包管理工具pip安装,root 安装方式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install ansible</div></pre></td></tr></table></figure></p>
-<p>非root安装方式,可以安装到一个Python virtualenv中,或者使用pipsi工具,自动安装到Python virtualenv中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py</div><div class="line">python get-pipsi.py</div><div class="line">pipsi install ansible</div></pre></td></tr></table></figure></p>
-<p>再将~/.local/bin添加到Path环境变量中。</p>
-<p>使用pip安装docker-py和boto<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.local/venvs/ansible</div><div class="line">source bin/actiivate</div><div class="line">pip install docker-py boto</div></pre></td></tr></table></figure></p>
-<p>ps: 安装wget<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd Downloads</div><div class="line">curl -O http://ftp.gnu.org/gnu/wget/wget-1.14.tar.gz</div><div class="line">tar xvzf wget-1.14.tar.gz</div><div class="line">cd wget-1.14</div><div class="line">./configure --with-ssl=openssl</div><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure></p>
-<p><a href="https://coolestguidesontheplanet.com/install-and-configure-wget-on-os-x/" target="_blank" rel="external">install wget in Mac OS X</a></p>
-<p>参考<a href="https://valdhaus.co/writings/ansible-mac-osx/" target="_blank" rel="external">install ansible on Mac</a><br><a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank" rel="external">ansible官方安装文档</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/31/ansible/" class="archive-article-date">
-  	<time datetime="2016-10-31T06:43:38.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-31</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Software-Architecture" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/28/Software-Architecture/">架构设计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在接受一个培训,第一次接触了架构设计的知识,有些名词晦涩难懂,导致在这一块的学习还是有所欠缺。<br>尽管如此,在培训中和培训后的努力学习后,做了点整理,理解的可能有所偏差,欢迎拍砖。</p>
-<p>架构设计对于一个项目来说十分重要。</p>
-<h2 id="一份完整的架构设计应该包括哪些内容"><a href="#一份完整的架构设计应该包括哪些内容" class="headerlink" title="一份完整的架构设计应该包括哪些内容"></a>一份完整的架构设计应该包括哪些内容</h2><p>1）建模，提炼资源<br>2）系统结构（BFF，业务流程）<br>3）开发团队结构<br>4）可用性与性能架构<br>5）安全性架构<br>6）质量架构<br>7）部署架构<br>8）运维架构<br>9）技术选型</p>
-<h2 id="面向行为的接口设计与面向资源的接口设计-ROA"><a href="#面向行为的接口设计与面向资源的接口设计-ROA" class="headerlink" title="面向行为的接口设计与面向资源的接口设计(ROA)"></a>面向行为的接口设计与面向资源的接口设计(ROA)</h2><p>面向行为的接口设计是建立在动词（行为）的基础之上的，系统要枚举所有的业务行为，如果行为发生改变，接口也随之改变。<br>面向资源的接口设计便于实施、设计灵活、是轻量级的对象访问方式。<br>面向资源的接口设计关注的是名词（资源），解决了在业务需求发生变化时要对代码做很大的改变的问题。</p>
-<h2 id="SOA-面向服务的架构设计"><a href="#SOA-面向服务的架构设计" class="headerlink" title="SOA 面向服务的架构设计"></a>SOA 面向服务的架构设计</h2><p>将紧耦合的系统,划分为面向业务的,粗粒度,松耦合,无状态的服务。<br>目的是提高软件的重用性，减少开发和维护的成本，最终增加敏捷度。</p>
-<h2 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h2><p>微服务架构其中的一个重点是业务系统需要彻底的组件化和服务化,原来的业务可以拆分成独立的系统应用进行开发,这些相互独立的系统应用通过服务完成交互和集成。<br>它的目的是有效的拆分应用,实现敏捷开发和部署,为构建应用提供更轻量级、更高效的开发。</p>
-<p>微服务不再强调传统SOA架构里面比较重的<strong>ESB</strong>企业服务总线，同时SOA的思想进入到单个业务系统内部实现真正的组件化。</p>
-<h4 id="微服务足够构成一个独立的小应用-从DB到UI"><a href="#微服务足够构成一个独立的小应用-从DB到UI" class="headerlink" title="微服务足够构成一个独立的小应用(从DB到UI)"></a>微服务足够构成一个独立的小应用(从DB到UI)</h4><p>微服务的基本思想在于考虑围绕着业务领域组件来创建应用,这些应用可以独立的进行开发管理和加速。在分散的组件中使用微服务云架构和平台使部署管理和服务功能交付变得更加简单。</p>
-<p>(<strong>Devops</strong>:开发测试和部署运维一体化。)</p>
-<p>把单体应用拆分成多个小应用后,整体架构可以松耦合和可扩展,但是当拆分的组件越多,这些组件之间本省的集成和部署运维就越复杂。<br>任何一个组件,当依赖的外部应用组件越多的时候,整个集成,部署和连调测试的过程就越复杂,所以自动化这个过程可以减少工作量和出错概率。</p>
-<p>微服务架构首先要做好单个组件本身的持续集成,其次在这个基础上增加了多个组件的打包部署和组件间的集成。包括环境变量的配置,自动打包部署,自动化的测试等。</p>
-<p>不像传统多个服务共享一个数据库,微服务架构每个服务都有自己的数据库。</p>
-<h4 id="一般运行在云虚拟机或者更轻的Docker上"><a href="#一般运行在云虚拟机或者更轻的Docker上" class="headerlink" title="一般运行在云虚拟机或者更轻的Docker上"></a>一般运行在云虚拟机或者更轻的Docker上</h4><p>微服务架构强调了单个组件本身可以在独立的进程里面运行,各个组件之间在部署的时候就能够做到进程级别的隔离性。<br>为了保持进程的隔离性,使用虚拟机,但是几十个进程都完全用独立的虚拟机就不现实,解决方案为利用Docker容器,每个Docker是独立的容器,完全做到了进程季节的隔离,资源占用率最小,满足了微服务架构的开发测试和自动化部署。</p>
-<h4 id="微服务应用之间只能通过Service-API进行交互"><a href="#微服务应用之间只能通过Service-API进行交互" class="headerlink" title="微服务应用之间只能通过Service API进行交互"></a>微服务应用之间只能通过Service API进行交互</h4><p>单个服务的实现和发布仍然在组件内部完成,但是需要一个统一的SOA服务管理平台来显示服务本身的调用情况,服务本身的安全,日志和流量控制。<br>微服务强调采用HTTP Rest API的方式。<br>即微服务尽量通过HTTP API的方式暴露出去,因此这种服务管理平台需要基本的服务注册,服务代理,服务发布,服务简单的路由,安全访问和授权,服务调用消息和日志记录功能。</p>
-<h3 id="微服务架构的优势"><a href="#微服务架构的优势" class="headerlink" title="微服务架构的优势"></a>微服务架构的优势</h3><p>1.通过分解巨大单体式应用为多个服务方法解决了复杂性问题。在功能不变的情况下,应用被分解为多个可管理的分支或服务。单个服务很容易开发、理解和维护。<br>2.每个服务都可以有专门的开发团队并行开发。<br>3.每个服务独立部署,不需要协调其他服务部署对本服务的影响,加快了部署速度,使得持续化部署成为可能。<br>4.每个服务可独立扩展。<br>5.每个服务足够内聚，足够小，代码容易理解、开发效率提高。<br>7.提高容错性，一个服务的内存泄露并不会让整个系统瘫痪。<br>8.可以使用多个技术栈,系统不会被技术栈长期限制。</p>
-<h3 id="微服务架构的不足"><a href="#微服务架构的不足" class="headerlink" title="微服务架构的不足"></a>微服务架构的不足</h3><p>1.一个应用系统里面的模块没有办法做到彻底解耦,无法实现组件单独部署,相互之间有大量内部不可见依赖而导致了模块间的无法拆分。<br>2.微服务应用式分布式系统,会带来固有的复杂性。<br>3.分区的数据库架构带来的挑战,因为需要更新不同服务所使用的不同的数据库。<br>4.测试一个基于微服务架构的应用很复杂。<br>5.微服务架构模式应用的改变将会波及多个服务。<br>6.部署一个微服务应用也很复杂，一个分布式应用只需要简单在复杂均衡器后面部署各自的服务器就好了。每个应用实例是需要配置诸如数据库和消息中间件等基础服务。</p>
-<h3 id="微服务的特征"><a href="#微服务的特征" class="headerlink" title="微服务的特征:"></a>微服务的特征:</h3><p>通过服务实现组件化<br>按业务能力来划分服务于组织团队<br>服务即产品<br>智能终端与哑管道<br>去中心统一化<br>基础设施自动化<br>Design for failure<br>进化设计</p>
-<h3 id="微服务总结"><a href="#微服务总结" class="headerlink" title="微服务总结"></a>微服务总结</h3><p>一个微服务一般完成某个特定的功能,每个微服务都是一个微型应用,有着自己的六边形架构,包括商业逻辑和各种接口。<br>有的微服务通过暴露API被别的微服务或者应用客户端所用;有的微服务则通过UI实现。在运行时,每个实力通常时一个云虚拟机或者Docker容器。</p>
-<h2 id="SOA、微服务、服务化这几个概念的差别和关系"><a href="#SOA、微服务、服务化这几个概念的差别和关系" class="headerlink" title="SOA、微服务、服务化这几个概念的差别和关系"></a>SOA、微服务、服务化这几个概念的差别和关系</h2><p>SOA服务导向架构，将应用程序功能作为服务发送给最终用户或者其他服务，是整合各种业务的应用程序。<br>微服务是一种以业务功能为主的服务设计，通过将功能分散到各个离散的服务中以实现对解决方案的解耦，所以每一个服务都具有自主运行的业务功能。微服务只属于一个应用程序，它要求业务系统彻底的组件化和服务化。<br>服务化是一种粗粒度、松耦合的以服务为中心的架构，服务之间通过定义明确的协议和接口进行通信。</p>
-<h2 id="好的架构应该具备的特征"><a href="#好的架构应该具备的特征" class="headerlink" title="好的架构应该具备的特征"></a>好的架构应该具备的特征</h2><p>基于资源的接口设计<br>开发团队结构要正确映射系统架构<br>要考虑业务架构和组织架构</p>
-<p>参考文章:<br><a href="http://colobu.com/2015/04/08/software-architecture-patterns/" target="_blank" rel="external">软件架构模式</a><br><a href="https://www.zhihu.com/question/37808426" target="_blank" rel="external">SOA和微服务的区别</a><br><a href="http://dockone.io/article/394" target="_blank" rel="external">微服务架构的优势与不足</a><br><a href="https://www.ibm.com/developerworks/community/blogs/3302cc3b-074e-44da-90b1-5055f1dc0d9c/entry/%E8%A7%A3%E6%9E%90%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84_%E4%B8%80_%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1?lang=en" target="_blank" rel="external">解析微服务架构(一)</a><br><a href="http://www.jianshu.com/p/546ef242b6a3" target="_blank" rel="external">基于微服务的软件架构模式</a><br><a href="http://www.hollischuang.com/archives/1628" target="_blank" rel="external">组件化、模块化、集中式、分布式、服务化、面向服务的架构、微服务架构</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/28/Software-Architecture/" class="archive-article-date">
-  	<time datetime="2016-10-28T06:46:47.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-28</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Continuous-Integration" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/25/Continuous-Integration/">持续集成(Continuous Integration)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在工作之前,曾经遇到过这么一个问题,和多个小伙伴一起开发,一个人负责了一大块的功能,最后在每个人完成各自的开发工作以后,集成成一个系统。<br>这真的是很痛苦的一件事情,没有任何的铺垫,一堆冲突,集成后也不知道系统是不是存在bug。<br>然而在真正工作以后,才发现了这些问题的正确打开方式。</p>
-<h2 id="持续集成是什么"><a href="#持续集成是什么" class="headerlink" title="持续集成是什么"></a>持续集成是什么</h2><p>Martin Fowler对持续集成(Continuous Integration)的定义:</p>
-<blockquote>
-<p>Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible.Many teams find that this approach leads to significantly reduced integration problems and allows a team to develop cohesive software more rapidly.  </p>
-</blockquote>
-<p>持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试)来验证，从而尽快地发现集成错误。许多团队发现这个过程可以大大减少集成的问题，让团队能够更快的开发内聚的软件。</p>
-<p>Martin Fowler对持续集成的内容概述:</p>
-<blockquote>
-<p>Maintain a Single Source Repository.<br>  Automate the Build<br>  Make Your Build Self-Testing<br>  Everyone Commits To the Mainline Every Day<br>  Every Commit Should Build the Mainline on an Integration Machine<br>  Fix Broken Builds Immediately<br>  Keep the Build Fast<br>  Test in a Clone of the Production Environment<br>  Make it Easy for Anyone to Get the Latest Executable<br>  Everyone can see what’s happening<br>  Automate Deployment</p>
-</blockquote>
-<p>  1.统一的代码库。一个团队在开发过程中都需要一个代码库,每个人写的代码都更新到同一个代码库上。例如Github,Gitlab等,如此一来就需要版本管理工具例如git,svn等等。<br>  2.自动构建。手动构建的代价太大,使用工具来自动构建。<br>  3.自动测试。<br>  4.每个人每天都要向代码库主干提交代码。<br>  5.每次代码递交后都会在持续集成服务器上触发一次构建。<br>  6.保证快速构建。<br>  7.模拟生产环境的自动测试。<br>  8.每个人都可以很容易的获取最新可执行的应用程序。<br>  9.每个人都清楚正在发生的状况。<br>  10.自动化的部署。</p>
-<h2 id="持续集成的好处"><a href="#持续集成的好处" class="headerlink" title="持续集成的好处"></a>持续集成的好处</h2><p>由上可知,持续集成的好处在于:<br>    (1)快速发现错误。每个coder完成了一小段代码就更新集成到主干,如此一来可以快速的发现错误,并且定位错误,改正错误。<br>    (2)使得代码不会大幅度的偏离主干。如果不经常集成代码,更新不快,最后集成的难度非常大。<br>    (3)在任何时间、任何地点生成可部署的软件。对于客户来说,这便于持续交付。<br>    (4)改善对进度的控制。每天都在集成，就可以看到当前各个功能的进度。<br>    (5)更加充分地测试系统中的各个单元。<br>    (6)与其它工具结合的持续代码质量改进。如使用CheckStyle, PMD, FindBugs, Fxcop等。<br>    (7)便于Code Review。在每个build里，我们都可以知道与前一个build之间有什么改动，然后针对这些改动，我们就可以实施Code Review了。<br>    (8)便于开发流程的管理。比如说，要把一个开发的build提交给测试组作测试，测完满意了，再提交到发布组去发布。</p>
-<p> 持续集成的目的，就是让产品可以保持高质量的快速迭代。</p>
-<h2 id="持续集成的工具"><a href="#持续集成的工具" class="headerlink" title="持续集成的工具"></a>持续集成的工具</h2><p>CI工具实现了每个开发人员提交代码的时候自动进行构建，包括代码审查、编译、测试、打包等操作。如此可以保证每次提交都是安全的。<br>CI工具还可以提供事件通知,生成报告等。例如当某一步构建失败了发送通知给指定的email、通过特定的设置发出声音等。<br>常见的工具有:<br><a href="https://jenkins.io/index.html" target="_blank" rel="external">Jenkins</a><br><a href="https://www.go.cd/" target="_blank" rel="external">Go</a><br><a href="http://buildbot.net/" target="_blank" rel="external">Buildbot</a></p>
-<h2 id="持续集成的规则："><a href="#持续集成的规则：" class="headerlink" title="持续集成的规则："></a>持续集成的规则：</h2><p>  总结规则如下:<br>1）经常提交代码<br>2）不要提交无法构建的代码<br>3）构建失败时，立即修复<br>4）写自动化测试<br>5）必须通过所有测试和代码审查<br>6）执行私有构建<br>7）避免迁出无法构建的代码</p>
-<p>遵循以上规则是为了提高CI持续集成成功率，及时修复build</p>
-<p>参考文献:<br><a href="http://martinfowler.com/articles/continuousIntegration.html" target="_blank" rel="external">Martin Fowler的Continuous Integration</a><br><a href="http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html" target="_blank" rel="external">持续集成是什么？</a><br><a href="http://www.cnblogs.com/huang0925/p/3333484.html" target="_blank" rel="external">让你的CI跑起来</a><br><a href="http://holbrook.github.io/2014/03/04/ci_tools.html" target="_blank" rel="external">持续集成工具的作用</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/25/Continuous-Integration/" class="archive-article-date">
-  	<time datetime="2016-10-25T03:33:21.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-25</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/">CI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-markdown" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/09/markdown/">使用Markdown编辑器写博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本博客非原创,,转自CSDN官方编辑器提示,用来帮组小伙伴使用markdown写博客</p>
-<p>正文如下:</p>
-<p>本Markdown编辑器使用<a href="https://github.com/benweet/stackedit" target="_blank" rel="external">StackEdit</a>修改而来，用它写博客，将会带来全新的体验哦：</p>
-<ul>
-<li><strong>Markdown和扩展Markdown简洁的语法</strong></li>
-<li><strong>代码块高亮</strong></li>
-<li><strong>图片链接和图片上传</strong></li>
-<li><strong><em>LaTex</em>数学公式</strong></li>
-<li><strong>UML序列图和流程图</strong></li>
-<li><strong>离线写博客</strong></li>
-<li><strong>导入导出Markdown文件</strong></li>
-<li><strong>丰富的快捷键</strong></li>
-</ul>
-<hr>
-<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><ul>
-<li>加粗    <code>Ctrl + B</code></li>
-<li>斜体    <code>Ctrl + I</code></li>
-<li>引用    <code>Ctrl + Q</code></li>
-<li>插入链接    <code>Ctrl + L</code></li>
-<li>插入代码    <code>Ctrl + K</code></li>
-<li>插入图片    <code>Ctrl + G</code></li>
-<li>提升标题    <code>Ctrl + H</code></li>
-<li>有序列表    <code>Ctrl + O</code></li>
-<li>无序列表    <code>Ctrl + U</code></li>
-<li>横线    <code>Ctrl + R</code></li>
-<li>撤销    <code>Ctrl + Z</code></li>
-<li>重做    <code>Ctrl + Y</code></li>
-</ul>
-<h2 id="Markdown及扩展"><a href="#Markdown及扩展" class="headerlink" title="Markdown及扩展"></a>Markdown及扩展</h2><blockquote>
-<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank"> [ 维基百科 ]</a></p>
-</blockquote>
-<p>使用简单的符号标识不同的标题，将某些文字标记为<strong>粗体</strong>或者<em>斜体</em>，创建一个<a href="http://www.csdn.net" target="_blank" rel="external">链接</a>等，详细语法参考帮助？。</p>
-<p>本编辑器支持 <strong>Markdown Extra</strong> , 　扩展了很多好用的功能。具体请参考<a href="https://github.com/jmcmanus/pagedown-extra" title="Pagedown Extra" target="_blank" rel="external">Github</a>.</p>
-<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p><strong>Markdown　Extra</strong>　表格语法：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>价格</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Computer</td>
-<td>$1600</td>
-</tr>
-<tr>
-<td>Phone</td>
-<td>$12</td>
-</tr>
-<tr>
-<td>Pipe</td>
-<td>$1</td>
-</tr>
-</tbody>
-</table>
-<p>可以使用冒号来定义对齐方式：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">项目</th>
-<th style="text-align:right">价格</th>
-<th style="text-align:center">数量</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Computer</td>
-<td style="text-align:right">1600 元</td>
-<td style="text-align:center">5</td>
-</tr>
-<tr>
-<td style="text-align:left">Phone</td>
-<td style="text-align:right">12 元</td>
-<td style="text-align:center">12</td>
-</tr>
-<tr>
-<td style="text-align:left">Pipe</td>
-<td style="text-align:right">1 元</td>
-<td style="text-align:center">234</td>
-</tr>
-</tbody>
-</table>
-<h3 id="定义列表"><a href="#定义列表" class="headerlink" title="定义列表"></a>定义列表</h3><p><strong>Markdown　Extra</strong>　定义列表语法：<br>项目１<br>项目２<br>:   定义 A<br>:   定义 B</p>
-<p>项目３<br>:   定义 C</p>
-<p>:   定义 D</p>
-<pre><code>&gt; 定义D内容
-</code></pre><h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>代码块语法遵循标准markdown代码，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@requires_authorization</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">somefunc</span><span class="params">(param1=<span class="string">''</span>, param2=<span class="number">0</span>)</span>:</span></div><div class="line">    <span class="string">'''A docstring'''</span></div><div class="line">    <span class="keyword">if</span> param1 &gt; param2: <span class="comment"># interesting</span></div><div class="line">        <span class="keyword">print</span> <span class="string">'Greater'</span></div><div class="line">    <span class="keyword">return</span> (param2 - param1 + <span class="number">1</span>) <span class="keyword">or</span> <span class="keyword">None</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></div><div class="line">    <span class="keyword">pass</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>message = <span class="string">'''interpreter</span></div><div class="line"><span class="meta">... </span>prompt'''</div></pre></td></tr></table></figure></p>
-<h3 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h3><p>生成一个脚注[^footnote].<br>  [^footnote]: 这里是 <strong>脚注</strong> 的 <em>内容</em>.</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>用 <code>[TOC]</code>来生成目录：</p>
-<p>[TOC]</p>
-<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><p>使用MathJax渲染<em>LaTex</em> 数学公式，详见<a href="http://math.stackexchange.com/" target="_blank" rel="external">math.stackexchange.com</a>.</p>
-<ul>
-<li>行内公式，数学公式为：$\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。</li>
-<li>块级公式：</li>
-</ul>
-<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
-<p>更多LaTex语法请参考 <a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="external">这儿</a>.</p>
-<h3 id="UML-图"><a href="#UML-图" class="headerlink" title="UML 图:"></a>UML 图:</h3><p>可以渲染序列图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">张三-&gt;李四: 嘿，小四儿, 写博客了没?</div><div class="line">Note right of 李四: 李四愣了一下，说：</div><div class="line">李四--&gt;张三: 忙得吐血，哪有时间写。</div></pre></td></tr></table></figure>
-<p>或者流程图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end: 结束</div><div class="line">op=&gt;operation: 我的操作</div><div class="line">cond=&gt;condition: 确认？</div><div class="line"></div><div class="line">st-&gt;op-&gt;cond</div><div class="line">cond(yes)-&gt;e</div><div class="line">cond(no)-&gt;op</div></pre></td></tr></table></figure>
-<ul>
-<li>关于 <strong>序列图</strong> 语法，参考 <a href="http://bramp.github.io/js-sequence-diagrams/" target="_blank" rel="external">这儿</a>,</li>
-<li>关于 <strong>流程图</strong> 语法，参考 <a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="external">这儿</a>.</li>
-</ul>
-<h2 id="离线写博客"><a href="#离线写博客" class="headerlink" title="离线写博客"></a>离线写博客</h2><p>即使用户在没有网络的情况下，也可以通过本编辑器离线写博客（直接在曾经使用过的浏览器中输入<a href="http://write.blog.csdn.net/mdeditor" target="_blank" rel="external">write.blog.csdn.net/mdeditor</a>即可。<strong>Markdown编辑器</strong>使用浏览器离线存储将内容保存在本地。</p>
-<p>用户写博客的过程中，内容实时保存在浏览器缓存中，在用户关闭浏览器或者其它异常情况下，内容不会丢失。用户再次打开浏览器时，会显示上次用户正在编辑的没有发表的内容。</p>
-<p>博客发表后，本地缓存将被删除。　</p>
-<p>用户可以选择 <i class="icon-disk"></i> 把正在写的博客保存到服务器草稿箱，即使换浏览器或者清除缓存，内容也不会丢失。</p>
-<blockquote>
-<p><strong>注意：</strong>虽然浏览器存储大部分时候都比较可靠，但为了您的数据安全，在联网后，<strong>请务必及时发表或者保存到服务器草稿箱</strong>。</p>
-</blockquote>
-<h2 id="浏览器兼容"><a href="#浏览器兼容" class="headerlink" title="浏览器兼容"></a>浏览器兼容</h2><ol>
-<li>目前，本编辑器对Chrome浏览器支持最为完整。建议大家使用较新版本的Chrome。</li>
-<li>IE９以下不支持</li>
-<li>IE９，１０，１１存在以下问题<ol>
-<li>不支持离线功能</li>
-<li>IE9不支持文件导入导出</li>
-<li>IE10不支持拖拽文件导入</li>
-</ol>
-</li>
-</ol>
-<hr>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/09/markdown/" class="archive-article-date">
-  	<time datetime="2016-10-09T01:33:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-09</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1187,7 +1060,7 @@ summary
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 Shengzhi Wang
+    		&copy; 2017 Shengzhi Wang
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1244,7 +1117,7 @@ summary
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 17.5px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 12.5px;">essays</a> <a href="/tags/html5/" style="font-size: 12.5px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
     			</div>
     	</section>
     

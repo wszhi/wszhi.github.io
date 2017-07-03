@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Angular2 Learn note(1) | Shengzhi Wang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="推荐官方学习文档
+安装开发环境新建一个文件夹simpleExample，创建一个文件名为tsconfig.json的文件，内容为：1234567891011121314151617&amp;#123;  &amp;quot;compilerOptions&amp;quot;: &amp;#123;    &amp;quot;target&amp;quot;: &amp;quot;es5&amp;quot;,    &amp;quot;module&amp;quot;: &amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular2 Learn note(1)">
+<meta property="og:url" content="http://yoursite.com/2017/07/03/Angular2-Learn-note-1/index.html">
+<meta property="og:site_name" content="Shengzhi Wang">
+<meta property="og:description" content="推荐官方学习文档
+安装开发环境新建一个文件夹simpleExample，创建一个文件名为tsconfig.json的文件，内容为：1234567891011121314151617&amp;#123;  &amp;quot;compilerOptions&amp;quot;: &amp;#123;    &amp;quot;target&amp;quot;: &amp;quot;es5&amp;quot;,    &amp;quot;module&amp;quot;: &amp;qu">
+<meta property="og:updated_time" content="2017-07-03T03:06:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular2 Learn note(1)">
+<meta name="twitter:description" content="推荐官方学习文档
+安装开发环境新建一个文件夹simpleExample，创建一个文件名为tsconfig.json的文件，内容为：1234567891011121314151617&amp;#123;  &amp;quot;compilerOptions&amp;quot;: &amp;#123;    &amp;quot;target&amp;quot;: &amp;quot;es5&amp;quot;,    &amp;quot;module&amp;quot;: &amp;qu">
+  
+    <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Shengzhi Wang</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/technical/">技术</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Shengzhi Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://store.aimon.cn/Product/photo/348/2012101905747.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Shengzhi Wang</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/technical/">技术</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wszhi" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Angular2-Learn-note-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Angular2 Learn note(1)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>推荐<a href="https://angular.io/docs/ts/latest/guide/learning-angular.html" target="_blank" rel="external">官方学习文档</a></p>
+<h4 id="安装开发环境"><a href="#安装开发环境" class="headerlink" title="安装开发环境"></a>安装开发环境</h4><p>新建一个文件夹simpleExample，创建一个文件名为tsconfig.json的文件，内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;compilerOptions&quot;: &#123;</div><div class="line">    &quot;target&quot;: &quot;es5&quot;,</div><div class="line">    &quot;module&quot;: &quot;system&quot;,</div><div class="line">    &quot;moduleResolution&quot;: &quot;node&quot;,</div><div class="line">    &quot;sourceMap&quot;: true,</div><div class="line">    &quot;emitDecoratorMetadata&quot;: true,</div><div class="line">    &quot;experimentalDecorators&quot;: true,</div><div class="line">    &quot;removeComments&quot;: false,</div><div class="line">    &quot;noImplicitAny&quot;: false</div><div class="line">  &#125;,</div><div class="line">  &quot;exclude&quot;: [</div><div class="line">    &quot;node_modules&quot;,</div><div class="line">    &quot;typings/main&quot;,</div><div class="line">    &quot;typings/main.d.ts&quot;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>创建一个文件名为typings.json的文件，内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;globalDependencies&quot;: &#123;</div><div class="line">    &quot;core-js&quot;: &quot;registry:dt/core-js#0.0.0+20160602141332&quot;,</div><div class="line">    &quot;jasmine&quot;: &quot;registry:dt/jasmine#2.2.0+20160621224255&quot;,</div><div class="line">    &quot;node&quot;: &quot;registry:dt/node#6.0.0+20160621231320&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>创建一个文件名为package.json的文件，该文件中包含了我们应用所需要用到的packages，文件内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;angular2-demo&quot;,</div><div class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</div><div class="line">  &quot;scripts&quot;: &#123;</div><div class="line">    &quot;start&quot;: &quot;concurrent \&quot;npm run tsc:w\&quot; \&quot;npm run lite\&quot; &quot;,</div><div class="line">    &quot;tsc&quot;: &quot;tsc&quot;,</div><div class="line">    &quot;tsc:w&quot;: &quot;tsc -w&quot;,</div><div class="line">    &quot;lite&quot;: &quot;lite-server&quot;,</div><div class="line">    &quot;typings&quot;: &quot;typings&quot;,</div><div class="line">    &quot;postinstall&quot;: &quot;typings install&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;license&quot;: &quot;ISC&quot;,</div><div class="line">  &quot;dependencies&quot;: &#123;</div><div class="line">    &quot;angular2&quot;: &quot;2.0.0-beta.7&quot;,</div><div class="line">    &quot;systemjs&quot;: &quot;0.19.22&quot;,</div><div class="line">    &quot;es6-promise&quot;: &quot;^3.0.2&quot;,</div><div class="line">    &quot;es6-shim&quot;: &quot;^0.33.3&quot;,</div><div class="line">    &quot;reflect-metadata&quot;: &quot;0.1.2&quot;,</div><div class="line">    &quot;rxjs&quot;: &quot;5.0.0-beta.2&quot;,</div><div class="line">    &quot;zone.js&quot;: &quot;0.5.15&quot;</div><div class="line">  &#125;,</div><div class="line">  &quot;devDependencies&quot;: &#123;</div><div class="line">    &quot;concurrently&quot;: &quot;^2.0.0&quot;,</div><div class="line">    &quot;lite-server&quot;: &quot;^2.1.0&quot;,</div><div class="line">    &quot;typescript&quot;: &quot;^1.7.5&quot;,</div><div class="line">    &quot;typings&quot;:&quot;^0.6.8&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行npm install 可以下载以上的依赖包</p>
+<h4 id="开始第一个angular-2-程序"><a href="#开始第一个angular-2-程序" class="headerlink" title="开始第一个angular 2 程序"></a>开始第一个angular 2 程序</h4><p>新建文件夹名为app，在该文件目录下新建hello_world_main.ts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import &#123;bootstrap&#125; from &quot;angular2/platform/browser&quot;</div><div class="line">import &#123;MyHelloWorldClass&#125; from &quot;./hello_world_app.component&quot;</div><div class="line"></div><div class="line">bootstrap(MyHelloWorldClass);</div></pre></td></tr></table></figure></p>
+<p>同样目录下新建hello_world_app.component.ts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import &#123;Component, View&#125; from &quot;angular2/core&quot;;</div><div class="line"></div><div class="line">@Component(&#123;</div><div class="line">   selector: &apos;my-app&apos;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">@View(&#123;</div><div class="line">  template: &apos;&lt;h2&gt;Hello World !!&lt;/h2&gt;&apos;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">export class MyHelloWorldClass &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>回到上一层目录新建index.html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;Hello World&lt;/title&gt;</div><div class="line">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/2.0.0-beta.6/angular2-polyfills.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/tools/system.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/tools/typescript.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/2.0.0-beta.6/Rx.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;https://code.angularjs.org/2.0.0-beta.6/angular2.dev.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">      System.config(&#123;</div><div class="line">        transpiler: &apos;typescript&apos;,</div><div class="line">        typescriptOptions: &#123; emitDecoratorMetadata: true &#125;,</div><div class="line">        packages: &#123;&apos;app&apos;: &#123;defaultExtension: &apos;ts&apos;&#125;&#125;,</div><div class="line">        map: &#123; &apos;app&apos;: &apos;app&apos; &#125;</div><div class="line">      &#125;);</div><div class="line">      System.import(&apos;app/hello_world_main&apos;)</div><div class="line">            .then(null, console.error.bind(console));</div><div class="line">    &lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">   &lt;my-app&gt;Loading...&lt;/my-app&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>index.html中使用SystemJS加载所需的模块，通过System.config函数配置。<br>配置详情为：<br>packages 告知System loader当没有文件名或者没有后缀的时候如何加载文件<br>map 告知System loader在何处加载所需的文件,此处app(左边)指向的是名为app(右边)的目录，所以在import的时候可以找到在app目录下的hello_world_main.ts 文件。</p>
+<p>参考文章<br><a href="http://www.jianshu.com/p/db4be331b026" target="_blank" rel="external">Angular2 – SystemJS解析</a><br><a href="https://www.tutorialspoint.com/angular2/angular2_hello_world.htm" target="_blank" rel="external">tutorialspoint 网站</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/07/03/Angular2-Learn-note-1/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:06:20.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/07/03/java-download-pdf/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Java 下载 pdf
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/03/text-editor-tinymce/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">text editor(tinymce)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Shengzhi Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次, 本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Angular/" style="font-size: 16.67px;">Angular</a> <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/ansible/" style="font-size: 10px;">ansible</a> <a href="/tags/essays/" style="font-size: 13.33px;">essays</a> <a href="/tags/html5/" style="font-size: 13.33px;">html5</a> <a href="/tags/technical/" style="font-size: 20px;">technical</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/wszhi">我的Github</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/u012138931">我的CSDN</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">靡不有初，&lt;br&gt;&lt;br&gt;鲜克有终。&lt;br&gt;&lt;br&gt;不断努力,一步一步往前走,做最好的自己</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

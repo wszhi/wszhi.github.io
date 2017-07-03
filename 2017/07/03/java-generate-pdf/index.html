@@ -4,27 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>ansible | Shengzhi Wang</title>
+  <title>java 生成 pdf | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="因为项目需要,所以提前学习了一下ansible,ansible是一个配置管理工具。
-ansible 安装Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行1brew install ansible
-Python包管理工具pip安装,root 安装方式如下:1sudo pip install ansible
-非root安装方式,可以安装到一个Python vir">
+  <meta name="description" content="在日常开发过程中，若是想要把java中的某个对象中的内容，按某种排列方式输出到PDF中，有几种方式，此处只使用了itextpdf的方式。itext pdf 文档
+一、加入依赖在gradle中只需要加入1compile group: &amp;apos;com.itextpdf&amp;apos;, name: &amp;apos;itextpdf&amp;apos;, version: &amp;apos;5.5.6&amp;apos;
+二、创">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ansible">
-<meta property="og:url" content="http://yoursite.com/2016/10/31/ansible/index.html">
+<meta property="og:title" content="java 生成 pdf">
+<meta property="og:url" content="http://yoursite.com/2017/07/03/java-generate-pdf/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="因为项目需要,所以提前学习了一下ansible,ansible是一个配置管理工具。
-ansible 安装Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行1brew install ansible
-Python包管理工具pip安装,root 安装方式如下:1sudo pip install ansible
-非root安装方式,可以安装到一个Python vir">
-<meta property="og:updated_time" content="2016-11-02T06:42:08.000Z">
+<meta property="og:description" content="在日常开发过程中，若是想要把java中的某个对象中的内容，按某种排列方式输出到PDF中，有几种方式，此处只使用了itextpdf的方式。itext pdf 文档
+一、加入依赖在gradle中只需要加入1compile group: &amp;apos;com.itextpdf&amp;apos;, name: &amp;apos;itextpdf&amp;apos;, version: &amp;apos;5.5.6&amp;apos;
+二、创">
+<meta property="og:updated_time" content="2017-07-03T03:09:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ansible">
-<meta name="twitter:description" content="因为项目需要,所以提前学习了一下ansible,ansible是一个配置管理工具。
-ansible 安装Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行1brew install ansible
-Python包管理工具pip安装,root 安装方式如下:1sudo pip install ansible
-非root安装方式,可以安装到一个Python vir">
+<meta name="twitter:title" content="java 生成 pdf">
+<meta name="twitter:description" content="在日常开发过程中，若是想要把java中的某个对象中的内容，按某种排列方式输出到PDF中，有几种方式，此处只使用了itextpdf的方式。itext pdf 文档
+一、加入依赖在gradle中只需要加入1compile group: &amp;apos;com.itextpdf&amp;apos;, name: &amp;apos;itextpdf&amp;apos;, version: &amp;apos;5.5.6&amp;apos;
+二、创">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -148,7 +145,7 @@ Python包管理工具pip安装,root 安装方式如下:1sudo pip install ansible
 </nav>
 
       <div class="body-wrap">
-        <article id="post-ansible" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-java-generate-pdf" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -158,7 +155,7 @@ Python包管理工具pip安装,root 安装方式如下:1sudo pip install ansible
         
   
     <h1 class="article-title" itemprop="name">
-      ansible
+      java 生成 pdf
     </h1>
   
 
@@ -166,27 +163,35 @@ Python包管理工具pip安装,root 安装方式如下:1sudo pip install ansible
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>因为项目需要,所以提前学习了一下ansible,ansible是一个配置管理工具。</p>
-<h2 id="ansible-安装"><a href="#ansible-安装" class="headerlink" title="ansible 安装"></a>ansible 安装</h2><p>Mac OS X 上安装Ansible,如果已经有Homebrew包管理工具可以直接运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install ansible</div></pre></td></tr></table></figure></p>
-<p>Python包管理工具pip安装,root 安装方式如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install ansible</div></pre></td></tr></table></figure></p>
-<p>非root安装方式,可以安装到一个Python virtualenv中,或者使用pipsi工具,自动安装到Python virtualenv中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py</div><div class="line">python get-pipsi.py</div><div class="line">pipsi install ansible</div></pre></td></tr></table></figure></p>
-<p>再将~/.local/bin添加到Path环境变量中。</p>
-<p>使用pip安装docker-py和boto<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.local/venvs/ansible</div><div class="line">source bin/actiivate</div><div class="line">pip install docker-py boto</div></pre></td></tr></table></figure></p>
-<p>ps: 安装wget<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd Downloads</div><div class="line">curl -O http://ftp.gnu.org/gnu/wget/wget-1.14.tar.gz</div><div class="line">tar xvzf wget-1.14.tar.gz</div><div class="line">cd wget-1.14</div><div class="line">./configure --with-ssl=openssl</div><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure></p>
-<p><a href="https://coolestguidesontheplanet.com/install-and-configure-wget-on-os-x/" target="_blank" rel="external">install wget in Mac OS X</a></p>
-<p>参考<a href="https://valdhaus.co/writings/ansible-mac-osx/" target="_blank" rel="external">install ansible on Mac</a><br><a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank" rel="external">ansible官方安装文档</a></p>
+        <p>在日常开发过程中，若是想要把java中的某个对象中的内容，按某种排列方式输出到PDF中，有几种方式，此处只使用了itextpdf的方式。<br><a href="http://developers.itextpdf.com/content/itext-5-examples" target="_blank" rel="external">itext pdf 文档</a></p>
+<h4 id="一、加入依赖"><a href="#一、加入依赖" class="headerlink" title="一、加入依赖"></a>一、加入依赖</h4><p>在gradle中只需要加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile group: &apos;com.itextpdf&apos;, name: &apos;itextpdf&apos;, version: &apos;5.5.6&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="二、创建一个Document，并加入内容"><a href="#二、创建一个Document，并加入内容" class="headerlink" title="二、创建一个Document，并加入内容"></a>二、创建一个Document，并加入内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public void createPdf() &#123;</div><div class="line">        Document document = new Document();</div><div class="line">        try &#123;</div><div class="line">            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(&quot;HelloWorld.pdf&quot;));</div><div class="line">            document.open();</div><div class="line">            document.add(new Paragraph(&quot;Some content here&quot;));</div><div class="line">            settings(document);            </div><div class="line">            style(document);</div><div class="line">            document.close();</div><div class="line">            writer.close();</div><div class="line">        &#125; catch (FileNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; catch (DocumentException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>新建一个Document对象，再定义PdfWriter，把document中的内容写入HelloWorld.pdf文件。<br>在添加内容到document之前需要执行document.open()才可以。<br>document可以添加Paragraph、<a href="http://developers.itextpdf.com/examples/itext-action-second-edition/chapter-4" target="_blank" rel="external">PdfPTable</a>等元素。</p>
+<h4 id="三、踩过的坑"><a href="#三、踩过的坑" class="headerlink" title="三、踩过的坑"></a>三、踩过的坑</h4><ul>
+<li>问题：使用PdfPTable来构造整体结构时，如何设置行间距？<br>解决方案：在给cell中添加内容的时候有两种方式，一种是直接初始化的时候添加，另一种是调用addElement方法添加内容。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PdfPCell cell = new PdfPCell(new Paragraph(100,&quot;Table 1&quot;));</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PdfPCell cell= new PdfPCell();</div><div class="line">cell.addElement(new Paragraph(100,&quot;Table 1&quot;));</div></pre></td></tr></table></figure>
+<p>这两种方法中第一种不支持设置Leading为100，第二种方法支持设置Leading为100。除了在初始化Paragraph时可以设置Leading，还可以调用setLeading()来设置，第一个参数是固定的行间距，第二个参数是行间距为行高的倍数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Paragraph element = new Paragraph(&quot;Some content here&quot;);</div><div class="line">element.setLeading(0,2);</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>问题：如何给PdfPTable设置每列的宽度？<br>解决方案：设置table的列宽时，需要把所有列的宽度放进数组列表中，缺一不可，如果数组的大小和table的列数不匹配则整体都不会显示出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PdfPTable table = new PdfPTable(3);</div><div class="line">table.setWidths(new int[]&#123;2, 1, 1&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>问题：如何设置边框？<br>解决方案：边框的值不一样，当setBorder()函数的参数为0时，没有边框，1为上边框TOP，2为下边框BOTTOM，4为左边框LEFT，8为右边框RIGHT。具体的可以调用Rectangle中的固定值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PdfPCell cell = new PdfPCell(new Phrase(&quot;StackOverflow&quot;));</div><div class="line">cell.setBorder(Rectangle.NO_BORDER);</div></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/10/31/ansible/" class="archive-article-date">
-  	<time datetime="2016-10-31T06:43:38.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-31</time>
+      <a href="/2017/07/03/java-generate-pdf/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:08:47.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/technical/">technical</a></li></ul>
 	</div>
 
       
@@ -199,18 +204,9 @@ Python包管理工具pip安装,root 安装方式如下:1sudo pip install ansible
   
 <nav id="article-nav">
   
-    <a href="/2016/11/02/List-Task/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          任务分解
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/10/28/Software-Architecture/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">架构设计</div>
+    <a href="/2017/07/03/java-download-pdf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 下载 pdf</div>
       <i class="icon-circle-right"></i>
     </a>
   

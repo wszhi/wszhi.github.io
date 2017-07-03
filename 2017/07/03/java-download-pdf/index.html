@@ -4,29 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>任务分解 | Shengzhi Wang</title>
+  <title>Java 下载 pdf | Shengzhi Wang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。
-任务分解,列Task当我们拿到一个任务卡片时,经常干的一件事,就是明确卡片中的要求和明细,然后就直接开始码代码了。因为写的代码是可见的,运行成功会有极大成就感,然而其实这并不是一个好的方式。
-在我们写代码之前应该根据卡片内容,从开发的角度把一个大卡分解成各个小任务,然后针对每个小任务进行">
+  <meta name="description" content="在实际应用中有这么一个场景，用户希望在页面上有一个下载按钮，点击按钮时把当前页的内容生产一个PDF文件下载下来。
+这个需求有两种表现形式，一种是当用户点击按钮时直接在浏览器中弹出保存框下载PDF文件，另一种是返回PDF的视图，在浏览器中预览PDF文件的内容，然后再下载。
+这里分别介绍两种实现方式：
+一、直接下载PDF文件本质上来说，把PDF文件读取到inputStream中，继而放入返回的的实体中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="任务分解">
-<meta property="og:url" content="http://yoursite.com/2016/11/02/List-Task/index.html">
+<meta property="og:title" content="Java 下载 pdf">
+<meta property="og:url" content="http://yoursite.com/2017/07/03/java-download-pdf/index.html">
 <meta property="og:site_name" content="Shengzhi Wang">
-<meta property="og:description" content="对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。
-任务分解,列Task当我们拿到一个任务卡片时,经常干的一件事,就是明确卡片中的要求和明细,然后就直接开始码代码了。因为写的代码是可见的,运行成功会有极大成就感,然而其实这并不是一个好的方式。
-在我们写代码之前应该根据卡片内容,从开发的角度把一个大卡分解成各个小任务,然后针对每个小任务进行">
-<meta property="og:image" content="http://img.blog.csdn.net/20161107144603037">
-<meta property="og:image" content="http://img.blog.csdn.net/20161107144618709">
-<meta property="og:image" content="http://img.blog.csdn.net/20161107144638756">
-<meta property="og:image" content="http://img.blog.csdn.net/20161107144657923">
-<meta property="og:updated_time" content="2016-11-07T08:23:39.000Z">
+<meta property="og:description" content="在实际应用中有这么一个场景，用户希望在页面上有一个下载按钮，点击按钮时把当前页的内容生产一个PDF文件下载下来。
+这个需求有两种表现形式，一种是当用户点击按钮时直接在浏览器中弹出保存框下载PDF文件，另一种是返回PDF的视图，在浏览器中预览PDF文件的内容，然后再下载。
+这里分别介绍两种实现方式：
+一、直接下载PDF文件本质上来说，把PDF文件读取到inputStream中，继而放入返回的的实体中">
+<meta property="og:updated_time" content="2017-07-03T03:08:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="任务分解">
-<meta name="twitter:description" content="对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。
-任务分解,列Task当我们拿到一个任务卡片时,经常干的一件事,就是明确卡片中的要求和明细,然后就直接开始码代码了。因为写的代码是可见的,运行成功会有极大成就感,然而其实这并不是一个好的方式。
-在我们写代码之前应该根据卡片内容,从开发的角度把一个大卡分解成各个小任务,然后针对每个小任务进行">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20161107144603037">
+<meta name="twitter:title" content="Java 下载 pdf">
+<meta name="twitter:description" content="在实际应用中有这么一个场景，用户希望在页面上有一个下载按钮，点击按钮时把当前页的内容生产一个PDF文件下载下来。
+这个需求有两种表现形式，一种是当用户点击按钮时直接在浏览器中弹出保存框下载PDF文件，另一种是返回PDF的视图，在浏览器中预览PDF文件的内容，然后再下载。
+这里分别介绍两种实现方式：
+一、直接下载PDF文件本质上来说，把PDF文件读取到inputStream中，继而放入返回的的实体中">
   
     <link rel="alternative" href="/atom.xml" title="Shengzhi Wang" type="application/atom+xml">
   
@@ -150,7 +148,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="post-List-Task" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-java-download-pdf" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -160,7 +158,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      任务分解
+      Java 下载 pdf
     </h1>
   
 
@@ -168,80 +166,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对于一个程序媛来说,如何提高自己的开发效率,这一直都是我追寻的方法。直到最近才get到一个可以有所帮助的技能。</p>
-<h2 id="任务分解-列Task"><a href="#任务分解-列Task" class="headerlink" title="任务分解,列Task"></a>任务分解,列Task</h2><p>当我们拿到一个任务卡片时,经常干的一件事,就是明确卡片中的要求和明细,然后就直接开始码代码了。因为写的代码是可见的,运行成功会有极大成就感,然而其实这并不是一个好的方式。</p>
-<p>在我们写代码之前应该根据卡片内容,从开发的角度把一个大卡分解成各个小任务,然后针对每个小任务进行开发才是可取的。其实这种方法得到的成就感并不亚于前者。</p>
-<h4 id="Task-是什么-如何列"><a href="#Task-是什么-如何列" class="headerlink" title="Task 是什么,如何列"></a>Task 是什么,如何列</h4><p>很多人会和我一样困惑,要列Task,但是什么是Task呢?一般来说,一个function(函数),一个Process或者一个Code Block(代码块)都可以是一个Task。<br>每一个Task都有相应的输入和输出。输入的可以是函数的参数,全局变量,局部变量(对于代码块来说)。输出可以是返回值,变量等。</p>
-<p>每个Task的输入都是可穷尽的,在列Task的时候要列出所有用到的Task。<br>列Task的时候的命名要精确,每一个名字在不同的地方有不同的意思。</p>
-<p>列Task,一般会画一个包含Data和Process的图。类似一个有架构的数据流向图。Data(数据)一般有数组、队列、栈、树、对象、类、有循环的对象等,Process(过程)一般有顺序的、选择的(if/switch)、循环(for/while)等。</p>
-<p>参考<br><a href="https://www.zybuluo.com/jtong/note/504192" target="_blank" rel="external">编程的精进之法</a></p>
-<h2 id="PDCA-戴明环"><a href="#PDCA-戴明环" class="headerlink" title="PDCA 戴明环"></a>PDCA 戴明环</h2><p>PDCA指的是Plan-Do-Check-Action,而列Task属于Plan的内容。</p>
-<p>如何定义Done?<br>1.code Done<br>2.test pass<br>3.Integration env<br>4.showcase<br>5.production env<br>6.ux(用户使用)</p>
-<p>单个任务的开发流程:0)Spike即调研;1)写测试;2)写实现;3)测试通过</p>
-<h2 id="例子一-打印学生成绩单"><a href="#例子一-打印学生成绩单" class="headerlink" title="例子一,打印学生成绩单"></a>例子一,打印学生成绩单</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景:"></a>背景:</h4><p><a href="https://www.zybuluo.com/jtong/note/471501" target="_blank" rel="external">https://www.zybuluo.com/jtong/note/471501</a>  中的课后作业<br>打印所有人的成绩单,包括平均分和总分。<br>打印全班级的总分平均分和中位数。</p>
-<h4 id="列Task"><a href="#列Task" class="headerlink" title="列Task"></a>列Task</h4><h5 id="1-转换ViewModel"><a href="#1-转换ViewModel" class="headerlink" title="1) 转换ViewModel"></a>1) 转换ViewModel</h5><p>输入:</p>
-<pre><code>studentScoresArray:[[String]]
-</code></pre><p>输出:</p>
-<pre><code>studentScoresSheet:[{
-    name:String,
-    chinese:double,
-    english:double,
-    math:double,
-    programming:double
-    },
-    {
-    ...
-    }]
-</code></pre><h5 id="2-得到学生成绩"><a href="#2-得到学生成绩" class="headerlink" title="2) 得到学生成绩"></a>2) 得到学生成绩</h5><p>输入:</p>
-<pre><code>studentScoresSheet
-</code></pre><p>输出:</p>
-<pre><code>studentScoresSheetWithSummary:[{
-    name:String,
-    chinese:double,
-    english:double,
-    math:double,
-    programming:double,
-    average:double,
-    total:double
-    },
-    {
-     ...
-    }]
-</code></pre><h5 id="3-计算总计"><a href="#3-计算总计" class="headerlink" title="3) 计算总计"></a>3) 计算总计</h5><p>输入:</p>
-<pre><code>studentScoresSheetWithSummary
-</code></pre><p>输出:</p>
-<pre><code>summary:{
-    totalAverage:double,
-    totalMidden:double
-    }
-</code></pre><h5 id="4-打印成绩单"><a href="#4-打印成绩单" class="headerlink" title="4) 打印成绩单"></a>4) 打印成绩单</h5><p>输入:</p>
-<pre><code>studentScoresSheetWithSummary
-summary
-</code></pre><p>输出:</p>
-<pre><code>Result:String
-</code></pre><p><a href="https://github.com/wszhi/TaskConsoleStudentScoreInfo" target="_blank" rel="external">Github代码</a></p>
-<h2 id="例子二-猜数字游戏"><a href="#例子二-猜数字游戏" class="headerlink" title="例子二,猜数字游戏"></a>例子二,猜数字游戏</h2><p><a href="https://github.com/raypeng/guess-number-raypeng/blob/master/README.md" target="_blank" rel="external">具体游戏内容</a><br>这个游戏有几个需要注意点:<br>1)Compare(两个数字对比的前提假设:符合要求的、合法的值)<br>2)生成随机数(生成的数是数字、四位、每位都不一样)<br>3)游戏流程(进入游戏–第一次成功/中间成功/最后一次成功/游戏失败)</p>
-<p>PS:不能放过任何一个逻辑冲突;等加类划分可以使用正交分解法;还要考虑系统状态怎么保持<br>正交分解法:</p>
-<pre><code> \ 位   |         |         | 
-  \ 置  |         |         |
-数 \    | 全都一样 | 全不一样 | 部分一样
-字  \   |         |         |
---------------------------------------
-全都一样 | 4A0B    | 0A4B    | 2A4B
-全不一样 | 不可能   | 0A0B    | 不可能
-部分一样 | 不可能   | 0A2B    | 2A2B
-</code></pre><p>分解后的图如下:<br>1)应用启动<br><img src="http://img.blog.csdn.net/20161107144603037" alt=""></p>
-<p>2)界面1(按1启动游戏)<br><img src="http://img.blog.csdn.net/20161107144618709" alt=""></p>
-<p><img src="http://img.blog.csdn.net/20161107144638756" alt=""></p>
-<p>main是解决输入输出的。<br>Router通过输入输出解析找到具体的Command。<br>Command处理各种具体的用户输入,对Core层返回的结果翻译成友好的输出。<br>Core层函数生成计算结果。</p>
-<p>3)退出(按2退出游戏)<br><img src="http://img.blog.csdn.net/20161107144657923" alt=""></p>
-<h2 id="例子三-邮编和条码的转化"><a href="#例子三-邮编和条码的转化" class="headerlink" title="例子三,邮编和条码的转化"></a>例子三,邮编和条码的转化</h2><h2 id="例子四-一对多web基础应用"><a href="#例子四-一对多web基础应用" class="headerlink" title="例子四,一对多web基础应用"></a>例子四,一对多web基础应用</h2><h2 id="例子五-多对多web基础应用"><a href="#例子五-多对多web基础应用" class="headerlink" title="例子五,多对多web基础应用"></a>例子五,多对多web基础应用</h2>
+        <p>在实际应用中有这么一个场景，用户希望在页面上有一个下载按钮，点击按钮时把当前页的内容生产一个PDF文件下载下来。</p>
+<p>这个需求有两种表现形式，一种是当用户点击按钮时直接在浏览器中弹出保存框下载PDF文件，另一种是返回PDF的视图，在浏览器中预览PDF文件的内容，然后再下载。</p>
+<p>这里分别介绍两种实现方式：</p>
+<h4 id="一、直接下载PDF文件"><a href="#一、直接下载PDF文件" class="headerlink" title="一、直接下载PDF文件"></a>一、直接下载PDF文件</h4><p>本质上来说，把PDF文件读取到inputStream中，继而放入返回的的实体中。<br>返回的ResponseEntity中，注意指定Content-Type的内容为application/pdf，<br>且Content-Disposition的内容为attachment; filename=”helloWorld.pdf”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@RequestMapping(value = &quot;/pdfDownload&quot;, method = GET)</div><div class="line">    public ResponseEntity download() throws IOException &#123;</div><div class="line">        File file = new File(&quot;HelloWorld.pdf&quot;);</div><div class="line">        InputStream in = new FileInputStream(file);</div><div class="line">        final HttpHeaders headers = new HttpHeaders();</div><div class="line">        headers.add(&quot;Content-Type&quot;, &quot;application/pdf&quot;);</div><div class="line">        headers.add(&quot;Content-Disposition&quot;, &quot;attachment; filename=&quot; + file.getName() );</div><div class="line">        return new ResponseEntity&lt;&gt;(IOUtils.toByteArray(in), headers, HttpStatus.OK);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>该方法在浏览器中直接访问localhost:8080/pdfDownload就回弹出一个文件保存框，选择保存的本地路径即可下载，或者有的效果是直接在浏览器中下载了PDF文件，这是因为所使用的浏览器本身的下载设置，可以根据个人喜好来设置究竟弹出还是不弹出保存框。</p>
+<h4 id="二、浏览器预览PDF文件，再下载"><a href="#二、浏览器预览PDF文件，再下载" class="headerlink" title="二、浏览器预览PDF文件，再下载"></a>二、浏览器预览PDF文件，再下载</h4><p>如果使用的不是RestController，就可以直接返回一个String字符串，内容为PDF文件的视图名称，这里定义为helloWorldPDF，该视图名在views.properties中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@RequestMapping(value = &quot;/pdfDownload2&quot;, method = GET)</div><div class="line">    public String download2(HttpServletRequest request) throws IOException &#123;</div><div class="line">        return &quot;helloWorldPDF&quot;;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>resource资源文件夹中的views.properties文件的内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">helloWorldPDF.(class)=com.test.report.PDFView</div></pre></td></tr></table></figure></p>
+<p>这里的com.test.report.PDFView指的是定义的PDF视图的内容。<br>我们使用了itextpdf的jar包来生成PDF文件的内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile group: &apos;com.itextpdf&apos;, name: &apos;itextpdf&apos;, version: &apos;5.5.6&apos;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public class PDFView extends AbstractView &#123;</div><div class="line">    public PDFView() &#123;</div><div class="line">        setContentType(&quot;application/pdf&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected boolean generatesDownloadContent() &#123;</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected final void renderMergedOutputModel(Map&lt;String, Object&gt; model,</div><div class="line">                                                 HttpServletRequest request, HttpServletResponse response)</div><div class="line">            throws Exception &#123;</div><div class="line">        ByteArrayOutputStream baos = createTemporaryOutputStream();</div><div class="line">        Document document = new Document(PageSize.A4);</div><div class="line">        PdfWriter writer = PdfWriter.getInstance(document, baos);</div><div class="line">        writer.setViewerPreferences(PdfWriter.ALLOW_PRINTING | PdfWriter.PageLayoutSinglePage);</div><div class="line">        document.open();</div><div class="line">        Paragraph header = new Paragraph(new Chunk(&quot;hello world&quot;));</div><div class="line">        document.add(header);</div><div class="line">        document.close();</div><div class="line">        writeToResponse(response, baos);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上就生成了我们需要的PDF文件的内容，并放进ByteArrayOutputStream中，调用writeToResponse方法把字节流传进response中。</p>
+<p>因为使用的是SpringBootApplication，所以需要加的一些配置是在 Application 的包含main方法的class中进行的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">    public ResourceBundleViewResolver viewResolver() &#123;</div><div class="line">        ResourceBundleViewResolver resolver = new ResourceBundleViewResolver();</div><div class="line">        resolver.setOrder(1);</div><div class="line">        resolver.setBasename(&quot;views&quot;);</div><div class="line">        return resolver;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>如此一来就可以直接在浏览器中访问localhost:8080/pdfDownload2看到PDF文件的预览页面，在页面中可以进行下载，打印等操作。</p>
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/02/List-Task/" class="archive-article-date">
-  	<time datetime="2016-11-02T07:26:15.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-02</time>
+      <a href="/2017/07/03/java-download-pdf/" class="archive-article-date">
+  	<time datetime="2017-07-03T03:07:52.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-07-03</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -259,18 +202,18 @@ summary
   
 <nav id="article-nav">
   
-    <a href="/2016/11/13/Docker-Learn/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/03/java-generate-pdf/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Docker 学习笔记(一)
+          java 生成 pdf
         
       </div>
     </a>
   
   
-    <a href="/2016/10/31/ansible/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ansible</div>
+    <a href="/2017/07/03/Angular2-Learn-note-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Angular2 Learn note(1)</div>
       <i class="icon-circle-right"></i>
     </a>
   
